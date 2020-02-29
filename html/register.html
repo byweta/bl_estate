@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>居民登记</title>
+		<!-- 引入 jquery-weui -->
+		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/jqweui/jquery-weui.css">
+		<style type="text/css">
+			body,
+			html {
+				background: #f1f2f4;
+				height: 100%;
+			}
+
+			.nav {
+				position: relative;
+				height: 50px;
+				line-height: 50px;
+				font-size: 1.3em;
+				text-align: center;
+				background: #fff;
+			}
+
+			.back {
+				position: absolute;
+				width: 50px;
+				height: 50px;
+				background: url(../img/home_ui/nav_back.png) center no-repeat;
+				background-size: 24px 24px;
+			}
+
+			.submit {
+				margin: 20px auto;
+				width: 60%;
+				height: 40px;
+				line-height: 40px;
+				text-align: center;
+				box-shadow: 0px 5px 20px #888888;
+				color: #fff;
+				border-radius: 20px;
+				opacity: 0.8;
+				background: -webkit-linear-gradient(left right, #2ab4fc, #2c7df9);
+				/* Safari 5.1 - 6.0 */
+				background: -o-linear-gradient(right, #2ab4fc, #2c7df9);
+				/* Opera 11.1 - 12.0 */
+				background: -moz-linear-gradient(right, #2ab4fc, #2c7df9);
+				/* Firefox 3.6 - 15 */
+				background: linear-gradient(to right, #2ab4fc, #2c7df9);
+				/* 标准的语法 */
+			}
+
+			/* css微调 */
+			.weui-label {
+				color: #767980;
+			}
+
+			.weui-label.extension {
+				width: 180px;
+			}
+
+			.weui-cells_form input {
+				text-align: right;
+				padding-right: 20px;
+				box-sizing: border-box;
+			}
+
+			.radio-box,
+			.item {
+				-webkit-display: flex;
+				-moz-display: flex;
+				-ms-display: flex;
+				-o-display: flex;
+				display: flex;
+				-webkit-justify-content: center;
+				-moz-justify-content: center;
+				-ms-justify-content: center;
+				-o-justify-content: center;
+				justify-content: center;
+				align-items: center;
+			}
+
+			label.radio {
+				min-width: 30px;
+				text-align: center;
+				padding-right: 10px;
+			}
+
+			input[type="radio"] {
+				-webkit-appearance: none;
+				outline: none;
+				display: none;
+			}
+
+			input[type="radio"]~span {
+				width: 20px;
+				height: 20px;
+				display: inline-block;
+				background: url(../img/icon_radio.png) 0 0 no-repeat;
+				background-size: 20px;
+			}
+
+			input[type="radio"]~label {
+				color: #767980;
+			}
+
+			input[type="radio"]:checked~span {
+				background: url(../img/icon_radio_active.png) 0 0 no-repeat;
+				background-size: 20px;
+			}
+
+			input[type="radio"]:checked~label {
+				color: #000000;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="nav">
+			<div class="back"></div>
+			居民登记
+		</div>
+		<div class="weui-cells weui-cells_form">
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label class="weui-label">姓名</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="" placeholder="请填写">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label class="weui-label">身份证号</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="" placeholder="请填写">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label class="weui-label">联系方式</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="" placeholder="请填写">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label class="weui-label">现居住地址</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="" placeholder="请填写">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label class="weui-label">家庭人员</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="" placeholder="请填写">
+				</div>
+			</div>
+		</div>
+		<div class="weui-cells weui-cells_form">
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label class="weui-label extension">是否有武汉工作史</label>
+				</div>
+				<div class="weui-cell__bd">
+					<div class="radio-box">
+						<div class="item">
+							<input class="weui-input" type="radio" value="1" id="job" name="jobs" checked="checked">
+							<span></span>
+							<label for="job" class="radio">否</label>
+						</div>
+						<div class="item">
+							<input class="weui-input" type="radio" value="2" id="job2" name="jobs">
+							<span></span>
+							<label for="job2" class="radio">是</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label class="weui-label extension">是否有武汉居住史</label>
+				</div>
+				<div class="weui-cell__bd">
+					<div class="radio-box">
+						<div class="item">
+							<input class="weui-input" type="radio" value="1" id="live" name="lives" checked="checked">
+							<span></span>
+							<label for="live" class="radio">否</label>
+						</div>
+						<div class="item">
+							<input class="weui-input" type="radio" value="2" id="live2" name="lives">
+							<span></span>
+							<label for="live2" class="radio">是</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label class="weui-label extension">是否有武汉旅行</label>
+				</div>
+				<div class="weui-cell__bd">
+					<div class="radio-box">
+						<div class="item">
+							<input class="weui-input" type="radio" value="1" id="travel" name="travels" checked="checked">
+							<span></span>
+							<label for="travel" class="radio">否</label>
+						</div>
+						<div class="item">
+							<input class="weui-input" type="radio" value="2" id="travel2" name="travels">
+							<span></span>
+							<label for="travel2" class="radio">是</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label class="weui-label extension">是否有武汉接触史</label>
+				</div>
+				<div class="weui-cell__bd">
+					<div class="radio-box">
+						<div class="item">
+							<input class="weui-input" type="radio" value="1" id="contact" name="contacts" checked="checked">
+							<span></span>
+							<label for="contact" class="radio">否</label>
+						</div>
+						<div class="item">
+							<input class="weui-input" type="radio" value="2" id="contact2" name="contacts">
+							<span></span>
+							<label for="contact2" class="radio">是</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label class="weui-label extension">是否去过易感染的公共场所</label>
+				</div>
+				<div class="weui-cell__bd">
+					<div class="radio-box">
+						<div class="item">
+							<input class="weui-input" type="radio" value="1" id="common" name="commons" checked="checked">
+							<span></span>
+							<label for="common" class="radio">否</label>
+						</div>
+						<div class="item">
+							<input class="weui-input" type="radio" value="2" id="common2" name="commons">
+							<span></span>
+							<label for="common2" class="radio">是</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="submit">提交</div>
+	</body>
+	<script type="text/javascript" src="../js/jquery-1.12.4-min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="../js/fastclick.js" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(function() {
+			FastClick.attach(document.body);
+		})
+	</script>
+	<script type="text/javascript">
+
+	</script>
+</html>

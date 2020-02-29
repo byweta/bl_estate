@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>投诉建议</title>
+		<!-- 引入 jquery-weui -->
+		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/jqweui/jquery-weui.css">
+	</head>
+	<style type="text/css">
+		body,
+		html {
+			background: #f1f2f4;
+			height: 100%;
+		}
+		
+		.nav {
+			position: relative;
+			height: 50px;
+			line-height: 50px;
+			font-size: 1.3em;
+			text-align: center;
+			background: #fff;
+		}
+		
+		.back {
+			position: absolute;
+			width: 50px;
+			height: 50px;
+			background: url(../img/home_ui/nav_back.png) center no-repeat;
+			background-size: 24px 24px;
+		}
+		.hidden {
+			display: none;
+		}
+		.weui-cells {
+			margin-top: 1em;
+		}
+		.weui-label {
+			font-size: 15px;
+			color: #767980;
+		}
+		.weui-cell__bd {
+			text-align: right;
+			font-size: 15px;
+		}
+		.weui-cell__bd input {
+			text-align: right;
+			font-size: 15px;
+		}
+		.area {
+			padding: 10px 15px;
+		}
+		.count {
+			flex: 1;
+		}
+		.weui-cells__title {
+			font-size: 15px;
+			-webkit-display: flex;
+			-moz-display: flex;
+			-ms-display: flex;
+			-o-display: flex;
+			display: flex;
+			-webkit-justify-content: space-between;
+			-moz-justify-content: space-between;
+			-ms-justify-content: space-between;
+			-o-justify-content: space-between;
+			justify-content: space-between;
+		}
+		.weui-uploader__input-box {
+			box-sizing: border-box;
+			text-align: center;
+			border: none;
+		}
+		.weui-uploader__input-box span {
+			position: absolute;
+			bottom: 5px;
+			left: 0;
+			text-align: center;
+			width: 100%;
+			font-size: 13px;
+			color: #767983;
+		}
+		.weui-uploader__input-box:before {
+			height: 15px;
+			transform: translate(-70%, -70%);
+			background-color: #767983;
+		}
+		.weui-uploader__input-box:after {
+			width: 15px;
+			transform: translate(-50%, -200%);
+			background-color: #767983;
+		}
+		.submit {
+			margin: 20px auto;
+			width: 80%;
+			background-color: #f5f2d2;
+			height: 40px;
+			line-height: 40px;
+			text-align: center;
+			color: #9d9d9d;
+			border-radius: 20px;
+			
+		}
+	</style>
+	<body>
+		<div class="nav">
+			<div class="back"></div>
+			投诉建议
+		</div>
+		<div class="weui-cells weui-cells_form">
+			<a class="weui-cell weui-cell_access">
+				<div class="weui-cell__hd">
+					<label class="weui-label">房号</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input class="hidden" type="text" name="" id="" value=""  disabled="disabled" placeholder="请选择房号"/>
+					<div class="content">
+						<div class="community">恒大翡翠华庭</div>
+						<div class="address">二期10栋2单元12层1203</div>
+					</div>
+				</div>
+				<div class="weui-cell__ft"></div>
+			</a>
+			<a class="weui-cell weui-cell_access">
+				<div class="weui-cell__hd">
+					<label class="weui-label">类型</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input class="" type="text" name="" id="" value=""  disabled="disabled" placeholder="请选择类型"/>
+				</div>
+				<div class="weui-cell__ft"></div>
+			</a>
+		</div>
+		<div class="weui-cells weui-cells_form">
+			<div class="weui-cells__title count">
+				<span>文本域</span>
+				<div class="weui-textarea-counter"><span>0</span>/200</div>
+			</div>
+			<div class="weui-cell__bd area">
+			  <textarea class="weui-textarea" placeholder="请详细描述你的问题,上传图片可便于我们更好的为您解决问题" rows="3"></textarea>
+			</div>
+			<div class="weui-uploader__bd area">
+				<ul class="weui-uploader__files" id="uploaderFiles">
+					<!-- <li class="weui-uploader__file"></li> -->
+				</ul>
+				<div class="weui-uploader__input-box">
+					<input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple="">
+					<span>添加张片</span>
+				</div>
+			</div>
+		</div>
+		<div class="submit">
+			提交
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/jquery-1.12.4-min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="../js/fastclick.js" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(function() {
+			FastClick.attach(document.body);
+		})
+	</script>
+</html>

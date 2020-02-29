@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>便民服务</title>
+		<!-- 引入 jquery-weui -->
+		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/jqweui/jquery-weui.css">
+		<style type="text/css">
+			body,
+			html {
+				background: #f1f2f4;
+				height: 100%;
+			}
+			.nav {
+				position: relative;
+				height: 50px;
+				line-height: 50px;
+				font-size: 1.3em;
+				text-align: center;
+				background: #fff;
+			}
+			
+			.back {
+				position: absolute;
+				width: 50px;
+				height: 50px;
+				background: url(../img/home_ui/nav_back.png) center no-repeat;
+				background-size: 24px 24px;
+			}
+			.row {
+				padding: 10px 20px 10px 30px;
+				margin-top: 10px;
+				box-sizing: border-box;
+				-webkit-display: flex;
+				-moz-display: flex;
+				-ms-display: flex;
+				-o-display: flex;
+				display: flex;
+				-webkit-justify-content: space-between;
+				-moz-justify-content: space-between;
+				-ms-justify-content: space-between;
+				-o-justify-content: space-between;
+				justify-content: space-between;
+				background: #fff;
+			}
+			
+			.row .left,.row .right {
+				flex: 1;
+				-webkit-display: flex;
+				-moz-display: flex;
+				-ms-display: flex;
+				-o-display: flex;
+				display: flex;
+				-webkit-justify-content: center;
+				-moz-justify-content: center;
+				-ms-justify-content: center;
+				-o-justify-content: center;
+				justify-content: center;
+				-webkit-flex-direction: column;
+				-moz-flex-direction: column;
+				-ms-flex-direction: column;
+				-o-flex-direction: column;
+				flex-direction: column;
+				position: relative;
+			}
+			.row .left {
+				flex: 2;
+			}
+			.row .right.center {
+				align-items: center;
+			}
+			.title {
+				font-size: 20px;
+				font-weight: bold;
+			}
+			.title.shucai {
+				color: #216f27;
+			}
+			.title.yiliao {
+				color: #2C7DF9;
+			}
+			.title.meiqi {
+				color: #f7610c;
+			}
+			
+			.right img {
+				width: 65%;
+			}
+			
+			.call {
+				margin-top: 10px;
+			}
+			.call img {
+				vertical-align: middle;
+				width: 25px;
+				height: 25px;
+			}
+			.call span {
+				vertical-align: middle;
+			}
+			
+			/* 屏幕适配 */
+			@media only screen and (min-width:320px) and (max-width:360px){
+				.left {
+					font-size: 14px;
+				}
+				.call span {
+					font-size: 14px;
+				}
+				.call img {
+					width: 20px;
+					height: 20px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="nav">
+			<div class="back"></div>
+			便民服务
+		</div>
+		<div class="row">
+			<div class="left">
+				<div class="title shucai">蔬菜供应</div>
+				<div class="connect">
+					<span>联系人:</span>
+					<span>薛超</span>
+				</div>
+				<div class="phone">
+					<span>联系电话:</span>
+					<span>18039115857</span>
+				</div>
+			</div>
+			<div class="right center">
+				<img src="../img/service/scgy.png" alt="">
+				<div class="call">
+					<img src="../img/service/dh.png" >
+					<span>拨打电话</span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="left">
+				<div class="title yiliao">医疗送药</div>
+				<div class="connect">
+					<span>联系人:</span>
+					<span>李爱玲</span>
+				</div>
+				<div class="phone">
+					<span>联系电话:</span>
+					<span>18039115857</span>
+				</div>
+			</div>
+			<div class="right center">
+				<img src="../img/service/ylsy.png" alt="">
+				<div class="call">
+					<img src="../img/service/dh.png" >
+					<span>拨打电话</span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="left">
+				<div class="title meiqi">煤气供应</div>
+				<div class="connect">
+					<span>联系人:</span>
+					<span>赵自华</span>
+				</div>
+				<div class="phone">
+					<span>联系电话:</span>
+					<span>18039115857</span>
+				</div>
+			</div>
+			<div class="right center">
+				<img src="../img/service/mq.png" alt="">
+				<div class="call">
+					<img src="../img/service/dh.png" >
+					<span>拨打电话</span>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/jquery-1.12.4-min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="../js/fastclick.js" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(function() {
+			FastClick.attach(document.body);
+		})
+	</script>
+</html>
