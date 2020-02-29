@@ -108,7 +108,7 @@
 	</style>
 	<body>
 		<div class="nav">
-			<div class="back"></div>
+			<div class="back" onclick="fnGoBack()"></div>
 			投诉建议
 		</div>
 		<div class="weui-cells weui-cells_form">
@@ -163,5 +163,9 @@
 		$(function() {
 			FastClick.attach(document.body);
 		})
+		// 返回
+		function fnGoBack(){
+			window.history.back();
+		}
 	</script>
 </html>

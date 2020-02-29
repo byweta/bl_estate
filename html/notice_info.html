@@ -6,11 +6,11 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
 		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-		<title>居民信息</title>
+		<title>社区公告</title>
 		<!-- 引入 jquery-weui -->
 		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
 		<link rel="stylesheet" type="text/css" href="../css/jqweui/jquery-weui.css">
-		<link rel="stylesheet" type="text/css" href="../css/peoples_info.css" />
+		<link rel="stylesheet" type="text/css" href="../css/notice_info.css" />
 		<style type="text/css">
 			body,
 			html {
@@ -32,47 +32,29 @@
 	</head>
 	<body ontouchstart>
 		<div class="nav_header">
-			<div class="icon_nav_left" onclick="fnGoBack()"></div>
-			<div class="nav_title">居民信息</div>
+			<div class="icon_nav_left"></div>
+			<div class="nav_title">网格员</div>
 			<div class="icon_nav_right"></div>
 		</div>
 		<div class="nav_header_hidden">
 		</div>
 		<div class="container" id="container">
-			<div class="main_box">
-				<div class="estate_title">
-					十堰市白浪小区
-				</div>
-				<div class="estate_sub_info">
-					小区总计10栋楼，7层，4单元，一单元2户
-				</div>
-				<div class="data_grid">
-					<div class="building_check">
-						1号楼
-						<div class="icon_check"></div>
-					</div>
-					<div class="col_data col_blue">
-						<div class="col_item col_1">房号</div>
-						<div class="col_item col_2_c">姓名</div>
-						<div class="col_item col_3">联系方式</div>
-					</div>
-					<template v-for="(item, index) in dataList">
-						<template v-if="index % 2 == 0">
-							<div class="col_data">
-								<div class="col_item col_1">26-1-1-1</div>
-								<div class="col_item col_2">王晓玲</div>
-								<div class="col_item col_3">15389890987</div>
+			<div class="top_line"></div>
+			<div class="notice_list">
+				<template v-for="(item, index) in dataList">
+					<div class="notice_item">
+						<div class="icon_notice"></div>
+						<div class="notice_title">
+							<div class="notice_text line_ellipsis">
+								{{item.title}}
 							</div>
-						</template>
-						<template v-else>
-							<div class="col_data col_blue">
-								<div class="col_item col_1">26-1-1-1</div>
-								<div class="col_item col_2">王晓玲</div>
-								<div class="col_item col_3">15389890987</div>
+							<div class="pub_time">
+								2020-02-28 10:38
 							</div>
-						</template>
-					</template>
-				</div>
+						</div>
+						<div class="icon_right"></div>
+					</div>
+				</template>
 			</div>
 		</div>
 		<script type="text/javascript" src="../js/url.js" charset="utf-8"></script>
@@ -92,7 +74,21 @@
 			var vue = new Vue({
 				el: '#container',
 				data: {
-					dataList: [{},{},{},{},{},{},{},{},{},{},{},{}]
+					dataList: [{
+						title: '十堰市区最新菜价公示'
+					}, {
+						title: '十堰市民有急事出行，可拨打这些出行电话...'
+					}, {
+						title: '十堰经济技术开发区二机电一生活区...'
+					}, {
+						title: '公益发布！这六张图教你如何“灭毒”'
+					}, {
+						title: '有效消毒方式、居家消毒、场所消毒...'
+					}, {
+						title: '《新型冠状病毒疫情集体场所防控100问》'
+					}, {
+						title: '白浪小区最新居民信息情况公示'
+					}]
 				},
 				methods: {
 				}
@@ -101,11 +97,6 @@
 			$(function() {
 				
 			});
-			
-			// 返回
-			function fnGoBack(){
-				window.history.back();
-			}
 
 			// 获取企业信息
 			function fnGetEnterpriseInfo() {

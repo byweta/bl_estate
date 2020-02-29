@@ -120,7 +120,7 @@
 	</head>
 	<body>
 		<div class="nav">
-			<div class="back"></div>
+			<div class="back" onclick="fnGoBack()"></div>
 			便民服务
 		</div>
 		<div class="row">
@@ -190,5 +190,9 @@
 		$(function() {
 			FastClick.attach(document.body);
 		})
+		// 返回
+		function fnGoBack(){
+			window.history.back();
+		}
 	</script>
 </html>

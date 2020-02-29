@@ -1,0 +1,93 @@
+/* 顶部导航 -- start */
+.nav_header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	background-color: #FFFFFF;
+	display: flex;
+	display: -webkit-flex;
+	align-items: center;
+	-webkit-align-items: center;
+}
+.icon_nav_left {
+	width: 50px;
+	min-width: 50px;
+	height: 50px;
+	background: url(../img/home_ui/nav_back.png) center no-repeat;
+	background-size: 24px;
+}
+.nav_title {
+	width: 100%;
+	text-align: center;
+	font-size: 16px;
+	font-weight: 700;
+	color: #1F1F1F;
+}
+.icon_nav_right {
+	width: 50px;
+	min-width: 50px;
+	height: 50px;
+}
+.nav_header_hidden {
+	height: 50px;
+}
+/* 顶部导航 -- end */
+/* 主体区域 -- start */
+.container {
+	height: calc(100% - 50px);
+	height: -webkit-calc(100% - 50px);
+}
+.top_line {
+	margin: 0 10px;
+	height: 0;
+	border-top: 1px solid #E5E5E5;
+}
+.notice_list {
+	padding: 0 15px;
+}
+.notice_item {
+	padding: 8px 0;
+	display: flex;
+	display: -webkit-flex;
+	align-items: center;
+	-webkit-align-items: center;
+	border-bottom: 1px solid #E5E5E5;
+}
+.icon_notice {
+	width: 30px;
+	min-width: 30px;
+	height: 40px;
+	background: url(../img/notice_ui/tg.png) center top no-repeat;
+	background-size: 18px;
+}
+.notice_title {
+	width: 100%;
+	overflow: hidden;
+	padding-left: 3px;
+	padding-right: 20px;
+	box-sizing: border-box;
+	color: #333333;
+}
+.notice_text {
+	height: 24px;
+	line-height: 24px;
+	font-size: 15px;
+	font-weight: 700;
+}
+.pub_time {
+	height: 20px;
+	line-height: 20px;
+	font-size: 12px;
+	color: #858585;
+}
+.icon_right {
+	width: 20px;
+	min-width: 20px;
+	height: 56px;
+	background: url(../img/home_ui/next.png) center right no-repeat;
+	background-size: 8px;
+}
+/* 主体区域 -- end */

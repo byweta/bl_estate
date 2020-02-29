@@ -32,7 +32,7 @@
 	</head>
 	<body ontouchstart>
 		<div class="nav_header">
-			<div class="icon_nav_left"></div>
+			<div class="icon_nav_left" onclick="fnGoBack()"></div>
 			<div class="nav_title">网格员</div>
 			<div class="icon_nav_right"></div>
 		</div>
@@ -231,6 +231,11 @@
 			$(function() {
 				
 			});
+			
+			// 返回
+			function fnGoBack(){
+				window.history.back();
+			}
 
 			// 获取企业信息
 			function fnGetEnterpriseInfo() {
