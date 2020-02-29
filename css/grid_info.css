@@ -58,19 +58,21 @@
 	font-size: 18px;
 	font-weight: 700;
 	color: #FFFFFF;
-	height: 36px;
-	line-height: 36px;
+	height: 32px;
+	line-height: 32px;
+}
+.estate_title_1 {
+	padding: 0px 15px 0 15px;
 }
 .estate_sub_info {
 	padding: 0 15px 10px 15px;
-	font-size: 14px;
-	color: #CEDCFF;
-	height: 20px;
+	font-size: 12px;
+	color: #FFED21;
 	line-height: 20px;
 }
 /* 居民信息 */
 .data_grid {
-	margin: 0 15px 20px 15px;
+	margin: 15px 15px 20px 15px;
 	background-color: #FFFFFF;
 	border-radius: 8px;
 	padding-bottom: 20px;
@@ -78,7 +80,7 @@
 }
 .building_check {
 	padding-top: 2px;
-	padding-left: 18px;
+	padding-left: 15px;
 	height: 48px;
 	line-height: 48px;
 	font-size: 20px;
@@ -97,7 +99,30 @@
 	background: url(../img/people_ui/icon_blue_down.png) center no-repeat;
 	background-size: 10px;
 }
+.grid_item_title {
+	padding: 0px 15px 8px 15px;
+	height: 32px;
+	line-height: 32px;
+	display: flex;
+	display: -webkit-flex;
+	align-items: center;
+	-webkit-align-items: center;
+}
+.icon_grid {
+	width: 12px;
+	min-width: 12px;
+	height: 32px;
+	background: url(../img/home_ui/bq.png) center left no-repeat;
+	background-size: 10px;
+}
+.grid_title_text {
+	padding-left: 3px;
+	font-size: 16px;
+	font-weight: 700;
+	color: #1C2230;
+}
 .col_data {
+	padding-left: 15px;
 	display: flex;
 	display: -webkit-flex;
 	align-items: center;
@@ -113,19 +138,25 @@
 	line-height: 36px;
 }
 .col_item {
-	text-align: center;
-}
-.col_1 {
-	width: 35%;
-}
-.col_2_c {
-	width: 25%;
-	text-align: center;
-}
-.col_2 {
-	width: 25%;
 	text-align: left;
 }
-.col_3 {
-	width: 40%;
+.col_1 {
+	width: 30%;
+}
+.col_2 {
+	width: 70%;
+}
+.col_2_1 {
+	width: 23%;
+}
+.col_2_2 {
+	width: 36%;
+}
+.col_2_3 {
+	width: 41%;
+}
+.under_line {
+	height: 0;
+	border-top: 1px solid #E9EDF8;
+	margin-bottom: 8px;
 }

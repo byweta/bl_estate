@@ -10,6 +10,7 @@
 		<!-- 引入 jquery-weui -->
 		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
 		<link rel="stylesheet" type="text/css" href="../css/jqweui/jquery-weui.css">
+		<link rel="stylesheet" type="text/css" href="../css/peoples_info.css" />
 		<style type="text/css">
 			body,
 			html {
@@ -32,11 +33,47 @@
 	<body ontouchstart>
 		<div class="nav_header">
 			<div class="icon_nav_left"></div>
-			<div class="nav_title"></div>
+			<div class="nav_title">居民信息</div>
 			<div class="icon_nav_right"></div>
 		</div>
+		<div class="nav_header_hidden">
+		</div>
 		<div class="container" id="container">
-			
+			<div class="main_box">
+				<div class="estate_title">
+					十堰市白浪小区
+				</div>
+				<div class="estate_sub_info">
+					小区总计10栋楼，7层，4单元，一单元2户
+				</div>
+				<div class="data_grid">
+					<div class="building_check">
+						1号楼
+						<div class="icon_check"></div>
+					</div>
+					<div class="col_data col_blue">
+						<div class="col_item col_1">房号</div>
+						<div class="col_item col_2_c">姓名</div>
+						<div class="col_item col_3">联系方式</div>
+					</div>
+					<template v-for="(item, index) in dataList">
+						<template v-if="index % 2 == 0">
+							<div class="col_data">
+								<div class="col_item col_1">26-1-1-1</div>
+								<div class="col_item col_2">王晓玲</div>
+								<div class="col_item col_3">15389890987</div>
+							</div>
+						</template>
+						<template v-else>
+							<div class="col_data col_blue">
+								<div class="col_item col_1">26-1-1-1</div>
+								<div class="col_item col_2">王晓玲</div>
+								<div class="col_item col_3">15389890987</div>
+							</div>
+						</template>
+					</template>
+				</div>
+			</div>
 		</div>
 		<script type="text/javascript" src="../js/url.js" charset="utf-8"></script>
 		<script type="text/javascript" src="../js/vue.js" charset="utf-8"></script>
@@ -55,6 +92,7 @@
 			var vue = new Vue({
 				el: '#container',
 				data: {
+					dataList: [{},{},{},{},{},{},{},{},{},{},{},{}]
 				},
 				methods: {
 				}
