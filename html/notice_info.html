@@ -32,8 +32,8 @@
 	</head>
 	<body ontouchstart>
 		<div class="nav_header">
-			<div class="icon_nav_left"></div>
-			<div class="nav_title">网格员</div>
+			<div class="icon_nav_left" onclick="fnGoBack()"></div>
+			<div class="nav_title">社区公告</div>
 			<div class="icon_nav_right"></div>
 		</div>
 		<div class="nav_header_hidden">
@@ -97,6 +97,11 @@
 			$(function() {
 				
 			});
+			
+			// 返回
+			function fnGoBack(){
+				window.history.back();
+			}
 
 			// 获取企业信息
 			function fnGetEnterpriseInfo() {
