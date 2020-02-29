@@ -6,10 +6,12 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
 		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-		<title>模板</title>
+		<title>小区管理</title>
 		<!-- 引入 jquery-weui -->
 		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
 		<link rel="stylesheet" type="text/css" href="../css/jqweui/jquery-weui.css">
+		<link rel="stylesheet" type="text/css" href="../css/home.css" />
+		<link rel="stylesheet" type="text/css" href="../css/swiper.min.css" />
 		<style type="text/css">
 			body,
 			html {
@@ -26,14 +28,141 @@
 				overflow: hidden;
 				text-overflow: ellipsis;
 			}
+			/* 分割线 */
+			.split_line {
+				height: 10px;
+				background-color: #F8F8F8;
+			}
 		</style>
 	</head>
 	<body ontouchstart>
 		<div class="container" id="container">
-			
+			<div class="top_module">
+				<div class="title_box">
+					<div class="title_content">
+						<div class="icon_font icon_addr"></div>
+						<div class="title_text">十堰市白浪小区</div>
+						<div class="icon_font icon_down"></div>
+					</div>
+					<div class="title_content">
+						<div class="icon_font"></div>
+						<div class="title_text">欢迎您！</div>
+					</div>
+				</div>
+				<div class="swiper_box" id="swiperId">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide banner_1"></div>
+						<div class="swiper-slide banner_2"></div>
+						<div class="swiper-slide banner_3"></div>
+					</div>
+					<!-- Add Pagination -->
+					<div class="swiper-pagination"></div>
+				</div>
+				<div class="big_menu">
+					<div class="menu_item">
+						<div class="icon_menu icon_menu_0"></div>
+						<div class="menu_text">
+							网格员
+						</div>
+					</div>
+					<div class="menu_item">
+						<div class="icon_menu icon_menu_1"></div>
+						<div class="menu_text">
+							便民服务
+						</div>
+					</div>
+					<div class="menu_item">
+						<div class="icon_menu icon_menu_2"></div>
+						<div class="menu_text">
+							投诉建议
+						</div>
+					</div>
+					<div class="menu_item">
+						<div class="icon_menu icon_menu_3"></div>
+						<div class="menu_text">
+							居民信息
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="split_line"></div>
+			<div class="msg_module">
+				<div class="icon_msg"></div>
+				<div class="msg_text line_ellipsis">
+					十堰市区最新菜价公示
+					<span class="icon_new"></span>
+				</div>
+				<div class="icon_right"></div>
+			</div>
+			<div class="split_line"></div>
+			<div class="estate_module">
+				<div class="estate_title">
+					小区简介<span class="data_uptime">2月26日防控日报|数据截止9:00:01</span>
+				</div>
+				<div class="info_box">
+					<div class="box_title">
+						<div class="icon_item"></div>
+						<div class="item_text">小区疫情</div>
+						<div class="icon_data"></div>
+					</div>
+					<div class="data_boxs">
+						<div class="data_box">
+							<div class="item_col_name">确诊病例</div>
+							<div class="item_col_data">15</div>
+							<div class="item_col_change">较昨日+0</div>
+						</div>
+						<div class="data_box">
+							<div class="item_col_name">疑似病例</div>
+							<div class="item_col_data data_color_1">27</div>
+							<div class="item_col_change">较昨日+1</div>
+						</div>
+						<div class="data_box">
+							<div class="item_col_name">治愈病例</div>
+							<div class="item_col_data data_color_2">32</div>
+							<div class="item_col_change">较昨日+2</div>
+						</div>
+					</div>
+				</div>
+				<div class="info_box">
+					<div class="box_title">
+						<div class="icon_item"></div>
+						<div class="item_text">住户信息</div>
+						<div class="icon_data"></div>
+					</div>
+					<div class="data_boxs data_boxs_1">
+						<div class="data_box">
+							<div class="item_col_name">楼栋数</div>
+							<div class="item_col_data">10</div>
+						</div>
+						<div class="data_box">
+							<div class="item_col_name">住户</div>
+							<div class="item_col_data data_color_1">272</div>
+						</div>
+						<div class="data_box">
+							<div class="item_col_name">外来人员</div>
+							<div class="item_col_data data_color_2">86</div>
+						</div>
+					</div>
+					<div class="data_boxs data_boxs_2">
+						<div class="data_box">
+							<div class="item_col_name">隔离人员</div>
+							<div class="item_col_data data_color_3">76</div>
+						</div>
+						<div class="data_box">
+							<div class="item_col_name">解除隔离人员</div>
+							<div class="item_col_data data_color_4">32</div>
+						</div>
+						<div class="data_box">
+							<div class="item_col_name"></div>
+							<div class="item_col_data"></div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<script type="text/javascript" src="../js/url.js" charset="utf-8"></script>
 		<script type="text/javascript" src="../js/vue.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/swiper.min.js" charset="utf-8"></script>
 		<script type="text/javascript" src="../js/jquery-1.12.4-min.js" charset="utf-8"></script>
 		<script type="text/javascript" src="../js/fastclick.js" charset="utf-8"></script>
 		<script type="text/javascript">
@@ -44,18 +173,19 @@
 		<script type="text/javascript" src="../js/jqweui/jquery-weui.min.js" charset="utf-8"></script>
 		<script type="text/javascript" src="../js/city-picker.js" charset="utf-8"></script>
 		<script type="text/javascript">
-			
 			// 初始化双向绑定模型
 			var vue = new Vue({
 				el: '#container',
-				data: {
-				},
-				methods: {
-				}
+				data: {},
+				methods: {}
 			});
-			
+			var swiper = new Swiper('#swiperId', {
+				pagination: '.swiper-pagination',
+				autoplay: 3000,//可选选项，自动滑动
+				paginationClickable: true
+			});
 			$(function() {
-				
+
 			});
 
 			// 获取企业信息
@@ -75,7 +205,7 @@
 					success: function(result) {
 						$.hideLoading();
 						if (result.state != undefined && result.state == true) {
-							
+
 						} else {
 							// 失败
 							$.toast("失败！", 'cancel');

@@ -1,0 +1,258 @@
+.container {
+	padding-top: 6px;
+	background-color: #FFFFFF;
+}
+/* 顶部区域 -- start */
+.top_module {
+	padding: 10px 15px;
+	background: #FFFFFF;
+}
+.title_box {
+	height: 65px;
+	background: url(../img/home_ui/fz.png) right 21px no-repeat;
+	background-size: auto 60px;
+}
+.title_content {
+	display: flex;
+	display: -webkit-flex;
+	align-items: center;
+	-webkit-align-items: center;
+	justify-content: flex-start;
+	-webkit-justify-content: flex-start;
+}
+.icon_font {
+	width: 15px;
+	min-width: 15px;
+	Height: 24px;
+}
+.icon_addr {
+	background: url(../img/home_ui/dw.png) center no-repeat;
+	background-size: 12px;
+}
+.icon_down {
+	background: url(../img/home_ui/xl_u.png) center no-repeat;
+	background-size: 10px;
+}
+.title_text {
+	padding: 0 6px;
+	height: 24px;
+	line-height: 24px;
+	font-weight: 700;
+	font-size: 16px;
+	color: #1B1B1B;
+}
+/* 轮播图 */
+.swiper_box {
+	height: calc(100vw / 3.18 );
+	height: -webkit-calc(100vw / 3.18 );
+	overflow: hidden;
+	border-radius: 6px;
+	position: relative;
+}
+.swiper-pagination {
+	bottom: 2px !important;
+}
+.swiper-pagination-bullet {
+	margin: 0 3px !important;
+	background-color: rgba(255, 255, 255, .8) !important;
+}
+.swiper-pagination-bullet-active {
+	background-color: rgba(255, 255, 255, 1) !important;
+}
+.banner_1 {
+	background: url(../img/home_ui/banner1.png) center no-repeat;
+	background-size: cover;
+}
+.banner_2 {
+	background: url(../img/home_ui/banner2.png) center no-repeat;
+	background-size: cover;
+}
+.banner_3 {
+	background: url(../img/home_ui/banner3.png) center no-repeat;
+	background-size: cover;
+}
+/* 大菜单 */
+.big_menu {
+	display: flex;
+	display: -webkit-flex;
+	align-items: center;
+	-webkit-align-items: center;
+	justify-content: space-around;
+	-webkit-justify-content: space-around;
+}
+.menu_item {
+	width: 100%;
+	text-align: center;
+}
+.icon_menu {
+	margin: 0 auto;
+	margin-top: 15px;
+	width: calc(100vw / 8);
+	height: calc(100vw / 8);
+}
+.icon_menu_0 {
+	background: url(../img/home_ui/wgy.png) center no-repeat;
+	background-size: cover;
+}
+.icon_menu_1 {
+	background: url(../img/home_ui/bmfw.png) center no-repeat;
+	background-size: cover;
+}
+.icon_menu_2 {
+	background: url(../img/home_ui/tsjy.png) center no-repeat;
+	background-size: cover;
+}
+.icon_menu_3 {
+	background: url(../img/home_ui/jmxx.png) center no-repeat;
+	background-size: cover;
+}
+.menu_text {
+	font-size: 12px;
+	color: #555555;
+	height: 20px;
+	line-height: 20px;
+	padding: 4px 0;
+}
+/* 顶部区域 -- end */
+/* 最新通知区域 -- start */
+.msg_module {
+	padding: 6px 15px;
+	display: flex;
+	display: -webkit-flex;
+	align-items: center;
+	-webkit-align-items: center;
+	background-color: #FFFFFF;
+}
+.icon_msg {
+	width: 40px;
+	min-width: 40px;
+	height: 40px;
+	background: url(../img/home_ui/icon_tg.png) center no-repeat;
+	background-size: 36px;
+}
+.msg_text {
+	padding-right: 40px;
+	width: 100%;
+	height: 32px;
+	line-height: 32px;
+	box-sizing: border-box;
+	font-size: 14px;
+	color: #333333;
+}
+.icon_new {
+	display: inline-block;
+	width: 30px;
+	height: 20px;
+	background: url(../img/home_ui/new.png) top left no-repeat;
+	background-size: contain;
+}
+.icon_right {
+	width: 20px;
+	min-width: 20px;
+	height: 40px;
+	background: url(../img/home_ui/next.png) center right no-repeat;
+	background-size: 6px;
+}
+/* 最新通知区域 -- end */
+/* 小区简介区域 -- start */
+.estate_module {
+	padding: 10px 15px;
+	background-color: #FFFFFF;
+}
+.estate_title {
+	height: 36px;
+	line-height: 36px;
+	font-size: 16px;
+	font-weight: 700;
+	color: #333333;
+}
+.data_uptime {
+	padding-left: 12px;
+	line-height: 20px;
+	font-size: 10px;
+	font-weight: normal;
+	color: #999999;
+}
+.info_box {
+	margin: 10px 0 15px 0;
+	padding: 8px 0;
+	border-radius: 8px;
+	box-shadow: 0 0 10px 0 rgba(220, 220, 220, .7);
+}
+.box_title {
+	height: 30px;
+	display: flex;
+	display: -webkit-flex;
+	align-items: center;
+	-webkit-align-items: center;
+	font-size: 15px;
+	font-weight: 700;
+	color: #333333;
+}
+.icon_item {
+	margin-left: 10px;
+	width: 12px;
+	min-width: 12px;
+	height: 30px;
+	background: url(../img/home_ui/bq.png) center no-repeat;
+	background-size: 10px;
+}
+.item_text {
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+}
+.icon_data {
+	width: 70px;
+	min-width: 70px;
+	height: 20px;
+	background: url(../img/home_ui/sjsm.png) center right no-repeat;
+	background-size: contain;
+}
+.data_boxs {
+	padding: 15px 20px;
+	display: flex;
+	display: -webkit-flex;
+	align-items: center;
+	-webkit-align-items: center;
+	justify-content: space-around;
+	-webkit-justify-content: space-around;
+}
+.data_boxs_1 {
+	padding-bottom: 6px;
+}
+.data_boxs_2 {
+	padding-top: 0;
+}
+.data_box {
+	width: 100%;
+	text-align: center;
+}
+.item_col_name {
+	font-size: 14px;
+	font-weight: 700;
+	color: #333333;
+}
+.item_col_data {
+	line-height: 40px;
+	font-size: 18px;
+	font-weight: 700;
+	color: #E24545;
+}
+.data_color_1 {
+	color: #FFB20D;
+}
+.data_color_2 {
+	color: #53BD8A;
+}
+.data_color_3 {
+	color: #6077FC;
+}
+.data_color_4 {
+	color: #4098FE;
+}
+.item_col_change {
+	font-size: 14px;
+	color: #999999;
+}
+/* 小区简介区域 -- end */
