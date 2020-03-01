@@ -11,6 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
 		<link rel="stylesheet" type="text/css" href="../css/jqweui/jquery-weui.css">
 		<link rel="stylesheet" type="text/css" href="../css/peoples_info.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iosSelect.css">
 		<style type="text/css">
 			body,
 			html {
@@ -44,11 +45,11 @@
 					十堰市白浪小区
 				</div>
 				<div class="estate_sub_info">
-					小区总计10栋楼，7层，4单元，一单元2户
+					小区总计{{ldList.length}}栋楼，7层，4单元，一单元2户
 				</div>
 				<div class="data_grid">
-					<div class="building_check">
-						1号楼
+					<div class="building_check" @click="fnChangeLd()">
+						{{ld}}号楼
 						<div class="icon_check"></div>
 					</div>
 					<div class="col_data col_blue">
@@ -59,16 +60,16 @@
 					<template v-for="(item, index) in dataList">
 						<template v-if="index % 2 == 0">
 							<div class="col_data">
-								<div class="col_item col_1">26-1-1-1</div>
-								<div class="col_item col_2_c">王晓玲</div>
-								<div class="col_item col_3">15389890987</div>
+								<div class="col_item col_1">{{item.dyxx}}-{{item.lcxx}}-{{item.mh}}</div>
+								<div class="col_item col_2_c">{{item.xm}}</div>
+								<div class="col_item col_3">{{item.lxdh==null?'--':item.lxdh}}</div>
 							</div>
 						</template>
 						<template v-else>
 							<div class="col_data col_blue">
-								<div class="col_item col_1">26-1-1-1</div>
-								<div class="col_item col_2_c">王晓玲</div>
-								<div class="col_item col_3">15389890987</div>
+								<div class="col_item col_1">{{item.dyxx}}-{{item.lcxx}}-{{item.mh}}</div>
+								<div class="col_item col_2_c">{{item.xm}}</div>
+								<div class="col_item col_3">{{item.lxdh==null?'--':item.lxdh}}</div>
 							</div>
 						</template>
 					</template>
@@ -85,34 +86,50 @@
 			})
 		</script>
 		<script type="text/javascript" src="../js/jqweui/jquery-weui.min.js" charset="utf-8"></script>
-		<script type="text/javascript" src="../js/city-picker.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/iosSelect.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/iosSelect/select1.option.js" charset="utf-8"></script>
 		<script type="text/javascript">
-			
+			// 楼栋信息
+			var ldList = [];
 			// 初始化双向绑定模型
 			var vue = new Vue({
 				el: '#container',
 				data: {
+					ldList: [],
+					ld: '',
 					dataList: [{},{},{},{},{},{},{},{},{},{},{},{}]
 				},
 				methods: {
+					fnChangeLd: fnChangeLd
 				}
 			});
 			
 			$(function() {
-				
+				// 获取楼栋信息
+				fnGetLdInfo();
 			});
+			
+			// 选择楼栋
+			function fnChangeLd(){
+				setTimeout(function(){
+					oneOptionId = vue.$data.ld;
+					getOptionId(oneOptionId, function(checkOption) {
+						vue.$data.ld = checkOption.firstOptionId;
+						fnGetPeoplesInfo();
+					});
+				}, 500);
+			}
 			
 			// 返回
 			function fnGoBack(){
 				window.history.back();
 			}
-
-			// 获取企业信息
-			function fnGetEnterpriseInfo() {
+			
+			// 获取楼栋信息
+			function fnGetLdInfo() {
 				$.showLoading();
-				var url = mHost + mServerName + "/EntInfo/getEntInfo";
+				var url = mHost + mServerName + "/SQGL/getLouDongList";
 				var params = {
-					ID: entInfo.ID
 				}
 				console.log("=== === >> 参数：" + JSON.stringify(params));
 				$.ajax({
@@ -124,7 +141,48 @@
 					success: function(result) {
 						$.hideLoading();
 						if (result.state != undefined && result.state == true) {
-							
+							ldList = result.ldList;
+							vue.$data.ldList = ldList;
+							firstOptions = [];
+							for(var i=0; i<ldList.length; i++){
+								var item = ldList[i];
+								var c = {'id': item, 'value': item+'号楼', 'parentId': '0'}
+								firstOptions.push(c);
+							}
+							vue.$data.ld = ldList[0];
+							fnGetPeoplesInfo()
+						} else {
+							// 失败
+							$.toast("失败！", 'cancel');
+						}
+					},
+					error: function(jqXHR, textStatus) {
+						$.hideLoading();
+						$.toast("服务异常！", 'cancel')
+					}
+				});
+			}
+			
+			// 获取楼栋人员信息
+			function fnGetPeoplesInfo() {
+				$.showLoading();
+				var url = mHost + mServerName + "/SQGL/getSingelLDRYXXList";
+				var params = {
+					ld: vue.$data.ld
+				}
+				console.log("=== === >> 参数：" + JSON.stringify(params));
+				$.ajax({
+					type: "get",
+					url: url,
+					contentType: 'application/x-www-form-urlencoded',
+					data: params,
+					dataType: "jsonp",
+					success: function(result) {
+						$.hideLoading();
+						if (result.state != undefined && result.state == true) {
+							var data = result.ldzhList;
+							vue.dataList = [];
+							vue.dataList = data;
 						} else {
 							// 失败
 							$.toast("失败！", 'cancel');

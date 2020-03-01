@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- author：王朝贤 / createTime：2020年2月28日 -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>社区公告</title>
+		<!-- 引入 jquery-weui -->
+		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/jqweui/jquery-weui.css">
+		<link rel="stylesheet" type="text/css" href="../css/notice_info.css" />
+		<style type="text/css">
+			body,
+			html {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				-webkit-tap-highlight-color: transparent;
+				background-color: #F7F7F7;
+				position: relative;
+			}
+			
+			.framePage {
+				padding: 0;
+				margin: 0;
+			    width: 100%;
+				height: calc(100vh - 56px);
+				height: -webkit-calc(100vh - 56px);
+				/* background-color: #00FFFF; */
+			}
+
+			/* 超出单行显示省略号 */
+			.line_ellipsis {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		</style>
+	</head>
+	<body ontouchstart>
+		<div class="nav_header">
+			<div class="icon_nav_left" onclick="fnGoBack()"></div>
+			<div class="nav_title">社区公告</div>
+			<div class="icon_nav_right"></div>
+		</div>
+		<div class="nav_header_hidden">
+		</div>
+		<div class="container" id="container">
+			<iframe id="tabFrm1" src="./default_frm.html" frameborder="0" class="framePage"></iframe>
+		</div>
+		<script type="text/javascript" src="../js/url.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/vue.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/common.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/jquery-1.12.4-min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/fastclick.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				FastClick.attach(document.body);
+			})
+		</script>
+		<script type="text/javascript" src="../js/jqweui/jquery-weui.min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/city-picker.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				var link = fnGetQueryString("link");
+				// link = "http://www.baidu.com/";
+				$("#tabFrm1").attr("src", link);
+			});
+			
+			// 返回
+			function fnGoBack(){
+				window.top.history.back();
+			}
+		</script>
+	</body>
+</html>

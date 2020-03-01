@@ -40,21 +40,35 @@
 		</div>
 		<div class="container" id="container">
 			<div class="top_line"></div>
-			<div class="notice_list">
-				<template v-for="(item, index) in dataList">
-					<div class="notice_item">
-						<div class="icon_notice"></div>
-						<div class="notice_title">
-							<div class="notice_text line_ellipsis">
-								{{item.title}}
+			<!-- 主体区域 -->
+			<div class="main_bar" id="mainId">
+				<div class="weui-pull-to-refresh__layer">
+					<div class='weui-pull-to-refresh__arrow'></div>
+					<div class='weui-pull-to-refresh__preloader'></div>
+					<div class="down">下拉刷新</div>
+					<div class="up">释放刷新</div>
+					<div class="refresh">正在刷新</div>
+				</div>
+				<div class="notice_list">
+					<template v-for="(item, index) in dataList">
+						<div class="notice_item" @click="fnOpenNewNotice(item.LJ)">
+							<div class="icon_notice"></div>
+							<div class="notice_title">
+								<div class="notice_text line_ellipsis">
+									{{item.BT}}
+								</div>
+								<div class="pub_time">
+									{{item.CreateTime}}
+								</div>
 							</div>
-							<div class="pub_time">
-								2020-02-28 10:38
-							</div>
+							<div class="icon_right"></div>
 						</div>
-						<div class="icon_right"></div>
-					</div>
-				</template>
+					</template>
+				</div>
+				<div class="weui-loadmore">
+					<i class="weui-loading"></i>
+					<span class="weui-loadmore__tips">正在加载</span>
+				</div>
 			</div>
 		</div>
 		<script type="text/javascript" src="../js/url.js" charset="utf-8"></script>
@@ -67,48 +81,90 @@
 			})
 		</script>
 		<script type="text/javascript" src="../js/jqweui/jquery-weui.min.js" charset="utf-8"></script>
-		<script type="text/javascript" src="../js/city-picker.js" charset="utf-8"></script>
 		<script type="text/javascript">
-			
+			// 分页参数
+			var pageIndex = 1, pageSize = 100;
+			// 是否全部加载，false：没有；true：已全部加载
+			var dataOver = false;
+			$(".weui-loadmore").hide();
+			// 绑定下拉刷新事件
+			$("#mainId").pullToRefresh().on("pull-to-refresh", function() {
+				setTimeout(function() {
+					$("#mainId").pullToRefreshDone();
+				}, 2000);
+				// 页面归1，开启加载
+				pageIndex = 1;
+				dataOver = false;
+				// 请求社区公告数据
+				fnGetNoticeData();
+			});
+			// infinite 绑定上拉加载更多数据
+			var loading = false;
+			$("#mainId").infinite().on("infinite", function() {
+				// 判断是否以加载全部数据
+				if(dataOver){
+					// 以加载全部数据
+					$.toast("没有更多数据！", "text");
+					return;
+				}
+				if (loading) return;
+				$(".weui-loadmore").show();
+				loading = true;
+				/* setTimeout(function() {
+					// $("#dataId").append(
+					// 	"<p>《世界著名计算机教材精选·人工智能:一种现代的方法(第3版)》英文版有1100多页，教学内容非常丰富，不但涵盖了人工智能基础、问题求解、知识推理与规划等经典内容，而且还包括不确定知识与推理、机器学习、通讯感知与行动等专门知识的介绍。目前我们为本科生开设的学科基础必修课“人工智能导论”主要介绍其中的经典内容，而研究生必修的核心课程“人工智能原理”主要关注其中的专门知识。其实《世界著名计算机教材精选·人工智能:一种现代的方法(第3版)》也适合希望提高自身计算系统设计水平的广大应用计算技术的社会公众，对参加信息学奥林匹克竞赛和ACM程序设计竞赛的选手及其教练员也有一定的参考作用。</p>"
+					// );
+					pageIndex++;
+					// 模拟 TODO 删除
+					vue.dataList.push({BT: '十堰市区最新菜价公示', CreateTime: '--'})
+					$(".weui-loadmore").hide();
+					loading = false;
+					// 请求社区公告数据
+					//fnGetNoticeData();
+				}, 2000); */
+				pageIndex++;
+				// 请求社区公告数据
+				fnGetNoticeData();
+			});
 			// 初始化双向绑定模型
 			var vue = new Vue({
 				el: '#container',
 				data: {
 					dataList: [{
-						title: '十堰市区最新菜价公示'
-					}, {
-						title: '十堰市民有急事出行，可拨打这些出行电话...'
-					}, {
-						title: '十堰经济技术开发区二机电一生活区...'
-					}, {
-						title: '公益发布！这六张图教你如何“灭毒”'
-					}, {
-						title: '有效消毒方式、居家消毒、场所消毒...'
-					}, {
-						title: '《新型冠状病毒疫情集体场所防控100问》'
-					}, {
-						title: '白浪小区最新居民信息情况公示'
+						BT: '加载中',
+						CreateTime: ''
 					}]
 				},
 				methods: {
+					fnOpenNewNotice : fnOpenNewNotice
 				}
 			});
 			
 			$(function() {
-				
+				// 获取社区公告数据
+				fnGetNoticeData();
 			});
+			
+			// 打开社区公告最新信息详情页面
+			function fnOpenNewNotice(link){
+				if(link == '')
+					return;
+				window.location.href = "./notice_detail.html?link="+link;
+			}
 			
 			// 返回
 			function fnGoBack(){
 				window.history.back();
 			}
-
-			// 获取企业信息
-			function fnGetEnterpriseInfo() {
+			
+			// 请求社区公告数据
+			function fnGetNoticeData(){
 				$.showLoading();
-				var url = mHost + mServerName + "/EntInfo/getEntInfo";
+				var url = mHost + mServerName + "/SQGL/getFBXWList";
 				var params = {
-					ID: entInfo.ID
+					page: pageIndex,
+					row: pageSize,
+					xq: '' // 小区名称
 				}
 				console.log("=== === >> 参数：" + JSON.stringify(params));
 				$.ajax({
@@ -119,16 +175,40 @@
 					dataType: "jsonp",
 					success: function(result) {
 						$.hideLoading();
+						console.log("=== === >> 获取社区公告数据: " + JSON.stringify(result));
 						if (result.state != undefined && result.state == true) {
-							
+							// 获取成功，处理数据
+							var data = result.xwlist;
+							if(data != undefined && data.length > 0){
+								if(pageIndex == 1){
+									vue.dataList = [];
+									vue.dataList = data;
+								} else {
+									vue.dataList.concat(data);
+								}
+								if(loading){
+									$(".weui-loadmore").hide();
+									loading = false;
+								}
+							} else {
+								dataOver = true;
+								// 未获取到数据
+								if(pageIndex == 1){
+									// $.toast("还没有填报历史数据，请填报！");
+								} else {
+									$.toast("没有更多数据！", "text");
+								}
+							}
 						} else {
-							// 失败
-							$.toast("失败！", 'cancel');
+							// 获取数据失败
+							$.toast("获取数据失败，请下拉刷新！", 'cancel');
 						}
+						loading = false;
 					},
 					error: function(jqXHR, textStatus) {
 						$.hideLoading();
-						$.toast("服务异常！", 'cancel')
+						$.toast("服务异常！", 'cancel');
+						loading = false;
 					}
 				});
 			}
