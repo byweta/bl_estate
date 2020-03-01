@@ -6,7 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
 		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-		<title>发布信息</title>
+		<title>投诉建议</title>
 		<!-- 引入 jquery-weui -->
 		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
 		<link rel="stylesheet" type="text/css" href="../css/jqweui/jquery-weui.css">
@@ -42,7 +42,7 @@
 	<body ontouchstart>
 		<div class="nav_header">
 			<div class="icon_nav_left" onclick="fnGoBack()"></div>
-			<div class="nav_title" id="titleId">社区公告</div>
+			<div class="nav_title" id="titleId">投诉建议</div>
 			<div class="icon_nav_right"></div>
 		</div>
 		<div class="nav_header_hidden">
@@ -63,21 +63,9 @@
 		<script type="text/javascript" src="../js/jqweui/jquery-weui.min.js" charset="utf-8"></script>
 		<script type="text/javascript" src="../js/city-picker.js" charset="utf-8"></script>
 		<script type="text/javascript">
-			var titles = [
-				"新闻发布",
-				"疫情发布",
-				"社区人员统计信息发布"
-			];
-			var links = [
-				"http://59.108.92.198:9006/NewApp/AutoFormMobile/Edit?configId=XWFB",
-				"http://59.108.92.198:9006/NewApp/AutoFormMobile/Edit?configId=XQBLQK",
-				"http://59.108.92.198:9006/NewApp/AutoFormMobile/Edit?configId=XQZHXX"
-			];
+			var link = "http://59.108.92.198:9006/NewApp/AutoFormMobile/Edit?configId=tsjy";
 			$(function() {
-				var type = fnGetQueryString("type");
-				index = Number(type)-1;
-				$("#tabFrm1").attr("src", links[index]);
-				$("#titleId").html(titles[index]);
+				$("#tabFrm1").attr("src", link);
 			});
 			
 			// 返回
