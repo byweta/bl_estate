@@ -6,7 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
 		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-		<title>小区管理</title>
+		<title>社区管理</title>
 		<!-- 引入 jquery-weui -->
 		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
 		<link rel="stylesheet" type="text/css" href="../css/jqweui/jquery-weui.css">
@@ -237,7 +237,11 @@
 			function fnOpenNewNotice(link){
 				if(link == '')
 					return;
-				window.location.href = "./notice_detail.html?link="+link;
+				if(link.startsWith("http")){
+					window.location.href = link;
+				} else {
+					window.location.href = "./notice_detail.html?link="+link;
+				}
 			}
 
 			// 获取社区公告信息

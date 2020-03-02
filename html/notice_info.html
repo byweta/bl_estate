@@ -149,7 +149,11 @@
 			function fnOpenNewNotice(link){
 				if(link == '')
 					return;
-				window.location.href = "./notice_detail.html?link="+link;
+				if(link.startsWith("http")){
+					window.location.href = link;
+				} else {
+					window.location.href = "./notice_detail.html?link="+link;
+				}
 			}
 			
 			// 返回
