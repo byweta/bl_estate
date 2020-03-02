@@ -42,7 +42,7 @@
 				<div class="title_box">
 					<div class="title_content">
 						<div class="icon_font icon_addr"></div>
-						<div class="title_text">十堰市白浪小区</div>
+						<div class="title_text">{{estateName}}</div>
 						<div class="icon_font icon_down"></div>
 					</div>
 					<div class="title_content">
@@ -82,6 +82,80 @@
 						<div class="icon_menu icon_menu_3"></div>
 						<div class="menu_text">
 							居民信息
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="split_line"></div>
+			<div class="msg_module" @click="fnOpenNotice()">
+				<div class="icon_msg"></div>
+				<div class="msg_text line_ellipsis">
+					{{newNotice.BT}}
+					<span class="icon_new"></span>
+				</div>
+				<div class="icon_right"></div>
+			</div>
+			<div class="split_line"></div>
+			<div class="estate_module">
+				<div class="estate_title line_ellipsis">
+					小区简介<span class="data_uptime">{{yqData.FBRQ_}}防控日报|数据截止{{yqData.FBSJ_}}</span>
+				</div>
+				<div class="info_box">
+					<div class="box_title">
+						<div class="icon_item"></div>
+						<div class="item_text">小区疫情</div>
+						<div class="icon_data"></div>
+					</div>
+					<div class="data_boxs">
+						<div class="data_box">
+							<div class="item_col_name">确诊病例</div>
+							<div class="item_col_data">{{yqData.QZBL}}</div>
+							<div class="item_col_change">较昨日+0</div>
+						</div>
+						<div class="data_box">
+							<div class="item_col_name">疑似病例</div>
+							<div class="item_col_data data_color_1">{{yqData.YSBL}}</div>
+							<div class="item_col_change">较昨日+0</div>
+						</div>
+						<div class="data_box">
+							<div class="item_col_name">治愈病例</div>
+							<div class="item_col_data data_color_2">{{yqData.ZYBL}}</div>
+							<div class="item_col_change">较昨日+0</div>
+						</div>
+					</div>
+				</div>
+				<div class="info_box">
+					<div class="box_title">
+						<div class="icon_item"></div>
+						<div class="item_text">住户信息</div>
+						<div class="icon_data"></div>
+					</div>
+					<div class="data_boxs data_boxs_1">
+						<div class="data_box">
+							<div class="item_col_name">楼栋数</div>
+							<div class="item_col_data">{{userData.LDSL}}</div>
+						</div>
+						<div class="data_box">
+							<div class="item_col_name">住户</div>
+							<div class="item_col_data data_color_1">{{userData.ZHSL}}</div>
+						</div>
+						<div class="data_box">
+							<div class="item_col_name">外来人员</div>
+							<div class="item_col_data data_color_2">{{userData.WLRL}}</div>
+						</div>
+					</div>
+					<div class="data_boxs data_boxs_2">
+						<div class="data_box">
+							<div class="item_col_name">隔离人员</div>
+							<div class="item_col_data data_color_3">{{userData.GLSL}}</div>
+						</div>
+						<div class="data_box">
+							<div class="item_col_name">解除隔离人员</div>
+							<div class="item_col_data data_color_4">{{userData.JCGL}}</div>
+						</div>
+						<div class="data_box">
+							<div class="item_col_name"></div>
+							<div class="item_col_data"></div>
 						</div>
 					</div>
 				</div>
@@ -137,9 +211,17 @@
 			var vue = new Vue({
 				el: '#container',
 				data: {
-					
+					estateName: '社区发布',
+					newNotice: {
+						BT: '',
+						LJ: ''
+					},
+					userData: {},
+					yqData: {}
 				},
 				methods: {
+					fnOpenNewNotice: fnOpenNewNotice,
+					fnOpenNotice: fnOpenNotice
 				}
 			});
 			
@@ -150,12 +232,12 @@
 			});
 			
 			$(function() {
-				// // 获取最新社区公告
-				// fnGetNoticeInfo();
-				// // 获取社区住户统计信息
-				// fnGetEstateData();
-				// // 获取社区疫情数据
-				// fnGetYQData();
+				// 获取最新社区公告
+				fnGetNoticeInfo();
+				// 获取社区住户统计信息
+				fnGetEstateData();
+				// 获取社区疫情数据
+				fnGetYQData();
 			});
 
 			// 打开网格员页面
@@ -261,6 +343,7 @@
 						if (result.state != undefined && result.state == true) {
 							var data = result.lastZh;
 							vue.$data.userData = data;
+							vue.$data.estateName = data.XQMM;
 						} else {
 							// 失败
 							$.toast("失败！", 'cancel');

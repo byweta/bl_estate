@@ -49,142 +49,89 @@
 				<div class="estate_sub_info">
 					白浪街道马路社区 (党组织书记胡云霞 13222328786)
 				</div>
-				<div class="data_grid">
-					<div class="building_check">
-						13号楼
-					</div>
-					<!-- 网格党小组 -->
-					<div class="grid_item_title">
-						<div class="icon_grid"></div>
-						<div class="grid_title_text">网格党小组</div>
-					</div>
-					<div class="col_data col_blue">
-						<div class="col_item col_1">姓名</div>
-						<div class="col_item col_2">职称</div>
-					</div>
-					<template v-for="(item, index) in dataList1">
-						<template v-if="index % 2 == 0">
-							<div class="col_data">
-								<div class="col_item col_1">{{item.name}}</div>
-								<div class="col_item col_2">{{item.job}}</div>
-							</div>
+				<template v-for="(data, di) in dataList">
+					<div class="data_grid">
+						<div class="building_check">
+							{{data.ld}}
+						</div>
+						<!-- 网格党小组 -->
+						<div class="grid_item_title">
+							<div class="icon_grid"></div>
+							<div class="grid_title_text">网格党小组</div>
+						</div>
+						<div class="col_data col_blue">
+							<div class="col_item col_1">姓名</div>
+							<div class="col_item col_2">职称</div>
+						</div>
+						<template v-for="(grid, gridi) in data.gridList">
+							<template v-if="gridi % 2 == 0">
+								<div class="col_data">
+									<div class="col_item col_1">{{grid.name}}</div>
+									<div class="col_item col_2">{{grid.job}}</div>
+								</div>
+							</template>
+							<template v-else>
+								<div class="col_data col_blue">
+									<div class="col_item col_1">{{grid.name}}</div>
+									<div class="col_item col_2">{{grid.job}}</div>
+								</div>
+							</template>
 						</template>
-						<template v-else>
-							<div class="col_data col_blue">
-								<div class="col_item col_1">{{item.name}}</div>
-								<div class="col_item col_2">{{item.job}}</div>
-							</div>
+						<div class="under_line"></div>
+						<!-- 楼栋长 -->
+						<div class="grid_item_title">
+							<div class="icon_grid"></div>
+							<div class="grid_title_text">楼栋长</div>
+						</div>
+						<div class="col_data col_blue">
+							<div class="col_item col_2_1">姓名</div>
+							<div class="col_item col_2_2">联系方式</div>
+							<div class="col_item col_2_3">地址</div>
+						</div>
+						<template v-for="(zyz, zyzi) in data.ldzList">
+							<template v-if="zyzi % 2 == 0">
+								<div class="col_data">
+									<div class="col_item col_2_1">{{zyz.name}}</div>
+									<div class="col_item col_2_2">{{zyz.phone}}</div>
+									<div class="col_item col_2_3">{{zyz.addr}}</div>
+								</div>
+							</template>
+							<template v-else>
+								<div class="col_data col_blue">
+									<div class="col_item col_2_1">{{zyz.name}}</div>
+									<div class="col_item col_2_2">{{zyz.phone}}</div>
+									<div class="col_item col_2_3">{{zyz.addr}}</div>
+								</div>
+							</template>
 						</template>
-					</template>
-					<div class="under_line"></div>
-					<!-- 楼栋长 -->
-					<div class="grid_item_title">
-						<div class="icon_grid"></div>
-						<div class="grid_title_text">楼栋长</div>
-					</div>
-					<div class="col_data col_blue">
-						<div class="col_item col_1">赵鲜华</div>
-						<div class="col_item col_2">13477348712</div>
-					</div>
-					<div class="under_line"></div>
-					<!-- 志愿者 -->
-					<div class="grid_item_title">
-						<div class="icon_grid"></div>
-						<div class="grid_title_text">志愿者</div>
-					</div>
-					<div class="col_data col_blue">
-						<div class="col_item col_2_1">姓名</div>
-						<div class="col_item col_2_2">联系方式</div>
-						<div class="col_item col_2_3">地址</div>
-					</div>
-					<template v-for="(item, index) in dataList2">
-						<template v-if="index % 2 == 0">
-							<div class="col_data">
-								<div class="col_item col_2_1">{{item.name}}</div>
-								<div class="col_item col_2_2">{{item.phone}}</div>
-								<div class="col_item col_2_3">{{item.addr}}</div>
-							</div>
+						<div class="under_line"></div>
+						<!-- 志愿者 -->
+						<div class="grid_item_title">
+							<div class="icon_grid"></div>
+							<div class="grid_title_text">志愿者</div>
+						</div>
+						<template v-for="(ldz, ldzi) in data.zyzList">
+							<template v-if="ldzi % 2 == 0">
+								<div class="col_data col_blue">
+									<div class="col_item col_1">{{ldz.name}}</div>
+									<div class="col_item col_2">{{ldz.phone}}</div>
+								</div>
+							</template>
+							<template v-else>
+								<div class="col_data">
+									<div class="col_item col_1">{{ldz.name}}</div>
+									<div class="col_item col_2">{{ldz.phone}}</div>
+								</div>
+							</template>
 						</template>
-						<template v-else>
-							<div class="col_data col_blue">
-								<div class="col_item col_2_1">{{item.name}}</div>
-								<div class="col_item col_2_2">{{item.phone}}</div>
-								<div class="col_item col_2_3">{{item.addr}}</div>
-							</div>
-						</template>
-					</template>
-					<div class="under_line"></div>
-				</div>
-				<div class="data_grid">
-					<div class="building_check">
-						14号楼
+						<div class="under_line"></div>
 					</div>
-					<!-- 网格党小组 -->
-					<div class="grid_item_title">
-						<div class="icon_grid"></div>
-						<div class="grid_title_text">网格党小组</div>
-					</div>
-					<div class="col_data col_blue">
-						<div class="col_item col_1">姓名</div>
-						<div class="col_item col_2">职称</div>
-					</div>
-					<template v-for="(item, index) in dataList1">
-						<template v-if="index % 2 == 0">
-							<div class="col_data">
-								<div class="col_item col_1">{{item.name}}</div>
-								<div class="col_item col_2">{{item.job}}</div>
-							</div>
-						</template>
-						<template v-else>
-							<div class="col_data col_blue">
-								<div class="col_item col_1">{{item.name}}</div>
-								<div class="col_item col_2">{{item.job}}</div>
-							</div>
-						</template>
-					</template>
-					<div class="under_line"></div>
-					<!-- 楼栋长 -->
-					<div class="grid_item_title">
-						<div class="icon_grid"></div>
-						<div class="grid_title_text">楼栋长</div>
-					</div>
-					<div class="col_data col_blue">
-						<div class="col_item col_1">赵鲜华</div>
-						<div class="col_item col_2">13477348712</div>
-					</div>
-					<div class="under_line"></div>
-					<!-- 志愿者 -->
-					<div class="grid_item_title">
-						<div class="icon_grid"></div>
-						<div class="grid_title_text">志愿者</div>
-					</div>
-					<div class="col_data col_blue">
-						<div class="col_item col_2_1">姓名</div>
-						<div class="col_item col_2_2">联系方式</div>
-						<div class="col_item col_2_3">地址</div>
-					</div>
-					<template v-for="(item, index) in dataList2">
-						<template v-if="index % 2 == 0">
-							<div class="col_data">
-								<div class="col_item col_2_1">{{item.name}}</div>
-								<div class="col_item col_2_2">{{item.phone}}</div>
-								<div class="col_item col_2_3">{{item.addr}}</div>
-							</div>
-						</template>
-						<template v-else>
-							<div class="col_data col_blue">
-								<div class="col_item col_2_1">{{item.name}}</div>
-								<div class="col_item col_2_2">{{item.phone}}</div>
-								<div class="col_item col_2_3">{{item.addr}}</div>
-							</div>
-						</template>
-					</template>
-					<div class="under_line"></div>
-				</div>
+				</template>
 			</div>
 		</div>
 		<script type="text/javascript" src="../js/url.js" charset="utf-8"></script>
 		<script type="text/javascript" src="../js/vue.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/grid_data.json" charset="utf-8"></script>
 		<script type="text/javascript" src="../js/jquery-1.12.4-min.js" charset="utf-8"></script>
 		<script type="text/javascript" src="../js/fastclick.js" charset="utf-8"></script>
 		<script type="text/javascript">
@@ -199,29 +146,7 @@
 			var vue = new Vue({
 				el: '#container',
 				data: {
-					dataList1: [{
-						name: '赵鲜华',
-						job: '信业物业公司'
-					},{
-						name: '杨光',
-						job: '白浪街办干部'
-					},{
-						name: '王晓琳',
-						job: '13号楼居民'
-					}],
-					dataList2: [{
-						name: '王晓琳',
-						phone: '15234722889',
-						addr: '1单元101室'
-					}, {
-						name: '张孝祥',
-						phone: '15234722889',
-						addr: '1单元201室'
-					}, {
-						name: '雁南飞',
-						phone: '15234722889',
-						addr: '2单元601室'
-					}]
+					dataList: dataList
 				},
 				methods: {
 				}

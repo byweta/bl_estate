@@ -42,7 +42,7 @@
 				<div class="title_box">
 					<div class="title_content">
 						<div class="icon_font icon_addr"></div>
-						<div class="title_text">十堰市白浪小区</div>
+						<div class="title_text">{{estateName}}</div>
 						<div class="icon_font icon_down"></div>
 					</div>
 					<div class="title_content">
@@ -87,13 +87,13 @@
 				</div>
 			</div>
 			<div class="split_line"></div>
-			<div class="msg_module">
+			<div class="msg_module" @click="fnOpenNotice()">
 				<div class="icon_msg"></div>
-				<div class="msg_text line_ellipsis" @click="fnOpenNewNotice(newNotice.LJ)">
+				<div class="msg_text line_ellipsis">
 					{{newNotice.BT}}
 					<span class="icon_new"></span>
 				</div>
-				<div class="icon_right" @click="fnOpenNotice()"></div>
+				<div class="icon_right"></div>
 			</div>
 			<div class="split_line"></div>
 			<div class="estate_module">
@@ -160,12 +160,40 @@
 					</div>
 				</div>
 			</div>
+			<template v-if="key == 1">
+				<div class="split_line"></div>
+				<div class="msg_module" onclick="fnOpenXwfbInfo()">
+					<div class="icon_msg"></div>
+					<div class="msg_text line_ellipsis">
+						新闻发布
+					</div>
+					<div class="icon_right"></div>
+				</div>
+				<div class="split_line"></div>
+				<div class="msg_module" onclick="fnOpenYqfbInfo()">
+					<div class="icon_msg"></div>
+					<div class="msg_text line_ellipsis">
+						疫情发布
+					</div>
+					<div class="icon_right"></div>
+				</div>
+				<div class="split_line"></div>
+				<div class="msg_module" onclick="fnOpenSqtjInfo()">
+					<div class="icon_msg"></div>
+					<div class="msg_text line_ellipsis">
+						社区人员统计信息发布
+					</div>
+					<div class="icon_right"></div>
+				</div>
+			</template>
+			<div class="split_line"></div>
 		</div>
 		<script type="text/javascript" src="../js/url.js" charset="utf-8"></script>
 		<script type="text/javascript" src="../js/vue.js" charset="utf-8"></script>
 		<script type="text/javascript" src="../js/date.js" charset="utf-8"></script>
 		<script type="text/javascript" src="../js/swiper.min.js" charset="utf-8"></script>
 		<script type="text/javascript" src="../js/jquery-1.12.4-min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/common.js" charset="utf-8"></script>
 		<script type="text/javascript" src="../js/fastclick.js" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(function() {
@@ -179,6 +207,8 @@
 			var vue = new Vue({
 				el: '#container',
 				data: {
+					key: 0,
+					estateName: '社区发布',
 					newNotice: {
 						BT: '',
 						LJ: ''
@@ -198,8 +228,11 @@
 				autoplay: 3000, //可选选项，自动滑动
 				paginationClickable: true
 			});
-			
 			$(function() {
+				key = fnGetQueryString("key");
+				if(key != undefined && key == 1){
+					vue.$data.key = 1;
+				}
 				// 获取最新社区公告
 				fnGetNoticeInfo();
 				// 获取社区住户统计信息
@@ -225,7 +258,14 @@
 
 			// 打开居民信息页面
 			function fnOpenPeoples() {
-				window.location.href = "./peoples_info.html";
+				if(vue.$data.key == 1){
+					// 打开居民统计信息页面
+					window.location.href = "./peoples_info.html";
+				} else {
+					// 打开居民填报页面
+					// window.location.href = "http://59.108.92.198:9006/NewApp/AutoFormMobile/Edit?configId=jmxxdc";
+					window.location.href = "./publish_frm.html?type=4";
+				}
 			}
 
 			// 打开社区公告页面
@@ -242,6 +282,21 @@
 				} else {
 					window.location.href = "./notice_detail.html?link="+link;
 				}
+			}
+			
+			// 打开新闻发布页面
+			function fnOpenXwfbInfo(){
+				window.location.href = "./publish_frm.html?type=1";
+			}
+			
+			// 打开疫情发布页面
+			function fnOpenYqfbInfo(){
+				window.location.href = "./publish_frm.html?type=2";
+			}
+			
+			// 打开社区人员统计信息发布页面
+			function fnOpenSqtjInfo(){
+				window.location.href = "./publish_frm.html?type=3";
 			}
 
 			// 获取社区公告信息
@@ -295,6 +350,7 @@
 						if (result.state != undefined && result.state == true) {
 							var data = result.lastZh;
 							vue.$data.userData = data;
+							vue.$data.estateName = data.XQMM;
 						} else {
 							// 失败
 							$.toast("失败！", 'cancel');
