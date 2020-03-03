@@ -81,6 +81,7 @@
 .building_check {
 	padding-top: 2px;
 	padding-left: 15px;
+	padding-bottom: 4px;
 	height: 48px;
 	line-height: 48px;
 	font-size: 20px;
@@ -88,8 +89,15 @@
 	color: #2B63FF;
 	display: flex;
 	display: -webkit-flex;
-	align-items: center;
-	-webkit-align-items: center;
+	align-items: flex-end;
+	-webkit-align-items: flex-end;
+}
+.sub_text {
+	color: #555555;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 42px;
+	padding-left: 8px;
 }
 .icon_check {
 	padding-left: 8px;

@@ -5,7 +5,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
-		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<meta name="format-detection" content="telephone=yes,email=no,date=no,address=no">
 		<title>居民信息</title>
 		<!-- 引入 jquery-weui -->
 		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
@@ -29,6 +29,9 @@
 				overflow: hidden;
 				text-overflow: ellipsis;
 			}
+			.hidden_box {
+				display: none;
+			}
 		</style>
 	</head>
 	<body ontouchstart>
@@ -42,7 +45,7 @@
 		<div class="container" id="container">
 			<div class="main_box">
 				<div class="estate_title">
-					十堰市白浪小区
+					{{estateName}}
 				</div>
 				<div class="estate_sub_info">
 					小区总计{{ldList.length}}栋楼，7层，4单元，一单元2户
@@ -51,6 +54,7 @@
 					<div class="building_check" @click="fnChangeLd()">
 						{{ld}}号楼
 						<div class="icon_check"></div>
+						<span class="sub_text"> ( {{dataList.length}}户 )</span>
 					</div>
 					<div class="col_data col_blue">
 						<div class="col_item col_1">房号</div>
@@ -62,19 +66,22 @@
 							<div class="col_data">
 								<div class="col_item col_1">{{item.dyxx}}-{{item.lcxx}}-{{item.mh}}</div>
 								<div class="col_item col_2_c">{{item.xm}}</div>
-								<div class="col_item col_3">{{item.lxdh==null?'--':item.lxdh}}</div>
+								<div class="col_item col_3" @click="fnCallTel(item.lxdh)">{{item.lxdh==null?'--':item.lxdh}}</div>
 							</div>
 						</template>
 						<template v-else>
 							<div class="col_data col_blue">
 								<div class="col_item col_1">{{item.dyxx}}-{{item.lcxx}}-{{item.mh}}</div>
 								<div class="col_item col_2_c">{{item.xm}}</div>
-								<div class="col_item col_3">{{item.lxdh==null?'--':item.lxdh}}</div>
+								<div class="col_item col_3" @click="fnCallTel(item.lxdh)">{{item.lxdh==null?'--':item.lxdh}}</div>
 							</div>
 						</template>
 					</template>
 				</div>
 			</div>
+		</div>
+		<div class="hidden_box">
+			<a href="" id="callId">1</a>
 		</div>
 		<script type="text/javascript" src="../js/url.js" charset="utf-8"></script>
 		<script type="text/javascript" src="../js/vue.js" charset="utf-8"></script>
@@ -95,12 +102,14 @@
 			var vue = new Vue({
 				el: '#container',
 				data: {
+					estateName: '二机电一生活区',
 					ldList: [],
 					ld: '',
 					dataList: []
 				},
 				methods: {
-					fnChangeLd: fnChangeLd
+					fnChangeLd: fnChangeLd,
+					fnCallTel: fnCallTel
 				}
 			});
 			
@@ -108,6 +117,15 @@
 				// 获取楼栋信息
 				fnGetLdInfo();
 			});
+			
+			// 拨打电话
+			function fnCallTel(callNo){
+				if(callNo == '--'){
+					return;
+				}
+				$("#callId").attr("href", "tel:"+callNo);
+				$("#callId")[0].click();
+			}
 			
 			// 选择楼栋
 			function fnChangeLd(){

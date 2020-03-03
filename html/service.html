@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
-		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<meta name="format-detection" content="telephone=yes,email=no,date=no,address=no">
 		<title>便民服务</title>
 		<!-- 引入 jquery-weui -->
 		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
@@ -116,6 +116,9 @@
 					height: 20px;
 				}
 			}
+			.hidden_box {
+				display: none;
+			}
 		</style>
 	</head>
 	<body>
@@ -132,10 +135,10 @@
 				</div>
 				<div class="phone">
 					<span>联系电话:</span>
-					<span>18039115857</span>
+					<span>13872759352</span>
 				</div>
 			</div>
-			<div class="right center">
+			<div class="right center" onclick="fnCallTel('13872759352')">
 				<img src="../img/service/scgy.png" alt="">
 				<div class="call">
 					<img src="../img/service/dh.png" >
@@ -152,10 +155,10 @@
 				</div>
 				<div class="phone">
 					<span>联系电话:</span>
-					<span>18039115857</span>
+					<span>13636181848</span>
 				</div>
 			</div>
-			<div class="right center">
+			<div class="right center" onclick="fnCallTel(1)">
 				<img src="../img/service/ylsy.png" alt="">
 				<div class="call">
 					<img src="../img/service/dh.png" >
@@ -172,16 +175,19 @@
 				</div>
 				<div class="phone">
 					<span>联系电话:</span>
-					<span>18039115857</span>
+					<span>18527882868</span>
 				</div>
 			</div>
-			<div class="right center">
+			<div class="right center" onclick="fnCallTel(1)">
 				<img src="../img/service/mq.png" alt="">
 				<div class="call">
 					<img src="../img/service/dh.png" >
 					<span>拨打电话</span>
 				</div>
 			</div>
+		</div>
+		<div class="hidden_box">
+			<a href="" id="callId">1</a>
 		</div>
 	</body>
 	<script type="text/javascript" src="../js/jquery-1.12.4-min.js" charset="utf-8"></script>
@@ -193,6 +199,11 @@
 		// 返回
 		function fnGoBack(){
 			window.top.history.back();
+		}
+		// 拨打电话
+		function fnCallTel(callNo){
+			$("#callId").attr("href", "tel:"+callNo);
+			$("#callId")[0].click();
 		}
 	</script>
 </html>

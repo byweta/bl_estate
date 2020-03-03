@@ -1,6 +1,7 @@
 var dataList = [
 	{
 		ld: '13号楼',
+		zhs: '28',
 		ldzList: [
 			{
 				name:"王小玲",
@@ -11,10 +12,6 @@ var dataList = [
 				addr:"2单元401室",
 				phone:"13997849562"
 			}, {
-				name:"张斌 ", 
-				addr:"2单元402室",
-				phone:"13907186579"
-			}, {
 				name:"郑玉梅",
 				addr:"3单元201室",
 				phone:"13297155450"
@@ -23,19 +20,22 @@ var dataList = [
 				addr:"4单元202室",
 				phone:"15571953668"
 			}, {
-				name:"王亚光",
-				addr:"5单元301室",
-				phone:"13117101615"
+				name:"岳保树",
+				addr:"5单元201室",
+				phone:"13035254897"
 			}, {
-				name:"谢显志",
+				name:"胡元群",
 				addr:"6单元401室",
-				phone:"13451264148"
+				phone:"15342703041"
 			}
 		],
 		zyzList: [
 			{
 				name: '王显江',
 				phone: '13197290504'
+			}, {
+				name: '张斌',
+				phone: '13907186579'
 			}
 		],
 		gridList: [
@@ -49,6 +49,7 @@ var dataList = [
 		]
 	}, {
 		ld: '14号楼',
+		zhs: '28',
 		ldzList: [
 			{
 				name: "王贤庆",
@@ -59,31 +60,26 @@ var dataList = [
 				addr: "2单元402室",
 				phone: "13135724767"
 			},{
-				name: "王洪艳",
-				addr: "3单元502室",
-				phone: "15007290152"
-			},{
-				name: "黄永红",
-				addr: "4单元101室",
-				phone: "13517267155"
-			},{
 				name: "刘晓翠",
 				addr: "5单元101室",
 				phone: "13972507057"
 			},{
-				name: "顾正强",
-				addr: "6单元202室",
-				phone: "13636200611"
+				name: "张兆勇",
+				addr: "6单元402室",
+				phone: "13297186623"
 			},{
-				name: "刘坤 ",
-				addr: "7单元502室",
-				phone: "13339866144"
+				name: "顾春金",
+				addr: "7单元302室",
+				phone: "13617196879"
 			}
 		],
 		zyzList: [
 			{
 				name: '刘洋',
 				phone: '13593761951'
+			}, {
+				name: '张本成',
+				phone: '13636193398'
 			}
 		],
 		gridList: [
@@ -97,16 +93,9 @@ var dataList = [
 		]
 	}, {
 		ld: '15号楼',
+		zhs: '31',
 		ldzList: [
 			{
-				name: "高朝贵",
-				addr: "1单元201室",
-				phone: "18971923846"
-			},{
-				name: "刘志武",
-				addr: "2单元201室",
-				phone: "8313337"
-			},{
 				name: "张立春",
 				addr: "3单元501室",
 				phone: "18872911819"
@@ -118,20 +107,19 @@ var dataList = [
 				name: "刘芬",
 				addr: "5单元302室",
 				phone: "13177451481"
-			},{
-				name: "李国强",
-				addr: "6单元101室",
-				phone: "13593773828"
-			},{
-				name: "关阿姨",
+			}, {
+				name: '郭阿姨',
 				addr: "7单元101室",
-				phone: "13636193398"
+				phone: '13264882721'
 			}
 		],
 		zyzList: [
 			{
 				name: '赵鲜华',
 				phone: '13477315648'
+			}, {
+				name: '郭阿姨',
+				phone: '13264882721'
 			}
 		],
 		gridList: [
@@ -145,6 +133,7 @@ var dataList = [
 		]
 	}, {
 		ld: '16号楼',
+		zhs: '15',
 		ldzList: [
 			{
 				name: "王阳 ",
@@ -155,7 +144,11 @@ var dataList = [
 				addr: "2单元502室",
 				phone: "18694075989"
 			}, {
-				name: "薛超 ",
+				name: "陈雪芸",
+				addr: "3单元301室",
+				phone: "18602769339"
+			}, {
+				name: "薛超",
 				addr: "4单元401室",
 				phone: "13872759352"
 			}, {
@@ -181,6 +174,7 @@ var dataList = [
 		]
 	}, {
 		ld: '17号楼',
+		zhs: '18',
 		ldzList: [
 			{
 				name: "赵长忠",
@@ -213,12 +207,9 @@ var dataList = [
 		]
 	}, {
 		ld: '18号楼',
+		zhs: '17',
 		ldzList: [
 			{
-				name: "陈东胜",
-				addr: "1单元402室",
-				phone: "15717283856"
-			}, {
 				name: "冯丽萍",
 				addr: "2单元503室",
 				phone: "13733554064"
@@ -245,12 +236,9 @@ var dataList = [
 		]
 	}, {
 		ld: '19号楼',
+		zhs: '10',
 		ldzList: [
 			{
-				name: "王绍兰",
-				addr: "1单元301室",
-				phone: "18771091451"
-			}, {
 				name: "石宝河",
 				addr: "2单元401室",
 				phone: "13227606710"
@@ -258,10 +246,35 @@ var dataList = [
 				name: "张林 ",
 				addr: "3单元402室",
 				phone: "13297161859"
+			}
+		],
+		zyzList: [
+			{
+				name: '陈雪芸',
+				phone: '18602769339'
+			}
+		],
+		gridList: [
+			{
+				name: '赵鲜华',
+				job: '信业物业公司'
+			},{
+				name: '杨光',
+				job: '白浪街办干部'
+			}
+		]
+	}, {
+		ld: '20号楼',
+		zhs: '19',
+		ldzList: [
+			{
+				name: "杨改",
+				addr: "1单元405室",
+				phone: "13508682419"
 			}, {
-				name: "李栓紧",
-				addr: "4单元302室",
-				phone: "13886818729"
+				name: "刘红卫",
+				addr: "3单元304室",
+				phone: "13733590304"
 			}
 		],
 		zyzList: [
@@ -280,39 +293,8 @@ var dataList = [
 			}
 		]
 	}, {
-		ld: '20号楼',
-		ldzList: [
-			{
-				name: "黄仁慧",
-				addr: "1单元102室",
-				phone: "15897889492"
-			}, {
-				name: "张改 ",
-				addr: "2单元405室",
-				phone: "13508682419"
-			}, {
-				name: "刘红卫",
-				addr: "3单元304室",
-				phone: "13733590304"
-			}
-		],
-		zyzList: [
-			{
-				name: '刘秀华',
-				phone: '13986886805'
-			}
-		],
-		gridList: [
-			{
-				name: '赵鲜华',
-				job: '信业物业公司'
-			},{
-				name: '杨光',
-				job: '白浪街办干部'
-			}
-		]
-	}, {
 		ld: '25号楼',
+		zhs: '21',
 		ldzList: [
 			{
 				name: "任淑清",
@@ -323,15 +305,18 @@ var dataList = [
 				addr: "2单元401室",
 				phone: "13986899458"
 			}, {
-				name: "王卿 ",
-				addr: "3单元102室",
-				phone: "13669091522"
+				name: "江向东",
+				addr: "4单元602室",
+				phone: "13636257898"
 			}
 		],
 		zyzList: [
 			{
-				name: '戚静',
-				phone: '18696052828'
+				name: '赵鲜华',
+				phone: '13477315648'
+			}, {
+				name: '赵胜利',
+				phone: '13986899458'
 			}
 		],
 		gridList: [
@@ -345,6 +330,7 @@ var dataList = [
 		]
 	}, {
 		ld: '26号楼',
+		zhs: '28',
 		ldzList: [
 			{
 				name: "祝保利",
@@ -368,6 +354,10 @@ var dataList = [
 			{
 				name: '关凤明',
 				phone: '18872044903'
+			}, {
+				name: "王显江",
+				addr: "4单元602室",
+				phone: "13135715573"
 			}
 		],
 		gridList: [

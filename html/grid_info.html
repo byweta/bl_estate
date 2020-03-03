@@ -5,7 +5,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
-		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<meta name="format-detection" content="telephone=yes,email=no,date=no,address=no">
 		<title>网格员</title>
 		<!-- 引入 jquery-weui -->
 		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
@@ -28,6 +28,9 @@
 				overflow: hidden;
 				text-overflow: ellipsis;
 			}
+			.hidden_box {
+				display: none;
+			}
 		</style>
 	</head>
 	<body ontouchstart>
@@ -46,16 +49,17 @@
 				<div class="estate_title estate_title_1">
 					二机电一生活区治理小网格组织构架
 				</div>
-				<div class="estate_sub_info">
+				<!-- <div class="estate_sub_info">
 					白浪街道马路社区 (党组织书记胡云霞 13329859981)
-				</div>
+				</div> -->
 				<template v-for="(data, di) in dataList">
 					<div class="data_grid">
 						<div class="building_check">
-							{{data.ld}}
+							{{data.ld}} 
+							<span class="sub_text"> ( {{data.zhs}}户 )</span>
 						</div>
 						<!-- 网格党小组 -->
-						<div class="grid_item_title">
+						<!-- <div class="grid_item_title">
 							<div class="icon_grid"></div>
 							<div class="grid_title_text">网格党小组</div>
 						</div>
@@ -77,6 +81,26 @@
 								</div>
 							</template>
 						</template>
+						<div class="under_line"></div> -->
+						<!-- 志愿者 -->
+						<div class="grid_item_title">
+							<div class="icon_grid"></div>
+							<div class="grid_title_text">志愿者</div>
+						</div>
+						<template v-for="(ldz, ldzi) in data.zyzList">
+							<template v-if="ldzi % 2 == 0">
+								<div class="col_data col_blue">
+									<div class="col_item col_1">{{ldz.name}}</div>
+									<div class="col_item col_2" @click="fnCallTel(ldz.phone)">{{ldz.phone}}</div>
+								</div>
+							</template>
+							<template v-else>
+								<div class="col_data">
+									<div class="col_item col_1">{{ldz.name}}</div>
+									<div class="col_item col_2" @click="fnCallTel(ldz.phone)">{{ldz.phone}}</div>
+								</div>
+							</template>
+						</template>
 						<div class="under_line"></div>
 						<!-- 楼栋长 -->
 						<div class="grid_item_title">
@@ -92,35 +116,15 @@
 							<template v-if="zyzi % 2 == 0">
 								<div class="col_data">
 									<div class="col_item col_2_1">{{zyz.name}}</div>
-									<div class="col_item col_2_2">{{zyz.phone}}</div>
+									<div class="col_item col_2_2" @click="fnCallTel(zyz.phone)">{{zyz.phone}}</div>
 									<div class="col_item col_2_3">{{zyz.addr}}</div>
 								</div>
 							</template>
 							<template v-else>
 								<div class="col_data col_blue">
 									<div class="col_item col_2_1">{{zyz.name}}</div>
-									<div class="col_item col_2_2">{{zyz.phone}}</div>
+									<div class="col_item col_2_2" @click="fnCallTel(zyz.phone)">{{zyz.phone}}</div>
 									<div class="col_item col_2_3">{{zyz.addr}}</div>
-								</div>
-							</template>
-						</template>
-						<div class="under_line"></div>
-						<!-- 志愿者 -->
-						<div class="grid_item_title">
-							<div class="icon_grid"></div>
-							<div class="grid_title_text">志愿者</div>
-						</div>
-						<template v-for="(ldz, ldzi) in data.zyzList">
-							<template v-if="ldzi % 2 == 0">
-								<div class="col_data col_blue">
-									<div class="col_item col_1">{{ldz.name}}</div>
-									<div class="col_item col_2">{{ldz.phone}}</div>
-								</div>
-							</template>
-							<template v-else>
-								<div class="col_data">
-									<div class="col_item col_1">{{ldz.name}}</div>
-									<div class="col_item col_2">{{ldz.phone}}</div>
 								</div>
 							</template>
 						</template>
@@ -128,6 +132,9 @@
 					</div>
 				</template>
 			</div>
+		</div>
+		<div class="hidden_box">
+			<a href="" id="callId">1</a>
 		</div>
 		<script type="text/javascript" src="../js/url.js" charset="utf-8"></script>
 		<script type="text/javascript" src="../js/vue.js" charset="utf-8"></script>
@@ -149,12 +156,19 @@
 					dataList: dataList
 				},
 				methods: {
+					fnCallTel: fnCallTel
 				}
 			});
 			
 			$(function() {
 				
 			});
+			
+			// 拨打电话
+			function fnCallTel(callNo){
+				$("#callId").attr("href", "tel:"+callNo);
+				$("#callId")[0].click();
+			}
 			
 			// 返回
 			function fnGoBack(){

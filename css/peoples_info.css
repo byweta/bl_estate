@@ -86,8 +86,8 @@
 	color: #2B63FF;
 	display: flex;
 	display: -webkit-flex;
-	align-items: center;
-	-webkit-align-items: center;
+	align-items: flex-end;
+	-webkit-align-items: flex-end;
 }
 .icon_check {
 	padding-left: 8px;
@@ -96,6 +96,13 @@
 	height: 40px;
 	background: url(../img/people_ui/icon_blue_down.png) center no-repeat;
 	background-size: 10px;
+}
+.sub_text {
+	color: #555555;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 42px;
+	padding-left: 8px;
 }
 .col_data {
 	display: flex;
