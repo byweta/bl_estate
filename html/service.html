@@ -119,6 +119,13 @@
 			.hidden_box {
 				display: none;
 			}
+			.fuwuka_temp {
+				margin-top: 10px;
+			}
+			.fuwuka_temp img {
+				width: 100%;
+				height: auto;
+			}
 		</style>
 	</head>
 	<body>
@@ -186,6 +193,9 @@
 				</div>
 			</div>
 		</div>
+		<div class="fuwuka_temp" onclick="fnOpenBigImg();">
+			<img src="../img/fuwuka.png" >
+		</div>
 		<div class="hidden_box">
 			<a href="" id="callId">1</a>
 		</div>
@@ -204,6 +214,10 @@
 		function fnCallTel(callNo){
 			$("#callId").attr("href", "tel:"+callNo);
 			$("#callId")[0].click();
+		}
+		
+		function fnOpenBigImg(){
+			window.top.location = "../img/fuwuka.png";
 		}
 	</script>
 </html>

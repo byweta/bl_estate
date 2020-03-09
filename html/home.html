@@ -10,7 +10,7 @@
 		<!-- 引入 jquery-weui -->
 		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
 		<link rel="stylesheet" type="text/css" href="../css/jqweui/jquery-weui.css">
-		<link rel="stylesheet" type="text/css" href="../css/home.css" />
+		<link rel="stylesheet" type="text/css" href="http://59.108.92.198:9006/app/sqgl/blEstate/css/home.css?v=1" />
 		<link rel="stylesheet" type="text/css" href="../css/swiper.min.css" />
 		<style type="text/css">
 			body,
@@ -85,6 +85,32 @@
 						</div>
 					</div>
 				</div>
+				<div class="big_menu">
+					<div class="menu_item" onclick="fnOpenVolunteer();">
+						<div class="icon_menu icon_menu_4"></div>
+						<div class="menu_text">
+							志愿者
+						</div>
+					</div>
+					<div class="menu_item" onclick="fnOpenOnDuty();">
+						<div class="icon_menu icon_menu_5"></div>
+						<div class="menu_text">
+							值班表
+						</div>
+					</div>
+					<div class="menu_item" onclick="fnOpenQzdj();">
+						<div class="icon_menu icon_menu_6"></div>
+						<div class="menu_text">
+							求职登记
+						</div>
+					</div>
+					<div class="menu_item" onclick="fnOpenGzh();">
+						<div class="icon_menu icon_menu_7"></div>
+						<div class="menu_text">
+							公众号
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="split_line"></div>
 			<div class="msg_module" @click="fnOpenNotice()">
@@ -113,12 +139,14 @@
 							<div class="item_col_change">较昨日+0</div>
 						</div>
 						<div class="data_box">
-							<div class="item_col_name">疑似病例</div>
+							<!-- <div class="item_col_name">疑似病例</div> -->
+							<div class="item_col_name">返汉人员</div>
 							<div class="item_col_data data_color_1">{{yqData.YSBL}}</div>
 							<div class="item_col_change">较昨日+0</div>
 						</div>
 						<div class="data_box">
-							<div class="item_col_name">治愈病例</div>
+							<!-- <div class="item_col_name">治愈病例</div> -->
+							<div class="item_col_name">密切接触</div>
 							<div class="item_col_data data_color_2">{{yqData.ZYBL}}</div>
 							<div class="item_col_change">较昨日+0</div>
 						</div>
@@ -140,17 +168,20 @@
 							<div class="item_col_data data_color_1">{{userData.ZHSL}}</div>
 						</div>
 						<div class="data_box">
-							<div class="item_col_name">外来人员</div>
+							<!-- <div class="item_col_name">外来人员</div> -->
+							<div class="item_col_name">单元</div>
 							<div class="item_col_data data_color_2">{{userData.WLRL}}</div>
 						</div>
 					</div>
 					<div class="data_boxs data_boxs_2">
 						<div class="data_box">
-							<div class="item_col_name">隔离人员</div>
+							<!-- <div class="item_col_name">隔离人员</div> -->
+							<div class="item_col_name">现住户</div>
 							<div class="item_col_data data_color_3">{{userData.GLSL}}</div>
 						</div>
 						<div class="data_box">
-							<div class="item_col_name">解除隔离人员</div>
+							<!-- <div class="item_col_name">解除隔离人员</div> -->
+							<div class="item_col_name">现住人数</div>
 							<div class="item_col_data data_color_4">{{userData.JCGL}}</div>
 						</div>
 						<div class="data_box">
@@ -299,6 +330,26 @@
 				window.location.href = "./publish_frm.html?type=3";
 			}
 
+			// 打开志愿者页面
+			function fnOpenVolunteer(){
+				window.location.href = "./volunteer_info.html";
+			}
+			
+			// 打开值班表页面
+			function fnOpenOnDuty(){
+				window.location.href = "./on_duty_info.html";
+			}
+			
+			// 打开求职登记页面
+			function fnOpenQzdj(){
+				window.location.href = "./publish_frm.html?type=5";
+			}
+			
+			// 打开公众号页面
+			function fnOpenGzh(){
+				window.location.href = "./wx_public_account.html";
+			}
+			
 			// 获取社区公告信息
 			function fnGetNoticeInfo() {
 				$.showLoading();

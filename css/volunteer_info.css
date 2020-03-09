@@ -1,0 +1,96 @@
+/* 顶部导航 -- start */
+.nav_header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	background-color: #FFFFFF;
+	display: flex;
+	display: -webkit-flex;
+	align-items: center;
+	-webkit-align-items: center;
+}
+.icon_nav_left {
+	width: 50px;
+	min-width: 50px;
+	height: 50px;
+	background: url(../img/home_ui/nav_back.png) center no-repeat;
+	background-size: 24px;
+}
+.nav_title {
+	width: 100%;
+	text-align: center;
+	font-size: 16px;
+	font-weight: 700;
+	color: #1F1F1F;
+}
+.icon_nav_right {
+	width: 50px;
+	min-width: 50px;
+	height: 50px;
+}
+.nav_header_hidden {
+	height: 50px;
+}
+/* 顶部导航 -- end */
+/* 主体区域 -- start */
+.container {
+	height: calc(100% - 50px);
+	height: -webkit-calc(100% - 50px);
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#5f74fc+0,70a1fe+100 */
+	background: #5f74fc; /* Old browsers */
+	background: -moz-linear-gradient(top,  #5f74fc 0%, #70a1fe 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top,  #5f74fc 0%,#70a1fe 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom,  #5f74fc 0%,#70a1fe 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5f74fc', endColorstr='#70a1fe',GradientType=0 ); /* IE6-9 */
+}
+.main_box {
+	height: 100%;
+	background: url(../img/people_ui/bg_jmxx.png) top no-repeat;
+	background-size: 100%;
+	overflow: auto;
+}
+/* 楼栋信息 */
+.estate_title {
+	padding: 25px 15px 0 15px;
+	font-size: 18px;
+	font-weight: 700;
+	color: #FFFFFF;
+	height: 36px;
+	line-height: 36px;
+}
+/* 志愿者及职责信息 */
+.volunteer_bar {
+	padding: 10px 15px;
+}
+.volunteer_box {
+	
+}
+.volunteer_item {
+	margin-bottom: 12px;
+	background-color: #FFFFFF;
+	border-radius: 4px;
+	color: #333333;
+	padding: 8px 10px;
+}
+.volunteer_job {
+	font-size: 15px;
+	font-weight: 700;
+	color: #007AFF;
+}
+.volunteer_info {
+	padding: 5px 0;
+	font-size: 14px;
+}
+.volunteer_phone {
+	padding: 0 15px;
+	color: #007AFF;
+}
+.volunteer_duty {
+	font-size: 14px;
+	line-height: 22px;
+}
+
+/* 主体区域 -- end */

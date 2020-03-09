@@ -85,6 +85,32 @@
 						</div>
 					</div>
 				</div>
+				<div class="big_menu">
+					<div class="menu_item" onclick="fnOpenVolunteer();">
+						<div class="icon_menu icon_menu_0"></div>
+						<div class="menu_text">
+							志愿者
+						</div>
+					</div>
+					<div class="menu_item" onclick="fnOpenOnDuty();">
+						<div class="icon_menu icon_menu_1"></div>
+						<div class="menu_text">
+							值班表
+						</div>
+					</div>
+					<div class="menu_item" onclick="fnOpenQzdj();">
+						<div class="icon_menu icon_menu_2"></div>
+						<div class="menu_text">
+							求职登记
+						</div>
+					</div>
+					<div class="menu_item" onclick="fnOpenGzh();">
+						<div class="icon_menu icon_menu_3"></div>
+						<div class="menu_text">
+							公众号
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="split_line"></div>
 			<div class="msg_module" @click="fnOpenNotice()">
@@ -290,6 +316,26 @@
 			// 打开新闻发布页面
 			function fnOpenIndex(){
 				window.location.href = "./home.html";
+			}
+			
+			// 打开志愿者页面
+			function fnOpenVolunteer(){
+				window.location.href = "./volunteer_info.html";
+			}
+			
+			// 打开值班表页面
+			function fnOpenOnDuty(){
+				window.location.href = "./on_duty_info.html";
+			}
+			
+			// 打开求职登记页面
+			function fnOpenQzdj(){
+				window.location.href = "./publish_frm.html?type=5";
+			}
+			
+			// 打开公众号页面
+			function fnOpenGzh(){
+				window.location.href = "./wx_public_account.html";
 			}
 
 			// 获取社区公告信息

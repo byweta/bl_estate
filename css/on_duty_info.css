@@ -1,0 +1,169 @@
+/* 顶部导航 -- start */
+.nav_header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	background-color: #FFFFFF;
+	display: flex;
+	display: -webkit-flex;
+	align-items: center;
+	-webkit-align-items: center;
+}
+.icon_nav_left {
+	width: 50px;
+	min-width: 50px;
+	height: 50px;
+	background: url(../img/home_ui/nav_back.png) center no-repeat;
+	background-size: 24px;
+}
+.nav_title {
+	width: 100%;
+	text-align: center;
+	font-size: 16px;
+	font-weight: 700;
+	color: #1F1F1F;
+}
+.icon_nav_right {
+	width: 50px;
+	min-width: 50px;
+	height: 50px;
+}
+.nav_header_hidden {
+	height: 50px;
+}
+/* 顶部导航 -- end */
+/* 主体区域 -- start */
+.container {
+	height: calc(100% - 50px);
+	height: -webkit-calc(100% - 50px);
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#5f74fc+0,70a1fe+100 */
+	background: #5f74fc; /* Old browsers */
+	background: -moz-linear-gradient(top,  #5f74fc 0%, #70a1fe 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top,  #5f74fc 0%,#70a1fe 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom,  #5f74fc 0%,#70a1fe 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5f74fc', endColorstr='#70a1fe',GradientType=0 ); /* IE6-9 */
+}
+.main_box {
+	height: 100%;
+	background: url(../img/people_ui/bg_jmxx.png) top no-repeat;
+	background-size: 100%;
+	overflow: auto;
+}
+/* 楼栋信息 */
+.estate_title {
+	padding: 25px 15px 0 15px;
+	font-size: 18px;
+	font-weight: 700;
+	color: #FFFFFF;
+	height: 36px;
+	line-height: 36px;
+}
+.estate_title_1 {
+	padding-top: 10px;
+}
+/* 值班信息 */
+/* 值班部门 */
+.dept_bar {
+	padding: 10px 15px;
+}
+.dept_box {
+	padding: 8px 15px;
+	padding-top: 15px;
+	background-color: #FFFFFF;
+	border-radius: 4px;
+	color: #333333;
+}
+.dept_item {
+	font-size: 13px;
+	padding: 8px 0;
+	border-bottom: 1px solid #E5ECFF;
+	display: flex;
+	-webkit-display: flex;
+	align-items: center;
+	-webkit-align-items: center;
+}
+.dept_name {
+	display: inline-block;
+	width: 50%;
+	color: #007AFF;
+}
+.dept_user_name {
+	display: inline-block;
+	width: 40%;
+}
+
+/* 值班人员 */
+.user_bar {
+	padding: 10px 15px;
+}
+.user_box {
+	padding: 8px 15px;
+	padding-top: 15px;
+	background-color: #FFFFFF;
+	border-radius: 4px;
+	color: #333333;
+}
+.user_box_n {
+	margin-top: 8px;
+}
+.on_duty_time {
+	display: flex;
+	display: -webkit-flex;
+	justify-content: center;
+	-webkit-justify-content: center;
+	align-items: center;
+	-webkit-align-items: center;
+	background-color: #E5ECFF;
+	font-size: 15px;
+}
+.time_title {
+	width: 120px;
+	min-width: 120px;
+	padding-left: 5px;
+}
+.time_text {
+	width: 100%;
+	text-align: center;
+}
+.day_type {
+	font-size: 14px;
+	line-height: 20px;
+}
+.day_time {
+	font-size: 12px;
+	color: #007AFF;
+	line-height: 16px;
+}
+.on_duty_item {
+	border-bottom: 1px solid #E5ECFF;
+	display: flex;
+	display: -webkit-flex;
+	justify-content: center;
+	-webkit-justify-content: center;
+	align-items: center;
+	-webkit-align-items: center;
+	font-size: 14px;
+	color: #333333;
+	padding: 5px 0;
+}
+.duty_dept {
+	width: 120px;
+	min-width: 120px;
+	padding: 8px 0 8px 5px;
+}
+.dept_duty_user {
+	width: 100%;
+	text-align: center;
+}
+.line_num {
+	font-size: 12px;
+	color: #007AFF;
+}
+.phone_num {
+	font-size: 12px;
+	color: #007AFF;
+}
+/* 主体区域 -- end */

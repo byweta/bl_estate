@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- author：王朝贤 / createTime：2020年3月9日 -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>公众号</title>
+		<!-- 引入 jquery-weui -->
+		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/jqweui/jquery-weui.css">
+		<link rel="stylesheet" type="text/css" href="../css/wx_public_account.css" />
+		<style type="text/css">
+			body,
+			html {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				-webkit-tap-highlight-color: transparent;
+				background-color: #F7F7F7;
+				position: relative;
+			}
+
+			/* 超出单行显示省略号 */
+			.line_ellipsis {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		</style>
+	</head>
+	<body ontouchstart>
+		<div class="nav_header">
+			<div class="icon_nav_left" onclick="fnGoBack()"></div>
+			<div class="nav_title" id="titleId">公众号</div>
+			<div class="icon_nav_right"></div>
+		</div>
+		<div class="nav_header_hidden">
+		</div>
+		<div class="container" id="container">
+			<div class="gzh_item" id="gzh1" data-clipboard-text="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MjM5MzIyMzU0OA==&scene=124#wechat_redirect">
+				<div class="icon_gzh icon_gzh_1">
+					
+				</div>
+				<div class="gzh_info">
+					<div class="gzh_name">
+						十堰发布
+					</div>
+					<div class="gzh_sub">
+						十堰政府网，宣传十堰、服务市民，政府权威信息发布，网上问政快速回应。
+					</div>
+				</div>
+			</div>
+			<div class="gzh_item" id="gzh2" data-clipboard-text="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA4MDM1NzU4OA==&scene=124#wechat_redirect">
+				<div class="icon_gzh icon_gzh_2">
+					
+				</div>
+				<div class="gzh_info">
+					<div class="gzh_name">
+						十堰经开区
+					</div>
+					<div class="gzh_sub">
+						国家级十堰经济技术开发区欢迎您！
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/url.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/vue.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/common.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/jquery-1.12.4-min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/fastclick.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				FastClick.attach(document.body);
+			})
+		</script>
+		<script type="text/javascript" src="../js/jqweui/jquery-weui.min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/clipboard.min.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			var clipboard = new ClipboardJS('#gzh1');
+			clipboard.on('success', function(e) {
+				e.clearSelection();
+				//复制成功
+				$.toast("复制成功！<br />请在微信客户端打开链接。", "text");
+			});
+			clipboard.on('error', function(e) {
+				//复制失败
+			});
+			var clipboard2 = new ClipboardJS('#gzh2');
+			clipboard2.on('success', function(e) {
+				e.clearSelection();
+				//复制成功
+				$.toast("复制成功！<br />请在微信客户端打开链接。", "text");
+			});
+			clipboard2.on('error', function(e) {
+				//复制失败
+			});
+
+			
+			$(function() {
+			});
+			
+			// 返回
+			function fnGoBack(){
+				window.top.history.back();
+			}
+			
+			function fnOpenGzh(index){
+				var wx_url = '', wx_name = '';
+				if(index == 1){
+					wx_name = '十堰发布';
+					wx_url = 'https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MjM5MzIyMzU0OA==&scene=124#wechat_redirect';
+				} else {
+					wx_name = '十堰经开区';
+					wx_url = 'https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA4MDM1NzU4OA==&scene=124#wechat_redirect';
+				}
+				// window.location.href = wx_url;
+				$.toast("已复制，请在微信客户端打开链接。")
+				window.clipboardData.setData("Text", wx_url);
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- author：王朝贤 / createTime：2020年3月9日 -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=yes,email=no,date=no,address=no">
+		<title>抗疫志愿服务队</title>
+		<!-- 引入 jquery-weui -->
+		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/jqweui/jquery-weui.css">
+		<link rel="stylesheet" type="text/css" href="../css/volunteer_info.css" />
+		<style type="text/css">
+			body,
+			html {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				-webkit-tap-highlight-color: transparent;
+				background-color: #F7F7F7;
+				position: relative;
+			}
+
+			/* 超出单行显示省略号 */
+			.line_ellipsis {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			.hidden_box {
+				display: none;
+			}
+		</style>
+	</head>
+	<body ontouchstart>
+		<div class="nav_header">
+			<div class="icon_nav_left" onclick="fnGoBack()"></div>
+			<div class="nav_title">抗疫志愿服务队党支部</div>
+			<div class="icon_nav_right"></div>
+		</div>
+		<div class="nav_header_hidden">
+		</div>
+		<div class="container" id="container">
+			<div class="main_box">
+				<div class="estate_title">
+					{{estateName}}
+				</div>
+				<div class="volunteer_bar">
+					<div class="volunteer_box">
+						<template v-for="(item, index) in dataList">
+							<div class="volunteer_item">
+								<div class="volunteer_job">
+									{{item.job}}
+								</div>
+								<div class="volunteer_info">
+									<span class="volunteer_name">{{item.name}}</span>
+									<span class="volunteer_phone" @click="fnCallTel(item.phone)">{{item.phone}}</span>
+								</div>
+								<div class="volunteer_duty">
+									{{item.duty}}
+								</div>
+							</div>
+						</template>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="hidden_box">
+			<a href="" id="callId">1</a>
+		</div>
+		<script type="text/javascript" src="../js/url.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/vue.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/jquery-1.12.4-min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/fastclick.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				FastClick.attach(document.body);
+			})
+		</script>
+		<script type="text/javascript" src="../js/jqweui/jquery-weui.min.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			// 楼栋信息
+			var ldList = [];
+			var dataList = [{
+				job:'支部书记', 
+				name: '张华钢', 
+				phone: '13886815721',
+				duty: '负责二机电一生活区疫情防控工作。'
+			}, {
+				job:'副书记', 
+				name: '刘秀华', 
+				phone: '13986886805',
+				duty: '负责小区生活物资配送，和周边商超物资的联系协调，核检小区进出人员证件。'
+			}, {
+				job:'副书记', 
+				name: '郝云辉', 
+				phone: '15623020329',
+				duty: '负责本小区志愿者的招募、登记和管理，劝导小区闲逛人员。'
+			}, {
+				job:'委员', 
+				name: '韩小龙', 
+				phone: '18986909517',
+				duty: '负责小区安全稳定工作，对拒不配合封堵工作的人员依法依规进行处理。'
+			}, {
+				job:'委员', 
+				name: '关凤明', 
+				phone: '18872044903',
+				duty: '负责为小区居民配送蔬菜、粮食、药品等生活必须物资，为困难群众代购生活用品。'
+			}, {
+				job:'委员', 
+				name: '薛超', 
+				phone: '13872759352',
+				duty: '负责在小区内宣传上级有关疫情防控相关政策，维护物资配送秩序。'
+			}, {
+				job:'委员', 
+				name: '王显江', 
+				phone: '13197290504',
+				duty: '负责小区进出人员体温监测和重点区域的消杀工作。'
+			}, {
+				job:'委员', 
+				name: '陈雪芸', 
+				phone: '18602769339',
+				duty: '负责为小区居民进行心理安抚和引导，缓解负面情绪。'
+			}];
+			// 初始化双向绑定模型
+			var vue = new Vue({
+				el: '#container',
+				data: {
+					estateName: '抗疫志愿服务队临时党支部',
+					ldList: [],
+					ld: '',
+					dataList: dataList
+				},
+				methods: {
+					fnCallTel: fnCallTel
+				}
+			});
+			
+			$(function() {
+				// 获取楼栋信息
+				// fnGetLdInfo();
+			});
+			
+			// 拨打电话
+			function fnCallTel(callNo){
+				if(callNo == '--'){
+					return;
+				}
+				$("#callId").attr("href", "tel:"+callNo);
+				$("#callId")[0].click();
+			}
+			
+			// 选择楼栋
+			function fnChangeLd(){
+				setTimeout(function(){
+					oneOptionId = vue.$data.ld;
+					getOptionId(oneOptionId, function(checkOption) {
+						vue.$data.ld = checkOption.firstOptionId;
+						fnGetPeoplesInfo();
+					});
+				}, 500);
+			}
+			
+			// 返回
+			function fnGoBack(){
+				window.top.history.back();
+			}
+			
+			// 获取楼栋信息
+			function fnGetLdInfo() {
+				$.showLoading();
+				var url = mHost + mServerName + "/SQGL/getLouDongList";
+				var params = {
+				}
+				console.log("=== === >> 参数：" + JSON.stringify(params));
+				$.ajax({
+					type: "get",
+					url: url,
+					contentType: 'application/x-www-form-urlencoded',
+					data: params,
+					dataType: "jsonp",
+					success: function(result) {
+						$.hideLoading();
+						if (result.state != undefined && result.state == true) {
+							ldList = result.ldList;
+							vue.$data.ldList = ldList;
+							firstOptions = [];
+							for(var i=0; i<ldList.length; i++){
+								var item = ldList[i];
+								var c = {'id': item, 'value': item+'号楼', 'parentId': '0'}
+								firstOptions.push(c);
+							}
+							vue.$data.ld = ldList[0];
+							fnGetPeoplesInfo()
+						} else {
+							// 失败
+							$.toast("失败！", 'cancel');
+						}
+					},
+					error: function(jqXHR, textStatus) {
+						$.hideLoading();
+						$.toast("服务异常！", 'cancel')
+					}
+				});
+			}
+			
+			// 获取楼栋人员信息
+			function fnGetPeoplesInfo() {
+				$.showLoading();
+				var url = mHost + mServerName + "/SQGL/getSingelLDRYXXList";
+				var params = {
+					ld: vue.$data.ld
+				}
+				console.log("=== === >> 参数：" + JSON.stringify(params));
+				$.ajax({
+					type: "get",
+					url: url,
+					contentType: 'application/x-www-form-urlencoded',
+					data: params,
+					dataType: "jsonp",
+					success: function(result) {
+						$.hideLoading();
+						if (result.state != undefined && result.state == true) {
+							var data = result.ldzhList;
+							vue.dataList = [];
+							vue.dataList = data;
+						} else {
+							// 失败
+							$.toast("失败！", 'cancel');
+						}
+					},
+					error: function(jqXHR, textStatus) {
+						$.hideLoading();
+						$.toast("服务异常！", 'cancel')
+					}
+				});
+			}
+		</script>
+	</body>
+</html>
