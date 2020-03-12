@@ -6,11 +6,11 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
 		<meta name="format-detection" content="telephone=yes,email=no,date=no,address=no">
-		<title>疫情防控人员值班表</title>
+		<title>疫情防控志愿者值班表</title>
 		<!-- 引入 jquery-weui -->
 		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
 		<link rel="stylesheet" type="text/css" href="../css/jqweui/jquery-weui.css">
-		<link rel="stylesheet" type="text/css" href="../css/on_duty_info.css?v=1" />
+		<link rel="stylesheet" type="text/css" href="../css/vol_duty_info.css?v=1" />
 		<style type="text/css">
 			body,
 			html {
@@ -36,132 +36,38 @@
 	<body ontouchstart>
 		<div class="nav_header">
 			<div class="icon_nav_left" onclick="fnGoBack()"></div>
-			<div class="nav_title">疫情防控人员值班表</div>
+			<div class="nav_title">志愿者值班表</div>
 			<div class="icon_nav_right"></div>
 		</div>
 		<div class="nav_header_hidden">
 		</div>
 		<div class="container" id="container">
 			<div class="main_box">
-				<div class="estate_title">
+				<div class="estate_title estate_title">
 					{{estateName}}
 				</div>
-				<div class="dept_bar">
-					<div class="dept_box">
-						<div class="dept_item">
-							<span class="dept_name">区生态环境分局</span>
-							<span class="dept_user_name">郝云辉<font class="phone_num" onclick="fnCallTel('15623020329')">15623020329</font></span>
+				<div class="volunteer_bar">
+					<div class="volunteer_box">
+						<div class="left_box">
+							<div class="item_line_ld v_duty_item_blue">楼栋号</div>
+							<template v-for="(ld, index) in ldList">
+								<div class="item_line_ld" :class="index%2==1?'v_duty_item_blue':''">{{ld}}</div>
+							</template>
 						</div>
-						<div class="dept_item">
-							<span class="dept_name">安保部门</span>
-							<span class="dept_user_name">赵显华</span>
-						</div>
-						<div class="dept_item">
-							<span class="dept_name">卫生防疫部门</span>
-							<span class="dept_user_name">王永平<font class="phone_num" onclick="fnCallTel('13636183008')">13636183008</font></span>
-						</div>
-						<div class="dept_item">
-							<span class="dept_name">社区</span>
-							<span class="dept_user_name">刘秀华<font class="phone_num" onclick="fnCallTel('13986886805')">13986886805</font></span>
-						</div>
-					</div>
-				</div>
-				<div class="estate_title estate_title_1">
-					{{estateName1}}
-				</div>
-				<div class="user_bar">
-					<div class="user_box">
-						<div class="on_duty_time">
-							<div class="time_title">值班时间</div>
-							<div class="time_text">
-								<div class="day_type">白天</div>
-								<div class="day_time">8:00-20:00</div>
-							</div>
-						</div>
-						<div class="on_duty_user">
-							<div class="on_duty_item">
-								<div class="duty_dept">
-									区生态环境分局
+						<div class="right_box" id="swiperId">
+							<template v-for="(vol, index) in dataList">
+								<div class="v_duty_item">
+									<div class="v_duty_line v_duty_item_blue">
+										<div class="vol_name">{{vol.dutyDate}}</div>
+									</div>
+									<template v-for="(item, m) in vol.dutyInfo">
+										<div class="v_duty_line" :class="m%2==1?'v_duty_item_blue':''">
+											<div class="vol_name">{{item.duty_user}}</div>
+											<div class="icon_vol_num" @click="fnCallTel(item.duty_user_num)"></div>
+										</div>
+									</template>
 								</div>
-								<div class="dept_duty_user">
-									<div class="line_name">高璟、钱良忠</div>
-									<div class="line_num">--、--</div>
-								</div>
-							</div>
-							<div class="on_duty_item">
-								<div class="duty_dept">
-									社区
-								</div>
-								<div class="dept_duty_user">
-									<div class="line_name">刘秀华、戚静</div>
-									<div class="line_num"><span onclick="fnCallTel('13986886805')">13986886805</span>、--</div>
-								</div>
-							</div>
-							<div class="on_duty_item">
-								<div class="duty_dept">
-									卫生防疫人员
-								</div>
-								<div class="dept_duty_user">
-									<div class="line_name">王永平</div>
-									<div class="line_num" onclick="fnCallTel('13636183008')">13636183008</div>
-								</div>
-							</div>
-							<div class="on_duty_item">
-								<div class="duty_dept">
-									公安民警
-								</div>
-								<div class="dept_duty_user">
-									<div class="line_name">韩小龙</div>
-									<div class="line_num" onclick="fnCallTel('18986909517')">18986909517</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="user_box user_box_n">
-						<div class="on_duty_time">
-							<div class="time_title">值班时间</div>
-							<div class="time_text">
-								<div class="day_type">夜晚</div>
-								<div class="day_time">20:00-8:00</div>
-							</div>
-						</div>
-						<div class="on_duty_user">
-							<div class="on_duty_item">
-								<div class="duty_dept">
-									区生态环境分局
-								</div>
-								<div class="dept_duty_user">
-									<div class="line_name">郝云辉</div>
-									<div class="line_num" onclick="fnCallTel('15623020329')">15623020329</div>
-								</div>
-							</div>
-							<div class="on_duty_item">
-								<div class="duty_dept">
-									社区
-								</div>
-								<div class="dept_duty_user">
-									<div class="line_name">刘洋</div>
-									<div class="line_num" onclick="fnCallTel('13593761951')">13593761951</div>
-								</div>
-							</div>
-							<div class="on_duty_item">
-								<div class="duty_dept">
-									卫生防疫人员
-								</div>
-								<div class="dept_duty_user">
-									<div class="line_name">王永平</div>
-									<div class="line_num" onclick="fnCallTel('13636183008')">13636183008</div>
-								</div>
-							</div>
-							<div class="on_duty_item">
-								<div class="duty_dept">
-									公安民警
-								</div>
-								<div class="dept_duty_user">
-									<div class="line_name">韩小龙</div>
-									<div class="line_num" onclick="fnCallTel('18986909517')">18986909517</div>
-								</div>
-							</div>
+							</template>
 						</div>
 					</div>
 				</div>
@@ -180,23 +86,27 @@
 			})
 		</script>
 		<script type="text/javascript" src="../js/jqweui/jquery-weui.min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/showData.js" charset="utf-8"></script>
 		<script type="text/javascript">
 			// 初始化双向绑定模型
 			var vue = new Vue({
 				el: '#container',
 				data: {
-					estateName: '值班部门',
-					estateName1: '值班人员',
-					estateName2: '志愿者值班表',
-					ldList: []
+					estateName: '志愿者值班表',
+					ldList: [13,14,15,16,17,18,19,20,25,26],
+					dataList: showData
 				},
 				methods: {
+					fnCallTel : fnCallTel
 				}
 			});
 			
 			$(function() {
 				// 获取楼栋信息
 				// fnGetLdInfo();
+				var h = (vue.ldList.length+1) * 40;
+				console.log("=== === >> "+h);
+				$("#swiperId").css("height", h);
 			});
 			
 			// 拨打电话

@@ -1,0 +1,521 @@
+.container {
+	background-color: #FFFFFF;
+}
+.hidden_box {
+	display: none;
+}
+/* 地图样式 */
+.map {
+	width: 100%;
+	height: calc(100vw - 80px);
+	height: -webkit-calc(100vw - 80px);
+	background-color: #F7F7F7;
+}
+/* 标记样式 */
+.marker_item {
+	display: inline-block;
+	min-width: 60px;
+	border-radius: 3px;
+	border-top-left-radius: 12px;
+	border: 1px solid #FFFFFF;
+	box-shadow: 0 0 8px 0 rgba(120,120,220,.3);
+	padding: 0 8px 0 12px;
+	white-space: nowrap;
+}
+.marker_item div {
+	display: inline-block;
+}
+.marker_bg_1 {
+	background-color: #FCC1A3;
+}
+.marker_bg_2 {
+	background-color: #F78B59;
+}
+.marker_bg_3 {
+	background-color: #DA673F;
+}
+.m_count {
+	min-width: 30px;
+	text-align: center;
+	height: 16px;
+	line-height: 16px;
+	font-size: 12px;
+	color: #333333;
+}
+.m_line {
+	height: 16px;
+	line-height: 16px;
+	font-size: 12px;
+	color: #FFFFFF;
+}
+.m_name {
+	padding-left: 8px;
+	min-width: 40px;
+	height: 16px;
+	line-height: 16px;
+	font-size: 12px;
+	color: #333333;
+}
+
+/* 统计信息样式 */
+.census_box {
+	z-index: 99;
+	height: calc(100vh - 100vw + 30px);
+	height: -webkit-calc(100vh - 100vw + 30px);
+	background-color: #FFFFFF;
+	overflow: hidden;
+	overflow-y: auto;
+}
+/* 顶部统计信息 */
+.top_census {
+	
+}
+.census_line {
+	padding: 8px;
+	display: flex;
+	display: -webkit-flex;
+	align-items: center;
+	-webkit-align-items: center;
+}
+.census_item {
+	margin: 0 8px;
+	width: 100%;
+	height: 36px;
+	border: 1px solid #CCCCCC;
+	border-radius: 6px;
+	overflow: hidden;
+	display: flex;
+	display: -webkit-flex;
+	align-items: center;
+	-webkit-align-items: center;
+}
+.census_item_1 {
+	border-color: #5ED2C5;
+}
+.census_item_1 .census_count {
+	color: #5ED2C5;
+}
+.census_item_2 {
+	border-color: #735FF6;
+}
+.census_item_2 .census_count {
+	color: #735FF6;
+}
+.census_item_3 {
+	border-color: #8EC99B;
+}
+.census_item_3 .census_count {
+	color: #8EC99B;
+}
+.census_item_4 {
+	border-color: #FD994B;
+}
+.census_item_4 .census_count {
+	color: #FD994B;
+}
+.left_img {
+	width: 36px;
+	min-width: 36px;
+	height: 36px;
+}
+.left_img_1 {
+	background: url(../img/home_page/sqzs.png) center no-repeat;
+	background-size: 38px;
+}
+.left_img_2 {
+	background: url(../img/home_page/czs.png) center no-repeat;
+	background-size: 38px;
+}
+.left_img_3 {
+	background: url(../img/home_page/xqczs.png) center no-repeat;
+	background-size: 38px;
+}
+.left_img_4 {
+	background: url(../img/home_page/fbxq.png) center no-repeat;
+	background-size: 38px;
+}
+.census_title {
+	width: 100%;
+	line-height: 16px;
+	padding-left: 8px;
+	font-size: 12px;
+}
+.census_count {
+	width: 40px;
+	min-width: 40px;
+	text-align: right;
+	height: 36px;
+	line-height: 36px;
+	padding-right: 8px;
+	box-sizing: border-box;
+	font-size: 14px;
+	color: #5ED2C5;
+}
+/* 小区简介区域 -- start */
+.estate_module {
+	padding: 10px 15px;
+	background-color: #FFFFFF;
+}
+.estate_title {
+	height: 36px;
+	line-height: 36px;
+	font-size: 16px;
+	font-weight: 700;
+	color: #333333;
+}
+.data_uptime {
+	padding-left: 6px;
+	line-height: 20px;
+	font-size: 10px;
+	font-weight: normal;
+	color: #999999;
+}
+.info_box {
+	margin: 10px 0 15px 0;
+	padding: 8px 0;
+	border-radius: 8px;
+	box-shadow: 0 0 10px 0 rgba(220, 220, 220, .7);
+}
+.box_title {
+	height: 30px;
+	display: flex;
+	display: -webkit-flex;
+	align-items: center;
+	-webkit-align-items: center;
+	font-size: 15px;
+	font-weight: 700;
+	color: #333333;
+}
+.icon_item {
+	margin-left: 10px;
+	width: 12px;
+	min-width: 12px;
+	height: 30px;
+	background: url(../img/home_ui/bq.png) center no-repeat;
+	background-size: 10px;
+}
+.item_text {
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+}
+.icon_data {
+	width: 70px;
+	min-width: 70px;
+	height: 20px;
+	background: url(../img/home_ui/sjsm.png) center right no-repeat;
+	background-size: contain;
+}
+.data_boxs {
+	padding: 15px 20px;
+	display: flex;
+	display: -webkit-flex;
+	align-items: center;
+	-webkit-align-items: center;
+	justify-content: space-around;
+	-webkit-justify-content: space-around;
+}
+.data_boxs_1 {
+	padding-bottom: 6px;
+}
+.data_boxs_2 {
+	padding-top: 0;
+}
+.data_box {
+	width: 100%;
+	text-align: center;
+}
+.item_col_name {
+	font-size: 14px;
+	font-weight: 700;
+	color: #333333;
+}
+.item_col_data {
+	line-height: 40px;
+	font-size: 18px;
+	font-weight: 700;
+	color: #E24545;
+}
+.data_color_1 {
+	color: #FFB20D;
+}
+.data_color_2 {
+	color: #53BD8A;
+}
+.data_color_3 {
+	color: #6077FC;
+}
+.data_color_4 {
+	color: #4098FE;
+}
+.item_col_change {
+	font-size: 14px;
+	color: #999999;
+}
+/* 小区简介区域 -- end */
+/* 地图选中小区简要信息 */
+.map_estate {
+	padding: 10px 15px;
+	background-color: #FFFFFF;
+}
+.map_estate_info {
+	padding: 10px 0px;
+	display: flex;
+	display: -webkit-flex;
+	align-items: center;
+	-webkit-align-items: center;
+}
+.icon_estate_img {
+	width: 24px;
+	min-width: 24px;
+	height: 40px;
+	background: url(../img/home_page/icon_f.png) center 4px no-repeat;
+	background-size: 24px;
+}
+.map_estate_line {
+	width: 100%;
+	padding: 0 6px;
+}
+.estate_line_item {
+	height: 24px;
+	line-height: 24px;
+	font-size: 15px;
+	font-weight: 700;
+	color: #333333;
+}
+.estate_line_item_2 {
+	height: 20px;
+	line-height: 20px;
+	font-size: 14px;
+	color: #333333;
+}
+.icon_enter_estate {
+	width: 50px;
+	min-width: 50px;
+	height: 50px;
+	background: url(../img/home_page/jrxq.png) center no-repeat;
+	background-size: 50px;
+}
+/* 小区简略信息 */
+.detail_box {
+	height: calc(100vh - 50px);
+	height: -webkit-calc(100vh - 50px);
+	background-color: #FFFFFF;
+}
+/* 顶部导航 -- start */
+.detail_box .nav_header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	background-color: #F8F8F8;
+	display: flex;
+	display: -webkit-flex;
+	align-items: center;
+	-webkit-align-items: center;
+}
+.detail_box .icon_nav_left {
+	width: 50px;
+	min-width: 50px;
+	height: 50px;
+	/* background: url(../img/home_ui/nav_back.png) center no-repeat;
+	background-size: 24px; */
+}
+.detail_box .nav_title {
+	width: 100%;
+	text-align: center;
+	font-size: 16px;
+	font-weight: 700;
+	color: #1F1F1F;
+}
+.detail_box .icon_nav_right {
+	width: 50px;
+	min-width: 50px;
+	height: 50px;
+}
+.detail_box .nav_header_hidden {
+	height: 50px;
+}
+/* 顶部导航 -- end */
+.more_box {
+	-padding: 10px 15px;
+}
+.split_line {
+	height: 10px;
+	background-color: #F8F8F8;
+}
+/* 轮播图 */
+.swiper_box {
+	height: calc(100vw / 3.18 );
+	height: -webkit-calc(100vw / 3.18 );
+	overflow: hidden;
+	border-radius: 6px;
+	position: relative;
+	margin: 10px 15px;
+}
+.swiper-pagination {
+	bottom: 2px !important;
+}
+.swiper-pagination-bullet {
+	margin: 0 3px !important;
+	background-color: rgba(255, 255, 255, .8) !important;
+}
+.swiper-pagination-bullet-active {
+	background-color: rgba(255, 255, 255, 1) !important;
+}
+.banner_1 {
+	background: url(../img/home_ui/banner1.png) center no-repeat;
+	background-size: cover;
+}
+.banner_2 {
+	background: url(../img/home_ui/banner2.png) center no-repeat;
+	background-size: cover;
+}
+.banner_3 {
+	background: url(../img/home_ui/banner3.png) center no-repeat;
+	background-size: cover;
+}
+/* 大菜单 */
+.big_menu {
+	display: flex;
+	display: -webkit-flex;
+	align-items: center;
+	-webkit-align-items: center;
+	justify-content: space-around;
+	-webkit-justify-content: space-around;
+}
+.menu_item {
+	width: 100%;
+	text-align: center;
+}
+.icon_menu {
+	margin: 0 auto;
+	margin-top: 15px;
+	width: calc(100vw / 8);
+	height: calc(100vw / 8);
+}
+.icon_menu_0 {
+	background: url(../img/home_page/bmfw.png) center no-repeat;
+	background-size: cover;
+}
+.icon_menu_1 {
+	background: url(../img/home_page/tsjy.png) center no-repeat;
+	background-size: cover;
+}
+.icon_menu_2 {
+	background: url(../img/home_page/gzh.png) center no-repeat;
+	background-size: cover;
+}
+.icon_menu_3 {
+	background: url(../img/home_page/xwgg.png) center no-repeat;
+	background-size: cover;
+}
+.menu_text {
+	font-size: 12px;
+	color: #555555;
+	height: 20px;
+	line-height: 20px;
+	padding: 4px 0;
+}
+/* 发布功能 */
+.msg_module {
+	padding: 6px 15px;
+	display: flex;
+	display: -webkit-flex;
+	align-items: center;
+	-webkit-align-items: center;
+	background-color: #FFFFFF;
+}
+.icon_msg {
+	width: 30px;
+	min-width: 30px;
+	height: 40px;
+	background: url(../img/home_ui/icon_tg.png) center no-repeat;
+	background-size: 20px;
+}
+.icon_publish_1 {
+	background: url(../img/home_page/xwfb.png) center no-repeat;
+	background-size: 18px;
+}
+.icon_publish_2 {
+	background: url(../img/home_page/yqfb.png) center no-repeat;
+	background-size: 18px;
+}
+.icon_publish_3 {
+	background: url(../img/home_page/sqry.png) center no-repeat;
+	background-size: 18px;
+}
+.msg_text {
+	padding-right: 40px;
+	width: 100%;
+	height: 32px;
+	line-height: 32px;
+	box-sizing: border-box;
+	font-size: 14px;
+	color: #333333;
+}
+.icon_new {
+	display: inline-block;
+	width: 30px;
+	height: 20px;
+	background: url(../img/home_ui/new.png) top left no-repeat;
+	background-size: contain;
+}
+.icon_right {
+	width: 20px;
+	min-width: 20px;
+	height: 40px;
+	background: url(../img/home_ui/next.png) center right no-repeat;
+	background-size: 6px;
+}
+/* 底部导航 */
+.nav_box {
+	z-index: 110;
+	height: 49px;
+	border-top: 1px solid #F0F0F0;
+	display: flex;
+	display: -webkit-flex;
+	align-items: center;
+	-webkit-align-items: center;
+	justify-content: space-around;
+	-webkit-justify-content: space-around;
+}
+.nav_item {
+	height: 48px;
+	padding: 0 50px;
+}
+.icon_nav {
+	width: 50px;
+	height: 24px;
+	background: url(../img/home_page/icon_home.png) center no-repeat;
+	background-size: 20px;
+}
+.nav_title {
+	width: 50px;
+	text-align: center;
+	height: 24px;
+	line-height: 24px;
+	font-size: 14px;
+	color: #747474;
+}
+.icon_index {
+	background: url(../img/home_page/icon_home.png) center no-repeat;
+	background-size: 20px;
+}
+.icon_more {
+	background: url(../img/home_page/icon_more.png) center no-repeat;
+	background-size: 20px;
+}
+.nav_item_active .nav_title {
+	color: #3497FF;
+}
+.nav_item_active .icon_index {
+	background: url(../img/home_page/icon_home_a.png) center no-repeat;
+	background-size: 20px;
+}
+.nav_item_active .icon_more {
+	background: url(../img/home_page/icon_more_a.png) center no-repeat;
+	background-size: 20px;
+}

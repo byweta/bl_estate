@@ -10,7 +10,7 @@
 		<!-- 引入 jquery-weui -->
 		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
 		<link rel="stylesheet" type="text/css" href="../css/jqweui/jquery-weui.css">
-		<link rel="stylesheet" type="text/css" href="http://59.108.92.198:9006/app/sqgl/blEstate/css/home.css?v=1" />
+		<link rel="stylesheet" type="text/css" href="../css/home.css?v=2" />
 		<link rel="stylesheet" type="text/css" href="../css/swiper.min.css" />
 		<style type="text/css">
 			body,
@@ -108,6 +108,30 @@
 						<div class="icon_menu icon_menu_7"></div>
 						<div class="menu_text">
 							公众号
+						</div>
+					</div>
+				</div>
+				<div class="big_menu">
+					<div class="menu_item" onclick="fnOpenVolunteerDuty();">
+						<div class="icon_menu icon_menu_8"></div>
+						<div class="menu_text">
+							志愿者值班表
+						</div>
+					</div>
+					<div class="menu_item" onclick="fnOpenHealthCard();">
+						<div class="icon_menu icon_menu_9"></div>
+						<div class="menu_text">
+							健康卡
+						</div>
+					</div>
+					<div class="menu_item">
+						<div class="icon_menu"></div>
+						<div class="menu_text">
+						</div>
+					</div>
+					<div class="menu_item">
+						<div class="icon_menu"></div>
+						<div class="menu_text">
 						</div>
 					</div>
 				</div>
@@ -259,10 +283,17 @@
 				autoplay: 3000, //可选选项，自动滑动
 				paginationClickable: true
 			});
+			var estateName;
+			var estateNameFlag = false;
 			$(function() {
 				key = fnGetQueryString("key");
 				if(key != undefined && key == 1){
 					vue.$data.key = 1;
+				}
+				estateName = fnGetQueryString("estateName");
+				if(estateName != undefined && estateName != ""){
+					estateNameFlag = true;
+					vue.$data.estateName = decodeURI(estateName);
 				}
 				// 获取最新社区公告
 				fnGetNoticeInfo();
@@ -350,6 +381,16 @@
 				window.location.href = "./wx_public_account.html";
 			}
 			
+			// 打开志愿者值班表页面
+			function fnOpenVolunteerDuty(){
+				window.location.href = "./vol_duty_info.html";
+			}
+			
+			// 打开健康卡页面
+			function fnOpenHealthCard(){
+				window.location.href = "./vol_duty_info.html";
+			}
+			
 			// 获取社区公告信息
 			function fnGetNoticeInfo() {
 				$.showLoading();
@@ -401,7 +442,9 @@
 						if (result.state != undefined && result.state == true) {
 							var data = result.lastZh;
 							vue.$data.userData = data;
-							vue.$data.estateName = data.XQMM;
+							if(!estateNameFlag){
+								vue.$data.estateName = data.XQMM;
+							}
 						} else {
 							// 失败
 							$.toast("失败！", 'cancel');

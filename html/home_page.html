@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- author：王朝贤 / createTime：2020年2月28日 -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>社区管理</title>
+		<!-- 引入 jquery-weui -->
+		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/jqweui/jquery-weui.css">
+		<link rel="stylesheet" type="text/css" href="../css/home_page.css?v=2">
+		<link rel="stylesheet" type="text/css" href="../css/swiper.min.css" />
+		<style type="text/css">
+			body,
+			html {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				-webkit-tap-highlight-color: transparent;
+				background-color: #F7F7F7;
+				position: relative;
+			}
+
+			/* 超出单行显示省略号 */
+			.line_ellipsis {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		</style>
+	</head>
+	<body ontouchstart>
+		<div class="container" id="container">
+			<div class="map" id="mapId">
+				
+			</div>
+			<div class="census_box" id="censusId">
+				<div class="estate_module" id="estatesId">
+					<div class="info_box">
+						<div class="top_census">
+							<div class="census_line">
+								<div class="census_item census_item_1">
+									<div class="left_img left_img_1"></div>
+									<div class="census_title">社区总数</div>
+									<div class="census_count">4</div>
+								</div>
+								<div class="census_item census_item_2">
+									<div class="left_img left_img_2"></div>
+									<div class="census_title">村总数</div>
+									<div class="census_count">5</div>
+								</div>
+							</div>
+							<div class="census_line">
+								<div class="census_item census_item_3">
+									<div class="left_img left_img_3"></div>
+									<div class="census_title">小区</br/>村组总数</div>
+									<div class="census_count">132</div>
+								</div>
+								<div class="census_item census_item_4">
+									<div class="left_img left_img_4"></div>
+									<div class="census_title">封闭小区<br />村组总数</div>
+									<div class="census_count">112</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="info_box">
+						<div class="box_title">
+							<div class="icon_item"></div>
+							<div class="item_text">疫情统计<span class="data_uptime">{{yqData.fbrq_}} {{yqData.fbsj_}}防控日报</span></div>
+							<div class="icon_data"></div>
+						</div>
+						<div class="data_boxs">
+							<div class="data_box">
+								<div class="item_col_name">确诊病例</div>
+								<div class="item_col_data">{{yqData.qzbl}}</div>
+								<div class="item_col_change">较昨日+0</div>
+							</div>
+							<div class="data_box">
+								<!-- <div class="item_col_name">疑似病例</div> -->
+								<div class="item_col_name">返汉人员</div>
+								<div class="item_col_data data_color_1">{{yqData.ysbl}}</div>
+								<div class="item_col_change">较昨日+0</div>
+							</div>
+							<div class="data_box">
+								<!-- <div class="item_col_name">治愈病例</div> -->
+								<div class="item_col_name">密切接触</div>
+								<div class="item_col_data data_color_2">{{yqData.zybl}}</div>
+								<div class="item_col_change">较昨日+0</div>
+							</div>
+						</div>
+					</div>
+					<div class="info_box">
+						<div class="box_title">
+							<div class="icon_item"></div>
+							<div class="item_text">住户统计<span class="data_uptime">{{userData.fbrq_}} {{userData.fbsj_}}防控日报</span></div>
+							<div class="icon_data"></div>
+						</div>
+						<div class="data_boxs data_boxs_1">
+							<div class="data_box">
+								<div class="item_col_name">住户数</div>
+								<div class="item_col_data">{{userData.zhsl}}</div>
+							</div>
+							<div class="data_box">
+								<div class="item_col_name">现住户数</div>
+								<div class="item_col_data data_color_1">{{userData.glsl}}</div>
+							</div>
+							<div class="data_box">
+								<!-- <div class="item_col_name">外来人员</div> -->
+								<div class="item_col_name">现住人数</div>
+								<div class="item_col_data data_color_2">{{userData.jcgl}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="map_estate hidden_box" id="mapEstateId">
+					<div class="map_estate_info">
+						<div class="icon_estate_img"></div>
+						<div class="map_estate_line">
+							<div class="estate_line_item line_ellipsis">{{showEstate.xqmc}}</div>
+							<div class="estate_line_item_2 line_ellipsis">{{showEstate.addr}}</div>
+						</div>
+						<div class="icon_enter_estate" onclick="fnOpenEstateWin()">
+						</div>
+					</div>
+					<div class="info_box">
+						<div class="box_title">
+							<div class="icon_item"></div>
+							<div class="item_text">小区疫情<span class="data_uptime">{{xqyqData.FBRQ_}} {{xqyqData.FBSJ_}}防控日报</span></div>
+							<div class="icon_data"></div>
+						</div>
+						<div class="data_boxs">
+							<div class="data_box">
+								<div class="item_col_name">确诊病例</div>
+								<div class="item_col_data">{{xqyqData.QZBL}}</div>
+								<div class="item_col_change">较昨日+0</div>
+							</div>
+							<div class="data_box">
+								<!-- <div class="item_col_name">疑似病例</div> -->
+								<div class="item_col_name">返汉人员</div>
+								<div class="item_col_data data_color_1">{{xqyqData.YSBL}}</div>
+								<div class="item_col_change">较昨日+0</div>
+							</div>
+							<div class="data_box">
+								<!-- <div class="item_col_name">治愈病例</div> -->
+								<div class="item_col_name">密切接触</div>
+								<div class="item_col_data data_color_2">{{xqyqData.ZYBL}}</div>
+								<div class="item_col_change">较昨日+0</div>
+							</div>
+						</div>
+					</div>
+					<div class="info_box">
+						<div class="box_title">
+							<div class="icon_item"></div>
+							<div class="item_text">住户信息<span class="data_uptime">{{xqyqData.FBRQ_}} {{xqyqData.FBSJ_}}防控日报</span></div>
+							<div class="icon_data"></div>
+						</div>
+						<div class="data_boxs data_boxs_1">
+							<div class="data_box">
+								<div class="item_col_name">楼栋数</div>
+								<div class="item_col_data">{{xquserData.LDS}}</div>
+							</div>
+							<div class="data_box">
+								<div class="item_col_name">住户</div>
+								<div class="item_col_data data_color_1">{{xquserData.ZHS}}</div>
+							</div>
+							<div class="data_box">
+								<!-- <div class="item_col_name">外来人员</div> -->
+								<div class="item_col_name">单元</div>
+								<div class="item_col_data data_color_2">{{xquserData.DY}}</div>
+							</div>
+						</div>
+						<div class="data_boxs data_boxs_2">
+							<div class="data_box">
+								<!-- <div class="item_col_name">隔离人员</div> -->
+								<div class="item_col_name">现住户</div>
+								<div class="item_col_data data_color_3">{{xquserData.XZH}}</div>
+							</div>
+							<div class="data_box">
+								<!-- <div class="item_col_name">解除隔离人员</div> -->
+								<div class="item_col_name">现住人数</div>
+								<div class="item_col_data data_color_4">{{xquserData.XZRS}}</div>
+							</div>
+							<div class="data_box">
+								<div class="item_col_name"></div>
+								<div class="item_col_data"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 展示小区的简略信息 -->
+			<div class="detail_box hidden_box" id="detailId">
+				<div class="nav_header">
+					<div class="icon_nav_left" onclick="fnGoBack()"></div>
+					<div class="nav_title">更多</div>
+					<div class="icon_nav_right"></div>
+				</div>
+				<div class="nav_header_hidden">
+				</div>
+				<div class="more_box">
+					<div class="swiper_box" id="swiperId">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide banner_1"></div>
+							<div class="swiper-slide banner_2"></div>
+							<div class="swiper-slide banner_3"></div>
+						</div>
+						<!-- Add Pagination -->
+						<div class="swiper-pagination"></div>
+					</div>
+					<div class="big_menu">
+						<div class="menu_item" onclick="fnOpenService();">
+							<div class="icon_menu icon_menu_0"></div>
+							<div class="menu_text">
+								便民服务
+							</div>
+						</div>
+						<div class="menu_item" onclick="fnOpenAdvince();">
+							<div class="icon_menu icon_menu_1"></div>
+							<div class="menu_text">
+								投诉建议
+							</div>
+						</div>
+						<div class="menu_item" onclick="fnOpenGzh();">
+							<div class="icon_menu icon_menu_2"></div>
+							<div class="menu_text">
+								公众号
+							</div>
+						</div>
+						<div class="menu_item" onclick="fnOpenNotice()">
+							<div class="icon_menu icon_menu_3"></div>
+							<div class="menu_text">
+								新闻公告
+							</div>
+						</div>
+					</div>
+					<div class="split_line"></div>
+					<div class="msg_module" onclick="fnOpenXwfbInfo()">
+						<div class="icon_msg icon_publish_1"></div>
+						<div class="msg_text line_ellipsis">
+							新闻发布
+						</div>
+						<div class="icon_right"></div>
+					</div>
+					<div class="split_line"></div>
+					<div class="msg_module" onclick="fnOpenYqfbInfo()">
+						<div class="icon_msg icon_publish_2"></div>
+						<div class="msg_text line_ellipsis">
+							疫情发布
+						</div>
+						<div class="icon_right"></div>
+					</div>
+					<div class="split_line"></div>
+					<div class="msg_module" onclick="fnOpenSqtjInfo()">
+						<div class="icon_msg icon_publish_3"></div>
+						<div class="msg_text line_ellipsis">
+							社区人员统计信息发布
+						</div>
+						<div class="icon_right"></div>
+					</div>
+					<div class="split_line"></div>
+				</div>
+			</div>
+			<!-- 底部导航 -->
+			<div class="nav_box">
+				<div class="nav_item nav_item_active" id="nav1" onclick="fnChangeNav(1)">
+					<div class="icon_nav icon_index"></div>
+					<div class="nav_title">首页</div>
+				</div>
+				<div class="nav_item" id="nav2" onclick="fnChangeNav(2)">
+					<div class="icon_nav icon_more"></div>
+					<div class="nav_title">更多</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/url.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/vue.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/date.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/swiper.min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/jquery-1.12.4-min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/common.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/fastclick.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				FastClick.attach(document.body);
+			})
+		</script>
+		<script type="text/javascript" src="../js/jqweui/jquery-weui.min.js" charset="utf-8"></script>
+		<script src="https://webapi.amap.com/maps?v=1.4.15&key=853b623b33ded586a10873683c6ce0cc"></script>
+		<script type="text/javascript">
+			
+			// 初始化双向绑定模型
+			var vue = new Vue({
+				el: '#container',
+				data: {
+					navIndex: 1,
+					key: 0,
+					estateName: '社区发布',
+					newNotice: {
+						BT: '',
+						LJ: ''
+					},
+					userData: {
+						ldsl: 10,//楼栋数量
+						zhsl: 568,//住户数量
+						wlrl: 46,//单元数量
+						glsl: 215,//现住户数量
+						jcgl: 578,//现住人数量
+						xqsl: 1,//小区数量
+						UpdateTime: "2020-03-09 14:43:34",
+						fbrq_: '',
+						fbsj_:''
+					},
+					yqData: {
+						fbrq: "2020-03-12 11:17:00",//最新发布日期
+						qzbl: 2,//确诊病例
+						swbl: 2,//确诊接触人数
+						ysbl: 4,//返汉人员数量
+						zybl: 1,//密切接触人数
+						xqsl: 2,//小区数量
+						fbrq_: '',
+						fbsj_:''
+					},
+					xquserData: {
+						LDS: 0,
+						ZHS: 0,
+						DY: 0,
+						XZH: 0,
+						XZRS: 0
+					},
+					xqyqData: {
+						QZBL: 0, // 确症病例
+						YSBL: 0, // 疑似病例
+						ZYBL: 0, // 密切接触
+						FBRQ_: '3月11日',
+						FBSJ_: '9:01'
+					},
+					showEstate: {
+						addr: "未记录"
+					}
+				},
+				methods: {
+				}
+			});
+			// 用户坐标
+			var userLat = 0,
+				userLng = 0;
+			var map;
+			var position;
+			var markers = [];
+			// 轮播图
+			var swiper = new Swiper('#swiperId', {
+				pagination: '.swiper-pagination',
+				autoplay: 3000, //可选选项，自动滑动
+				paginationClickable: true
+			});
+			// 小区数据
+			var xqlist;
+			$(function() {
+				position = new AMap.LngLat(110.860355,32.575105);
+				// 初始化高德地图
+				initAmap();
+				// 获取辖区内小区信息
+				fnGetEstateInfo();
+				// 获取辖区内统计信息
+				fnGetCensusInfo();
+			});
+			
+			// 初始化高德地图
+			function initAmap(){
+				map = new AMap.Map('mapId', {
+					resizeEnable: true,
+					center: position,
+					zoom: 13
+				});
+				map.on('click', function(ev) {
+					// 触发事件的对象
+					var target = ev.target;
+					$("#estatesId").show();
+					$("#mapEstateId").hide();
+				});
+			}
+			
+			//添加标记
+			function fnAddMarker(data, xqIndex){
+				var qzbl = Number(data.QZBL);
+				// 点标记显示内容，HTML要素字符串
+				var marker_bg = "marker_bg_1";
+				if(qzbl <= 5){
+					marker_bg = "marker_bg_1";
+				} else if(qzbl <= 10){
+					marker_bg = "marker_bg_2";
+				} else {
+					marker_bg = "marker_bg_3";
+				}
+				var markerCnt = '' + 
+					'<div class="marker_item '+marker_bg+'" onclick="fnOpenEstateDetail('+xqIndex+')">'+
+					'	<div class="m_count">'+qzbl+'</div>'+
+					'	<div class="m_line">|</div>'+
+					'	<div class="m_name">'+data.xqmc+'</div>'+
+					'</div>';
+				var marker = new AMap.Marker({
+					position: new AMap.LngLat(Number(data.jd),Number(data.wd)),
+					content: markerCnt,
+				});
+				// 将 markers 添加到地图
+				map.add(marker);
+				markers[xqIndex] = marker;
+			}
+			var zIndex = 166;
+			var showEstate = {};
+			// 查看小区简要信息
+			function fnOpenEstateDetail(i){
+				$(this).css("z-index", zIndex++);
+				var data = xqlist[i];
+				showEstate = data;
+				vue.$data.showEstate = showEstate;
+				vue.$data.showEstate.addr = showEstate.ssjdb;
+				markers[i].setPosition([Number(data.jd), Number(data.wd)]);
+				console.log("=== === >> 小区简要信息："+JSON.stringify(data));
+				// 处理数据
+				var fbrq = data.FBRQ;
+				var FBRQ_ = new Date().Format("MM月dd日");
+				var FBSJ_ = "00:00";
+				if(fbrq != undefined && fbrq != ''){
+					FBRQ_ = new Date(fbrq).Format("MM月dd日");
+					FBSJ_ = new Date(fbrq).Format("hh:mm");
+				}
+				data.FBRQ_ = FBRQ_;
+				data.FBSJ_ = FBSJ_;
+				vue.$data.xqyqData = data;
+				// vue.$data.xquserData = {};
+				$("#estatesId").hide();
+				$("#mapEstateId").show();
+			}
+			
+			// 打开小区管理端页面
+			function fnOpenEstateWin(){
+				window.location.href = "./home.html?key=1&estateName="+encodeURI(showEstate.xqmc);
+			}
+
+			// 获取辖区内小区信息
+			function fnGetEstateInfo() {
+				$.showLoading();
+				var url = mHost + mServerName + "/SQGL/getEstateInfo";
+				var params = {
+					xzqhdm: '110110'
+				}
+				console.log("=== === >> 参数：" + JSON.stringify(params));
+				$.ajax({
+					type: "get",
+					url: url,
+					contentType: 'application/x-www-form-urlencoded',
+					data: params,
+					dataType: "jsonp",
+					success: function(result) {
+						$.hideLoading();
+						console.log("=== === >> 获取结果："+JSON.stringify(result))
+						if (result.state != undefined && result.state == true) {
+							var data = result.xqlist;
+							xqlist = data;
+							markers = new Array(data.length);
+							for(var i=0; i<data.length; i++){
+								var dataItem = data[i];
+								console.log("=== === >> "+JSON.stringify(dataItem));
+								// 添加标记
+								fnAddMarker(dataItem, i);
+							}
+						} else {
+							// 失败
+							$.toast("失败！", 'cancel');
+						}
+					},
+					error: function(jqXHR, textStatus) {
+						$.hideLoading();
+						$.toast("服务异常！", 'cancel')
+					}
+				});
+			}
+			
+			// 获取辖区内统计信息
+			function fnGetCensusInfo() {
+				$.showLoading();
+				var url = mHost + mServerName + "/SQGL/getCensusInfo";
+				var params = {
+				}
+				console.log("=== === >> 参数：" + JSON.stringify(params));
+				$.ajax({
+					type: "get",
+					url: url,
+					contentType: 'application/x-www-form-urlencoded',
+					data: params,
+					dataType: "jsonp",
+					success: function(result) {
+						$.hideLoading();
+						console.log("=== === >> 获取结果："+JSON.stringify(result))
+						if (result.state != undefined && result.state == true) {
+							var yqData = result.yqtj[0];
+							var fbrq = yqData.fbrq;
+							var fbrq_ = new Date().Format("MM月dd日");
+							var fbsj_ = "00:00";
+							if(fbrq != undefined && fbrq != ''){
+								fbrq_ = new Date(fbrq).Format("MM月dd日");
+								fbsj_ = new Date(fbrq).Format("hh:mm");
+							}
+							yqData.fbrq_ = fbrq_;
+							yqData.fbsj_ = fbsj_;
+							vue.$data.yqData = yqData;
+							
+							var zhData = result.zhtj[0];
+							fbrq = zhData.UpdateTime;
+							fbrq_ = new Date().Format("MM月dd日");
+							fbsj_ = "00:00";
+							if(fbrq != undefined && fbrq != ''){
+								fbrq_ = new Date(fbrq).Format("MM月dd日");
+								fbsj_ = new Date(fbrq).Format("hh:mm");
+							}
+							zhData.fbrq_ = fbrq_;
+							zhData.fbsj_ = fbsj_;
+							vue.$data.userData = zhData;
+						} else {
+							// 失败
+							$.toast("失败！", 'cancel');
+						}
+					},
+					error: function(jqXHR, textStatus) {
+						$.hideLoading();
+						$.toast("服务异常！", 'cancel')
+					}
+				});
+			}
+			
+			// 打开便民服务页面
+			function fnOpenService() {
+				window.location.href = "./service.html?date="+new Date().getTime();
+			}
+			
+			// 打开投诉建议页面
+			function fnOpenAdvince() {
+				window.location.href = "./advince_frm.html";
+			}
+			
+			// 打开公众号页面
+			function fnOpenGzh(){
+				window.location.href = "./wx_public_account.html";
+			}
+			
+			// 打开社区公告页面
+			function fnOpenNotice() {
+				window.location.href = "./notice_info.html";
+			}
+			
+			// 打开新闻发布页面
+			function fnOpenXwfbInfo(){
+				window.location.href = "./publish_frm.html?type=1";
+			}
+			
+			// 打开疫情发布页面
+			function fnOpenYqfbInfo(){
+				window.location.href = "./publish_frm.html?type=2";
+			}
+			
+			// 打开社区人员统计信息发布页面
+			function fnOpenSqtjInfo(){
+				window.location.href = "./publish_frm.html?type=3";
+			}
+			
+			// 切换导航
+			function fnChangeNav(navIndex_){
+				if(navIndex_ == vue.$data.navIndex){
+					return;
+				}
+				$(".nav_item").removeClass("nav_item_active");
+				$("#nav"+navIndex_).addClass("nav_item_active");
+				vue.$data.navIndex = navIndex_;
+				if(navIndex_ == 1){
+					$("#mapId").show();
+					$("#censusId").show();
+					$("#detailId").hide();
+				} else {
+					$("#mapId").hide();
+					$("#censusId").hide();
+					$("#detailId").show();
+					setTimeout(function(){
+						var swiper = new Swiper('#swiperId', {
+							pagination: '.swiper-pagination',
+							autoplay: 3000, //可选选项，自动滑动
+							paginationClickable: true
+						});
+					}, 300);
+				}
+			}
+		</script>
+	</body>
+</html>
