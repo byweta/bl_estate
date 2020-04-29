@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- author：王朝贤 / createTime：2020年2月28日 -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=yes,email=no,date=no,address=no">
+		<title>便民服务</title>
+		<!-- 引入 jquery-weui -->
+		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/jqweui/jquery-weui.css">
+		<link rel="stylesheet" type="text/css" href="../css/service_info.css" />
+		<style type="text/css">
+			body,
+			html {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				-webkit-tap-highlight-color: transparent;
+				background-color: #F7F7F7;
+				position: relative;
+			}
+
+			/* 超出单行显示省略号 */
+			.line_ellipsis {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			.hidden_box {
+				display: none;
+			}
+		</style>
+	</head>
+	<body ontouchstart>
+		<div class="nav_header">
+			<div class="icon_nav_left" onclick="fnGoBack()"></div>
+			<div class="nav_title">便民服务</div>
+			<div class="icon_nav_right"></div>
+		</div>
+		<div class="nav_header_hidden">
+		</div>
+		<div class="container" id="container">
+			<template v-for="(item, index) in dataList">
+				<div class="item_line"></div>
+				<div class="item_box">
+					<div class="item_top_box">
+						<div class="item_left_box">
+							<div class="service_title service_type_1">
+								{{item.fwmm}}
+							</div>
+							<div class="service_tel_name">
+								联系人：{{item.lxr}}
+							</div>
+						</div>
+						<div class="item_right_box">
+							<img :src="fnGetFwllImg(item.fwll)" >
+						</div>
+					</div>
+					<div class="item_cnt_box">
+						<div class="item_left_cnt" @click="fnCallTel(item.lxdh)">
+							联系电话：{{item.lxdh}}
+						</div>
+						<div class="item_right_cnt">
+							<div class="icon_phone" @click="fnCallTel(item.lxdh)">拨打电话</div>
+						</div>
+					</div>
+					<div class="item_cnt_box">
+						<div class="item_left_cnt">
+							备注：{{item.bz}}
+						</div>
+					</div>
+				</div>
+			</template>
+		</div>
+		<div class="hidden_box">
+			<a href="" id="callId">1</a>
+		</div>
+		<script type="text/javascript" src="../js/url.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/vue.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/jquery-1.12.4-min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/fastclick.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				FastClick.attach(document.body);
+			})
+		</script>
+		<script type="text/javascript" src="../js/jqweui/jquery-weui.min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/city-picker.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			// 初始化双向绑定模型
+			var vue = new Vue({
+				el: '#container',
+				data: {
+					dataList: []
+				},
+				methods: {
+					fnCallTel: fnCallTel,
+					fnGetFwllImg: function(fwll){
+						var img = "../img/service/scgy.png";
+						if(fwll == '生活物资'){
+							img = "../img/service/scgy.png";
+						} else if(fwll == '医疗医药'){
+							img = "../img/service/ylsy.png";
+						} else {
+							img = "../img/service/mq.png";
+						}
+						return img;
+					}
+				}
+			});
+			
+			var sqbm, sqmc, xqbm, xqmc;
+			$(function() {
+				sqbm = window.localStorage.getItem("sqbm");
+				sqmc = window.localStorage.getItem("sqmc");
+				xqbm = window.localStorage.getItem("estateId");
+				xqmc = window.localStorage.getItem("estateName");
+				fnGetBmfwList()
+			});
+			
+			// 返回
+			function fnGoBack(){
+				window.top.history.back();
+			}
+			
+			// 拨打电话
+			function fnCallTel(callNo){
+				$("#callId").attr("href", "tel:"+callNo);
+				$("#callId")[0].click();
+			}
+
+			// 获取便民服务信息
+			function fnGetBmfwList() {
+				$.showLoading();
+				var url = mHost + mServerName + "/SQGL/getBmfwList";
+				var params = {
+					sqmc: sqmc,
+					xqbm: xqbm,
+					xqmc: xqmc
+				}
+				console.log("=== === >> 参数：" + JSON.stringify(params));
+				$.ajax({
+					type: "get",
+					url: url,
+					contentType: 'application/x-www-form-urlencoded',
+					data: params,
+					dataType: "jsonp",
+					success: function(result) {
+						$.hideLoading();
+						console.log("=== === >> 获取结果："+JSON.stringify(result))
+						if (result.state != undefined && result.state == true) {
+							vue.dataList = result.bmlist;
+						} else {
+							// 失败
+							$.toast("失败！", 'cancel');
+						}
+					},
+					error: function(jqXHR, textStatus) {
+						$.hideLoading();
+						$.toast("服务异常！", 'cancel')
+					}
+				});
+			}
+		</script>
+	</body>
+</html>

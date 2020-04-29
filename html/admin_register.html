@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- author：王朝贤 / createTime：2020年3月15日 -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>小区管理员注册</title>
+		<!-- 引入 jquery-weui -->
+		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/jqweui/jquery-weui.css">
+		<link rel="stylesheet" type="text/css" href="../css/admin_register.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iosSelect.css">
+		<style type="text/css">
+			body,
+			html {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				-webkit-tap-highlight-color: transparent;
+				background-color: #F7F7F7;
+				position: relative;
+			}
+
+			/* 超出单行显示省略号 */
+			.line_ellipsis {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			.hidden_box {
+				display: none;
+			}
+		</style>
+	</head>
+	<body ontouchstart>
+		<div class="nav_header">
+			<div class="icon_nav_left" onclick="fnGoBack()"></div>
+			<div class="nav_title">注册</div>
+			<div class="icon_nav_right"></div>
+		</div>
+		<div class="nav_header_hidden">
+		</div>
+		<div class="container" id="container">
+			<div class="item_box">
+				<div class="item_title">
+					选择小区:
+				</div>
+				<div class="item_input" onclick="fnSelectEstate();">
+					<input type="text" readonly="readonly" placeholder="请选择..." name="" id="estateName" value="" />
+				</div>
+				<div class="item_right" onclick="fnSelectEstate();">
+					
+				</div>
+			</div>
+			<div class="item_box">
+				<div class="item_title">
+					新建账号:
+				</div>
+				<div class="item_input">
+					<input type="text" placeholder="请输入账号" name="" id="userName" value="" />
+				</div>
+			</div>
+			<div class="item_box">
+				<div class="item_title">
+					新建密码:
+				</div>
+				<div class="item_input">
+					<input type="password" placeholder="请输入密码" name="" id="pwdId" value="" />
+				</div>
+			</div>
+			<div class="item_box">
+				<div class="item_title">
+					确认密码:
+				</div>
+				<div class="item_input">
+					<input type="password" placeholder="请输入确认密码" name="" id="pwdId2" value="" />
+				</div>
+			</div>
+			<div class="item_btn" onclick="fnAdminRegister();">
+				注册
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/url.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/vue.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/jquery-1.12.4-min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/fastclick.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				FastClick.attach(document.body);
+			})
+		</script>
+		<script type="text/javascript" src="../js/jqweui/jquery-weui.min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/city-picker.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/iosSelect.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/iosSelect/select2.option.js?v=1" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			// 初始化双向绑定模型
+			var vue = new Vue({
+				el: '#container',
+				data: {
+				},
+				methods: {
+				}
+			});
+			var sqbm = "", sqmc = "", xqbm = "", xqmc = "", userName = "", pwd = "", pwd2 = "";
+			$(function() {
+				fnGetEstateList();
+			});
+			
+			// 返回
+			function fnGoBack(){
+				window.top.history.back();
+			}
+
+			// 获取小区管理员注册
+			function fnAdminRegister() {
+				userName = $("#userName").val();
+				pwd = $("#pwdId").val();
+				pwd2 = $("#pwdId2").val();
+				if(xqbm == "" || userName == "" || pwd == "" || pwd2 == ""){
+					$.toast("请完善信息！", "cancel");
+					return;
+				}
+				if(pwd != pwd2){
+					$.toast("密码不一致！", "cancel");
+					return;
+				}
+				$.showLoading();
+				var url = mHost + mServerName + "/SQDLGl/xqyhzc";
+				var params = {
+					xqbm: xqbm,
+					userName: userName,
+					pwd: pwd
+				}
+				console.log("=== === >> 参数：" + JSON.stringify(params));
+				$.ajax({
+					type: "get",
+					url: url,
+					contentType: 'application/x-www-form-urlencoded',
+					data: params,
+					dataType: "jsonp",
+					success: function(result) {
+						$.hideLoading();
+						if (result.state != undefined && result.state == true) {
+							$.toast("注册成功！<br/>请使用账号密码，重新登录！");
+							setTimeout(function(){
+								window.top.history.back();
+							}, 1500);
+						} else {
+							// 已注册过
+							var userInfo = result.userInfo;
+							$.toast(result.msg, 'cancel');
+						}
+					},
+					error: function(jqXHR, textStatus) {
+						$.hideLoading();
+						$.toast("服务异常！", 'cancel')
+					}
+				});
+			}
+			// 获取小区信息
+			function fnGetEstateList(){
+				$.showLoading();
+				var url = mHost + mServerName + "/SQGL/getXiaoQuAndSqList";
+				var params = {
+					// xzqhdm: '110110'
+					sqbm: ""
+				}
+				console.log("=== === >> 参数：" + JSON.stringify(params));
+				$.ajax({
+					type: "get",
+					url: url,
+					contentType: 'application/x-www-form-urlencoded',
+					data: params,
+					dataType: "jsonp",
+					success: function(result) {
+						$.hideLoading();
+						console.log("=== === >> 获取结果："+JSON.stringify(result))
+						if (result.state != undefined && result.state == true) {
+							// 处理社区数据
+							var sqData = result.sqList;
+							firstOptions = [];
+							for(var i=0; i<sqData.length; i++){
+								var item = sqData[i];
+								var c = {'id': item.ID, 'value': item.sqmc, 'parentId': '0'}
+								firstOptions.push(c);
+							}
+							// 处理小区数据
+							var xqData = result.xqList;
+							secondOptions = [];
+							for(var i=0; i<xqData.length; i++){
+								var item = xqData[i];
+								var c = {'id': item.ID, 'value': item.xqmc, 'parentId': item.sssqid}
+								secondOptions.push(c);
+							}
+						} else {
+							// 失败
+							$.toast("失败！", 'cancel');
+						}
+					},
+					error: function(jqXHR, textStatus) {
+						$.hideLoading();
+						$.toast("服务异常！", 'cancel')
+					}
+				});
+			}
+			// 选择社区
+			function fnSelectEstate(){
+				setTimeout(function(){
+					oneOptionId = sqbm;
+					twoOptionId = xqbm;
+					getOptionId(oneOptionId, twoOptionId, function(checkOption) {
+						sqbm = checkOption.firstOptionId;
+						sqmc = checkOption.firstOptionName;
+						xqbm = checkOption.secondOptionId;
+						estateName = checkOption.secondOptionName;
+						$("#estateName").val(sqmc+"-"+estateName);
+					}, function(){
+						// 取消回调
+						if(xqbm == ''){
+							$.toast("请选择小区！", 'cancel');
+							fnSelectEstate();
+						}
+					});
+				}, 500);
+			}
+		</script>
+	</body>
+</html>

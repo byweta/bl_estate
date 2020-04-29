@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- author：王朝贤 / createTime：2020年2月12日 -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>社区服务管理</title>
+		<!-- 引入 jquery-weui -->
+		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/jqweui/jquery-weui.css">
+		<style type="text/css">
+			body, html {
+				margin: 0;
+				padding: 0;
+				-webkit-tap-highlight-color: transparent;
+				height: 100%;
+				background-color: #E7F0F5;
+			}
+
+			/* 主容器 */
+			.container {
+				height: calc(100vw * 1.77);
+				height: -moz-calc(100vw * 1.77);
+				height: -webkit-calc(100vw * 1.77);
+				background: url(../img/ui/2x/top.png) center top no-repeat;
+				background-size: 100% auto;
+				position: relative;
+			}
+
+			/* 超出单行显示省略号 */
+			.line_ellipsis {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+
+			/* 系统名称 */
+			.logo {
+				height: 37vw;
+				display: flex;
+				display: -webkit-flex;
+				align-items: flex-end;
+				-webkit-align-items: flex-end;
+			}
+			
+			@media screen and (min-width: 360px) {
+				.logo {
+					height: 40vw;
+				}
+			}
+
+			/* 系统名称 */
+			.sys_title {
+				margin: 0 20px;
+				width: 100%;
+				height: 50px;
+				padding: 0 10px 10px 10px;
+				background: url(../img/ui/2x/1nbt@2x.png?v=1) center no-repeat;
+				background-size: contain;
+				/* text-align: center;
+				font-size: 36px;
+				letter-spacing: 3px;
+				font-weight: 700;
+				font-style: oblique;
+				color: #2E77FA;
+				text-shadow: 1px 0px #FFFFFF, 
+					-1px -1px 0px #FFFFFF, 
+					2px 2px 0px #FFFFFF, 
+					-2px -2px 0px #FFFFFF, 
+					2px -2px 0px #FFFFFF,
+					-2px 2px 0px #FFFFFF,
+					4px 4px 3px #FFFFFF, 
+					-4px -4px 3px #FFFFFF,
+					4px -4px 3px #FFFFFF, 
+					-4px 4px 3px #FFFFFF; */
+			}
+
+			/* 用户信息框 */
+			.user_box {
+				margin: 0 24px;
+				padding: 10px 0;
+			}
+
+			.user_info {
+				margin-top: 18px;
+				height: 48px;
+				border-radius: 2px;
+				background-color: #FFFFFF;
+				display: flex;
+				display: -webkit-flex;
+				align-items: center;
+				-webkit-align-items: center;
+			}
+
+			.icon_user {
+				width: 60px;
+				min-width: 60px;
+				height: 28px;
+				background: url(../img/ui/2x/yonghu@2x.png) center top no-repeat;
+				background-size: 24px;
+			}
+			
+			.icon_account {
+				
+			}
+			
+			.icon_pwd {
+				background: url(../img/ui/2x/mima@2x.png) center top no-repeat;
+				background-size: 24px;
+			}
+			
+			.user_input {
+				width: 100%;
+				margin-right: 20px;
+			}
+
+			input {
+				margin: 0;
+				border: 0;
+				width: 100%;
+				height: 36px;
+				outline: none;
+				font-size: 16px;
+				color: #333333;
+				font-weight: 600;
+			}
+
+			::-webkit-input-placeholder {
+				color: #ADADAD;
+				font-weight: normal;
+			}
+
+			:-moz-placeholder {
+				color: #ADADAD;
+				font-weight: normal;
+			}
+
+			::-moz-placeholder {
+				color: #ADADAD;
+				font-weight: normal;
+			}
+
+			:-ms-input-placeholder {
+				color: #ADADAD;
+				font-weight: normal;
+			}
+			
+			.user_btn {
+				margin-top: 24px;
+				height: 44px;
+				line-height: 50px;
+				border-radius: 2px;
+				background: url(../img/ui/2x/top@2x.png) center no-repeat;
+				background-size: cover;
+				text-align: center;
+				font-size: 16px;
+				font-weight: 700;
+				letter-spacing: 2px;
+				color: #FFFFFF;
+			}
+			
+			.user_register {
+				margin-top: 12px;
+				height: 24px;
+				line-height: 24px;
+				text-align: center;
+				letter-spacing: 1px;
+				font: 14px;
+				color: #3288FA;
+			}
+			.bottom_bg {
+				width: 100vw;
+				height: calc(100vw * 0.8);
+				background: url(../img/ui/2x/di.png) center bottom no-repeat;
+				background-size: contain;
+			}
+		</style>
+	</head>
+	<body ontouchstart>
+		<div class="container" id="container">
+			<div class="logo">
+				<div class="sys_title">
+				</div>
+			</div>
+			<div class="user_box">
+				<div class="user_info">
+					<div class="icon_user"></div>
+					<div class="user_input">
+						<input type="text" name="account" id="account" placeholder="请输入账号" value="" />
+					</div>
+				</div>
+				<div class="user_info">
+					<div class="icon_user icon_pwd"></div>
+					<div class="user_input">
+						<input type="password" name="password" id="password" placeholder="请输入密码" value="" />
+					</div>
+				</div>
+				<div class="user_btn" onclick="fnLogin();">
+					登录
+				</div>
+				<div class="user_register" onclick="fnRegister();">
+					小区管理员请注册>>
+				</div>
+			</div>
+			<div class="bottom_bg"></div>
+		</div>
+		
+		<script type="text/javascript" src="../js/url.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/common.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/jquery-1.12.4-min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/fastclick.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				FastClick.attach(document.body);
+			})
+		</script>
+		<script type="text/javascript" src="../js/jquery-weui/jquery-weui.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			// 
+			var zhlx; // 账户类型 街道办、社区、小区、村组
+			var userInfo = {};
+			var type = 1;
+			$(function(){
+				var account = window.localStorage.getItem("account");
+				var password = window.localStorage.getItem("password");
+				if(account != undefined && account != ''){
+					$("#account").val(account);
+				}
+				if(password != undefined && password != ''){
+					$("#password").val(password);
+				}
+				window.localStorage.clear();
+			});
+			
+			// 登录校验
+			function fnLogin() {
+				$.showLoading();
+				var account = $("#account").val().trim();
+				var password = $("#password").val().trim();
+				if (account == '' || password == '') {
+					$.toast("账号和密码不能为空！", 'cancel');
+					return;
+				}
+				var url = mHost + mServerName + "/SQDLGl/login";
+				var params = {
+					userName: account,
+					pwd: password
+				}
+				console.log("=== === >> 参数：" + JSON.stringify(params));
+				$.ajax({
+					type: "get",
+					url: url,
+					contentType:'application/x-www-form-urlencoded',
+					data: params,
+					dataType: "jsonp",
+					success: function(result) {
+						$.hideLoading();
+						console.log("=== === >> 登录结果: " + JSON.stringify(result));
+						if (result.state != undefined && result.state == true) {
+							// 登录成功，保存用户信息
+							$.toast("登录成功，进入系统", "text");
+							userInfo = result.userInfo;
+							window.localStorage.setItem("account", account);
+							window.localStorage.setItem("password", password);
+							window.localStorage.setItem("userInfo", JSON.stringify(result.userInfo));
+							var a = {"state":true,"userInfo":{"id":"1","mc":"白浪街道办","zhlx":"街道办","userName":"gwh","pwd":"***","parentID":0},"msg":"登陆成功"};
+							zhlx = result.userInfo.zhlx;
+							window.localStorage.setItem("zhlx", result.userInfo.zhlx); // 账户类型 街道办、社区、小区、村组
+							if(zhlx == "街道办"){
+								window.localStorage.setItem("sqbm", ""); // 社区Id
+							} else if(zhlx == "社区"){
+								window.localStorage.setItem("sqbm", result.userInfo.id); // 社区Id
+								window.localStorage.setItem("sqmc", result.userInfo.mc); // 社区名称
+							} else if(zhlx == "小区" || zhlx == "村组"){
+								window.localStorage.setItem("sqbm", result.userInfo.parentID); // 社区Id
+								window.localStorage.setItem("xqbm", result.userInfo.id); // 小区编码
+								window.localStorage.setItem("xqmc", result.userInfo.mc); // 小区名称
+							}
+							// 跳转主页面
+							setTimeout(function(){
+								fnGoHome();
+							}, 500);
+						} else {
+							// 登录校验失败
+							$.toast(result.msg, 'cancel');
+						}
+					},
+					error: function(jqXHR, textStatus) {
+						$.hideLoading();
+						$.toast("服务异常！", 'cancel')
+					}
+				});
+			}
+
+			// 跳转主页面
+			function fnGoHome() {
+				window.localStorage.setItem("first", 0);
+				// 街道办、社区、小区、村组
+				if(zhlx == "街道办" || zhlx == "社区"){
+					window.location.href = "./home_page.html?date="+new Date().getTime();
+				} else if(zhlx == "小区" || zhlx == "村组"){
+					window.location.href = "./home.html?key=1&date="+new Date().getTime()+"&estateName="+encodeURI(userInfo.mc)+"&estateId="+encodeURI(userInfo.id)+"&sqmc=";
+				}
+			}
+
+			// 注册
+			function fnRegister() {
+				window.localStorage.setItem("first", 1);
+				window.location.href = "./admin_register.html";
+			}
+		</script>
+	</body>
+</html>

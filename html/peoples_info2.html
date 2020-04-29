@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- author：王朝贤 / createTime：2020年2月28日 -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=yes,email=no,date=no,address=no">
+		<title>居民信息</title>
+		<!-- 引入 jquery-weui -->
+		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/jqweui/jquery-weui.css">
+		<link rel="stylesheet" type="text/css" href="../css/peoples_info2.css?v=2" />
+		<link rel="stylesheet" type="text/css" href="../css/iosSelect.css">
+		<style type="text/css">
+			body,
+			html {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				-webkit-tap-highlight-color: transparent;
+				background-color: #F7F7F7;
+				position: relative;
+			}
+
+			/* 超出单行显示省略号 */
+			.line_ellipsis {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			.hidden_box {
+				display: none;
+			}
+		</style>
+	</head>
+	<body ontouchstart>
+		<div class="nav_header">
+			<div class="icon_nav_left" onclick="fnGoBack()"></div>
+			<div class="nav_title">居民信息</div>
+			<div class="icon_nav_right" onclick="fnShowCondition();"></div>
+		</div>
+		<div class="nav_header_hidden">
+		</div>
+		<div class="container" id="container">
+			<div class="main_box">
+				<div class="estate_title">
+					{{estateName}}
+				</div>
+				<div class="info_box">
+					<div class="data_boxs data_boxs_1">
+						<div class="data_box">
+							<div class="item_col_name">楼栋数</div>
+							<div class="item_col_data">{{census.ldsl}}<font class="census_unit">栋</font></div>
+						</div>
+						<div class="data_box">
+							<div class="item_col_name">党员</div>
+							<div class="item_col_data data_color_1">{{census.dysl}}<font class="census_unit">名</font></div>
+						</div>
+						<div class="data_box">
+							<div class="item_col_name">户数</div>
+							<div class="item_col_data data_color_2">{{census.zhsl}}<font class="census_unit">名</font></div>
+						</div>
+					</div>
+					<div class="data_boxs data_boxs_2">
+						<div class="data_box">
+							<div class="item_col_name">居民数</div>
+							<div class="item_col_data data_color_3">{{census.jmsl}}<font class="census_unit">户</font></div>
+						</div>
+						<div class="data_box">
+							<div class="item_col_name">男居民</div>
+							<div class="item_col_data data_color_4">{{census.nanrensl}}<font class="census_unit">名</font></div>
+						</div>
+						<div class="data_box">
+							<div class="item_col_name">女居民</div>
+							<div class="item_col_data data_color_5">{{census.nvrensl}}<font class="census_unit">名</font></div>
+						</div>
+					</div>
+				</div>
+				<!-- <div class="estate_sub_info">
+					小区总计{{ldList.length}}栋楼，7层，4单元，一单元2户
+				</div> -->
+				<div class="data_grid">
+					<!-- <div class="building_check" @click="fnChangeLd()">
+						{{ld}}号楼
+						<div class="icon_check"></div>
+						<span class="sub_text"> ( {{dataList.length}}户 )</span>
+					</div> -->
+					<div class="col_data col_blue">
+						<div class="col_item col_1">楼栋-房号</div>
+						<div class="col_item col_2_c">姓名</div>
+						<div class="col_item col_4">性别<!-- 联系方式 --></div>
+						<div class="col_item col_3">联系方式</div>
+					</div>
+					<template v-for="(item, index) in dataList">
+						<template v-if="index % 2 == 0">
+							<div class="col_data">
+								<div class="col_item col_1">{{(item.ldxx==null||item.ldxx==""?"":item.ldxx+"号楼")}}{{(item.dyxx==null||item.dyxx=="")?"":item.dyxx+"-"}}{{(item.lcxx==null||item.lcxx=="")?"":item.lcxx+"-"}}{{item.mh}}</div>
+								<div class="col_item col_2_c" @click="fnOpenPeopleDetail(item)">{{item.xm}}</div>
+								<div class="col_item col_4">{{item.xb}}</div>
+								<div class="col_item col_3" @click="fnCallTel(item.lxdh)">{{item.lxdh==null?'--':item.lxdh}}</div>
+							</div>
+						</template>
+						<template v-else>
+							<div class="col_data col_blue">
+								<div class="col_item col_1">{{(item.ldxx==null||item.ldxx==""?"":item.ldxx+"号楼")}}{{(item.dyxx==null||item.dyxx=="")?"":item.dyxx+"-"}}{{(item.lcxx==null||item.lcxx=="")?"":item.lcxx+"-"}}{{item.mh}}</div>
+								<div class="col_item col_2_c" @click="fnOpenPeopleDetail(item)">{{item.xm}}</div>
+								<div class="col_item col_4">{{item.xb}}</div>
+								<div class="col_item col_3" @click="fnCallTel(item.lxdh)">{{item.lxdh==null?'--':item.lxdh}}</div>
+							</div>
+						</template>
+					</template>
+				</div>
+			</div>
+		</div>
+		<div class="hidden_box">
+			<a href="" id="callId">1</a>
+		</div>
+		<div class="cond_box" id="condId">
+			<div class="item_box">
+				<div class="item_title">
+					楼栋：
+				</div>
+				<div class="item_input" onclick="fnChangeLdCond();">
+					<input type="text" readonly="readonly" placeholder="请选择..." name="" id="ldId" value="" />
+				</div>
+				<div class="item_right" onclick="fnChangeLdCond();">
+					
+				</div>
+			</div>
+			<div class="item_box">
+				<div class="item_title">
+					姓名：
+				</div>
+				<div class="item_input">
+					<input type="text" placeholder="请输入" name="" id="xm" value="" />
+				</div>
+			</div>
+			<div class="item_box">
+				<div class="item_title">
+					性别：
+				</div>
+				<div class="item_input">
+					<div class="xb_item" onclick="fnCheckXb(0)">
+						<div class="icon_radio icon_radio_a" id="xbId0"></div>
+						<div class="icon_radio_text">全部</div>
+					</div>
+					<div class="xb_item" onclick="fnCheckXb(1)">
+						<div class="icon_radio" id="xbId1"></div>
+						<div class="icon_radio_text">男</div>
+					</div>
+					<div class="xb_item"onclick="fnCheckXb(2)">
+						<div class="icon_radio" id="xbId2"></div>
+						<div class="icon_radio_text">女</div>
+					</div>
+				</div>
+			</div>
+			<div class="item_box">
+				<div class="item_title">
+					门号：
+				</div>
+				<div class="item_input">
+					<input type="text" placeholder="请输入" name="" id="mh" value="" />
+				</div>
+			</div>
+			<!-- <div class="item_box item_box_1"> -->
+			<div class="item_box">
+				<div class="item_btn" onclick="fnSearchByCond();">
+					查 询
+				</div>
+			</div>
+			<!-- <div class="item_box_lt">
+				<div class="high_item" onclick="fnShowHighCond();">
+					高级查询 >>
+				</div>
+			</div> -->
+		</div>
+		<script type="text/javascript" src="../js/url.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/vue.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/jquery-1.12.4-min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/fastclick.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				FastClick.attach(document.body);
+			})
+		</script>
+		<script type="text/javascript" src="../js/jqweui/jquery-weui.min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/iosSelect.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/iosSelect/select1.option.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			// 检索条件 楼栋Id，楼栋名，性别，姓名，门号
+			var ldId, ldName, xb = 0, xm, mh;
+			var xqbm = "";
+			// 楼栋信息
+			var ldList = [];
+			// 初始化双向绑定模型
+			var vue = new Vue({
+				el: '#container',
+				data: {
+					estateName: '',
+					ldList: [],
+					ld: '',
+					dataList: [],
+					census: {
+						zhsl: 0,
+						jmsl: 0,
+						nanrensl: 0,
+						nvrensl: 0,
+						dysl: 0,
+						ldsl: 0
+					}
+				},
+				methods: {
+					fnChangeLd: fnChangeLd,
+					fnCallTel: fnCallTel,
+					fnOpenPeopleDetail: fnOpenPeopleDetail
+				}
+			});
+			
+			// 获取居民信息接口参数
+			var peopleParams = {
+				ld: "",
+				xm: "",
+				xb: "",
+				mh: "",
+				xqbm: xqbm
+			}
+			
+			$(function() {
+				var estateName = window.localStorage.getItem("estateName");
+				var sqmc = window.localStorage.getItem("sqmc");
+				xqbm = window.localStorage.getItem("estateId");
+				vue.$data.estateName = sqmc+" "+estateName;
+				peopleParams.xqbm = xqbm;
+				$("#condId").hide();
+				// 获取楼栋信息
+				fnGetLdInfo();
+			});
+			
+			// 拨打电话
+			function fnCallTel(callNo){
+				if(callNo == '--'){
+					return;
+				}
+				$("#callId").attr("href", "tel:"+callNo);
+				$("#callId")[0].click();
+			}
+			
+			// 根据居民Id查看居民详细信息
+			function fnOpenPeopleDetail(pData){
+				// window.location.href = "./people_detail.html?pId="+pData.ID+"&type="+1; // type 1:查看; 2:编辑
+			}
+			
+			// 选择楼栋
+			function fnChangeLd(){
+				if(firstOptions.length == 0){
+					$.toast("无楼栋选项！", "text");
+					return;
+				}
+				setTimeout(function(){
+					oneOptionId = vue.$data.ld;
+					getOptionId(oneOptionId, function(checkOption) {
+						vue.$data.ld = checkOption.firstOptionId;
+						fnGetPeoplesInfo();
+					});
+				}, 500);
+			}
+			
+			// 选择楼栋
+			function fnChangeLdCond(){
+				if(firstOptions.length == 0){
+					$.toast("无楼栋选项！", "text");
+					return;
+				}
+				setTimeout(function(){
+					oneOptionId = ldId;
+					getOptionId(oneOptionId, function(checkOption) {
+						ldId = checkOption.firstOptionId;
+						ldName = checkOption.firstOptionName;
+						$("#ldId").val(ldName);
+					});
+				}, 500);
+			}
+			
+			function fnCheckXb(xb_){
+				$(".icon_radio_a").removeClass("icon_radio_a");
+				$("#xbId" + xb_).addClass("icon_radio_a");
+				xb = xb_;
+			}
+			
+			// 返回
+			function fnGoBack(){
+				window.top.history.back();
+			}
+			
+			// 获取楼栋信息
+			function fnGetLdInfo() {
+				$.showLoading();
+				var url = mHost + mServerName + "/SQGL/getLouDongList";
+				var params = {
+					xqbm: xqbm
+				}
+				console.log("=== === >> 参数：" + JSON.stringify(params));
+				$.ajax({
+					type: "get",
+					url: url,
+					contentType: 'application/x-www-form-urlencoded',
+					data: params,
+					dataType: "jsonp",
+					success: function(result) {
+						$.hideLoading();
+						if (result.state != undefined && result.state == true) {
+							ldList = result.ldList;
+							vue.$data.ldList = ldList;
+							firstOptions = [];
+							for(var i=0; i<ldList.length; i++){
+								var item = ldList[i];
+								var c = {'id': item, 'value': item+'号楼', 'parentId': '0'}
+								firstOptions.push(c);
+							}
+							vue.$data.ld = ldList[0];
+							peopleParams = {
+								ld: "",
+								xm: "",
+								xb: "",
+								mh: "",
+								xqbm: xqbm
+							}
+							fnGetPeoplesInfo()
+						} else {
+							// 失败
+							$.toast("失败！", 'cancel');
+						}
+					},
+					error: function(jqXHR, textStatus) {
+						$.hideLoading();
+						$.toast("服务异常！", 'cancel')
+					}
+				});
+			}
+			
+			// 获取楼栋人员信息
+			function fnGetPeoplesInfo() {
+				$.showLoading();
+				var url = mHost + mServerName + "/SQGL/getSingelLDRYXXList";
+				
+				console.log("=== === >> 参数：" + JSON.stringify(peopleParams));
+				$.ajax({
+					type: "get",
+					url: url,
+					contentType: 'application/x-www-form-urlencoded',
+					data: peopleParams,
+					dataType: "jsonp",
+					success: function(result) {
+						$.hideLoading();
+						console.log("=== === >> 查询结果："+JSON.stringify(result));
+						if (result.state != undefined && result.state == true) {
+							var data = result.ldzhList;
+							vue.dataList = [];
+							vue.dataList = data;
+							vue.$data.census.zhsl = result.zhsl;
+							vue.$data.census.jmsl = result.jmsl;
+							vue.$data.census.nanrensl = result.nanrensl;
+							vue.$data.census.nvrensl = result.nvrensl;
+							vue.$data.census.dysl = result.dysl;
+							vue.$data.census.ldsl = result.ldsl;
+						} else {
+							// 失败
+							$.toast("失败！", 'cancel');
+						}
+					},
+					error: function(jqXHR, textStatus) {
+						$.hideLoading();
+						$.toast("服务异常！", 'cancel')
+					}
+				});
+			}
+			
+			var condShow = false;
+			// 显示检索条件
+			function fnShowCondition(){
+				if(condShow){
+					$("#condId").hide();
+					condShow = false;
+				} else {
+					condShow = true;
+					$("#condId").show();
+				}
+			}
+			
+			// 显示高级查询内容
+			function fnShowHighCond(){
+				fnShowCondition();
+				
+			}
+			
+			// 开始查询
+			function fnSearchByCond(){
+				fnShowCondition();
+				xm = $("#xm").val();
+				mh = $("#mh").val();
+				console.log("ld: "+ldName+", xm: "+xm+", xb: "+xb+", mh: "+mh);
+				var xb_ = "";
+				if(xb == 0){
+					xb_ = "";
+				} else {
+					xb_ = xb==1?"男":"女";
+				}
+				// TODO 
+				peopleParams = {
+					ld: ldId,
+					xm: xm,
+					xb: xb_,
+					mh: mh,
+					xqbm: xqbm
+				}
+				if(ldId == undefined || ldId == ""){
+					vue.$data.ld = "- ";
+				} else {
+					vue.$data.ld = ldId;
+				}
+				fnGetPeoplesInfo();
+			}
+		</script>
+	</body>
+</html>
