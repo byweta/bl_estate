@@ -140,7 +140,12 @@
 				}
 			});
 			
+			var sqbm, sqmc, xqbm, xqmc;
 			$(function() {
+				sqbm = window.localStorage.getItem("sqbm");
+				sqmc = window.localStorage.getItem("sqmc");
+				xqbm = window.localStorage.getItem("estateId");
+				xqmc = window.localStorage.getItem("estateName");
 				// 获取社区公告数据
 				fnGetNoticeData();
 			});
@@ -168,7 +173,10 @@
 				var params = {
 					page: pageIndex,
 					row: pageSize,
-					xq: '' // 小区名称
+					xq: '', // 小区名称
+					sqmc: sqmc,
+					xqbm: xqbm,
+					xqmc: xqmc
 				}
 				console.log("=== === >> 参数：" + JSON.stringify(params));
 				$.ajax({

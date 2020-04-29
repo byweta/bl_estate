@@ -10,8 +10,9 @@
 		<!-- 引入 jquery-weui -->
 		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
 		<link rel="stylesheet" type="text/css" href="../css/jqweui/jquery-weui.css">
-		<link rel="stylesheet" type="text/css" href="../css/home_page.css?v=2">
+		<link rel="stylesheet" type="text/css" href="../css/home_page.css?v=4">
 		<link rel="stylesheet" type="text/css" href="../css/swiper.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iosSelect.css">
 		<style type="text/css">
 			body,
 			html {
@@ -33,6 +34,13 @@
 	</head>
 	<body ontouchstart>
 		<div class="container" id="container">
+			<div class="search_bar" onclick="fnSelectEstate()" id="searchId">
+				<div class="search_text">选择小区</div>
+				<div class="icon_search"></div>
+			</div>
+			<div class="sys_title" id="sysTitleId">
+				开发区网格服务平台
+			</div>
 			<div class="map" id="mapId">
 				
 			</div>
@@ -41,12 +49,12 @@
 					<div class="info_box">
 						<div class="top_census">
 							<div class="census_line">
-								<div class="census_item census_item_1">
+								<div class="census_item census_item_1" onclick="fnShowSubCensus(1)">
 									<div class="left_img left_img_1"></div>
 									<div class="census_title">社区总数</div>
 									<div class="census_count">4</div>
 								</div>
-								<div class="census_item census_item_2">
+								<div class="census_item census_item_2" onclick="fnShowSubCensus(2)">
 									<div class="left_img left_img_2"></div>
 									<div class="census_title">村总数</div>
 									<div class="census_count">5</div>
@@ -56,7 +64,7 @@
 								<div class="census_item census_item_3">
 									<div class="left_img left_img_3"></div>
 									<div class="census_title">小区</br/>村组总数</div>
-									<div class="census_count">132</div>
+									<div class="census_count">152</div>
 								</div>
 								<div class="census_item census_item_4">
 									<div class="left_img left_img_4"></div>
@@ -75,19 +83,22 @@
 						<div class="data_boxs">
 							<div class="data_box">
 								<div class="item_col_name">确诊病例</div>
-								<div class="item_col_data">{{yqData.qzbl}}</div>
+								<!-- <div class="item_col_data">{{yqData.qzbl}}</div> -->
+								<div class="item_col_data">2</div>
 								<div class="item_col_change">较昨日+0</div>
 							</div>
 							<div class="data_box">
 								<!-- <div class="item_col_name">疑似病例</div> -->
 								<div class="item_col_name">返汉人员</div>
-								<div class="item_col_data data_color_1">{{yqData.ysbl}}</div>
+								<!-- <div class="item_col_data data_color_1">{{yqData.ysbl}}</div> -->
+								<div class="item_col_data data_color_1">2581</div>
 								<div class="item_col_change">较昨日+0</div>
 							</div>
 							<div class="data_box">
 								<!-- <div class="item_col_name">治愈病例</div> -->
 								<div class="item_col_name">密切接触</div>
-								<div class="item_col_data data_color_2">{{yqData.zybl}}</div>
+								<!-- <div class="item_col_data data_color_2">{{yqData.zybl}}</div> -->
+								<div class="item_col_data data_color_2">135</div>
 								<div class="item_col_change">较昨日+0</div>
 							</div>
 						</div>
@@ -134,19 +145,19 @@
 						<div class="data_boxs">
 							<div class="data_box">
 								<div class="item_col_name">确诊病例</div>
-								<div class="item_col_data">{{xqyqData.QZBL}}</div>
+								<div class="item_col_data">{{xqyqData.QZBL==null?0:xqyqData.QZBL}}</div>
 								<div class="item_col_change">较昨日+0</div>
 							</div>
 							<div class="data_box">
 								<!-- <div class="item_col_name">疑似病例</div> -->
 								<div class="item_col_name">返汉人员</div>
-								<div class="item_col_data data_color_1">{{xqyqData.YSBL}}</div>
+								<div class="item_col_data data_color_1">{{xqyqData.YSBL==null?0:xqyqData.YSBL}}</div>
 								<div class="item_col_change">较昨日+0</div>
 							</div>
 							<div class="data_box">
 								<!-- <div class="item_col_name">治愈病例</div> -->
 								<div class="item_col_name">密切接触</div>
-								<div class="item_col_data data_color_2">{{xqyqData.ZYBL}}</div>
+								<div class="item_col_data data_color_2">{{xqyqData.ZYBL==null?0:xqyqData.ZYBL}}</div>
 								<div class="item_col_change">较昨日+0</div>
 							</div>
 						</div>
@@ -154,34 +165,34 @@
 					<div class="info_box">
 						<div class="box_title">
 							<div class="icon_item"></div>
-							<div class="item_text">住户信息<span class="data_uptime">{{xqyqData.FBRQ_}} {{xqyqData.FBSJ_}}防控日报</span></div>
+							<div class="item_text">住户信息<span class="data_uptime">{{xquserData.FBRQ_}} {{xquserData.FBSJ_}}防控日报</span></div>
 							<div class="icon_data"></div>
 						</div>
 						<div class="data_boxs data_boxs_1">
 							<div class="data_box">
 								<div class="item_col_name">楼栋数</div>
-								<div class="item_col_data">{{xquserData.LDS}}</div>
+								<div class="item_col_data">{{xquserData.ldsl==null?0:xquserData.ldsl}}</div>
 							</div>
 							<div class="data_box">
 								<div class="item_col_name">住户</div>
-								<div class="item_col_data data_color_1">{{xquserData.ZHS}}</div>
+								<div class="item_col_data data_color_1">{{xquserData.zhsl==null?0:xquserData.zhsl}}</div>
 							</div>
 							<div class="data_box">
 								<!-- <div class="item_col_name">外来人员</div> -->
 								<div class="item_col_name">单元</div>
-								<div class="item_col_data data_color_2">{{xquserData.DY}}</div>
+								<div class="item_col_data data_color_2">{{xquserData.wlrl==null?0:xquserData.wlrl}}</div>
 							</div>
 						</div>
 						<div class="data_boxs data_boxs_2">
 							<div class="data_box">
 								<!-- <div class="item_col_name">隔离人员</div> -->
 								<div class="item_col_name">现住户</div>
-								<div class="item_col_data data_color_3">{{xquserData.XZH}}</div>
+								<div class="item_col_data data_color_3">{{xquserData.glsl==null?0:xquserData.glsl}}</div>
 							</div>
 							<div class="data_box">
 								<!-- <div class="item_col_name">解除隔离人员</div> -->
 								<div class="item_col_name">现住人数</div>
-								<div class="item_col_data data_color_4">{{xquserData.XZRS}}</div>
+								<div class="item_col_data data_color_4">{{xquserData.jcgl==null?0:xquserData.jcgl}}</div>
 							</div>
 							<div class="data_box">
 								<div class="item_col_name"></div>
@@ -245,7 +256,7 @@
 						<div class="icon_right"></div>
 					</div>
 					<div class="split_line"></div>
-					<div class="msg_module" onclick="fnOpenYqfbInfo()">
+					<!-- <div class="msg_module" onclick="fnOpenYqfbInfo()">
 						<div class="icon_msg icon_publish_2"></div>
 						<div class="msg_text line_ellipsis">
 							疫情发布
@@ -260,7 +271,7 @@
 						</div>
 						<div class="icon_right"></div>
 					</div>
-					<div class="split_line"></div>
+					<div class="split_line"></div> -->
 				</div>
 			</div>
 			<!-- 底部导航 -->
@@ -275,6 +286,72 @@
 				</div>
 			</div>
 		</div>
+		<div class="sub_census_container" id="subCensusId">
+			<template v-if="showIndex == 1">
+				<div class="sub_census_box">
+					<div class="sub_census_title">
+						社区居民统计
+						<div class="icon_close" onclick="fnCloseSubCensus()"></div>
+					</div>
+					<div class="sub_census_items">
+						<div class="sub_census_item sub_census_item_fixed sub_census_item_bg">
+							<div class="sub_census_table_header">社区名称</div>
+							<div class="sub_census_table_header">小区数量</div>
+							<div class="sub_census_table_header">居民数量</div>
+						</div>
+						<div class="sub_census_item sub_census_item_null"></div>
+						<template v-for="(item, index) in dataList1">
+							<template v-if="index%2 == 0">
+								<div class="sub_census_item">
+									<div class="sub_census_table_header w1">{{item.sssq}}</div>
+									<div class="sub_census_table_header w2">{{item.xqshuliang}}</div>
+									<div class="sub_census_table_header w3">{{item.djrenshu}}</div>
+								</div>
+							</template>
+							<template v-else>
+								<div class="sub_census_item sub_census_item_bg">
+									<div class="sub_census_table_header w1">{{item.sssq}}</div>
+									<div class="sub_census_table_header w2">{{item.xqshuliang}}</div>
+									<div class="sub_census_table_header w3">{{item.djrenshu}}</div>
+								</div>
+							</template>
+						</template>
+					</div>
+				</div>
+			</template>
+			<template v-if="showIndex == 2">
+				<div class="sub_census_box">
+					<div class="sub_census_title">
+						村居民统计
+						<div class="icon_close" onclick="fnCloseSubCensus()"></div>
+					</div>
+					<div class="sub_census_items">
+						<div class="sub_census_item sub_census_item_fixed sub_census_item_bg">
+							<div class="sub_census_table_header">村名称</div>
+							<div class="sub_census_table_header">小区/村组数量</div>
+							<div class="sub_census_table_header">居民数量</div>
+						</div>
+						<div class="sub_census_item sub_census_item_null"></div>
+						<template v-for="(item, index) in dataList2">
+							<template v-if="index%2 == 0">
+								<div class="sub_census_item">
+									<div class="sub_census_table_header w1">{{item.sssq}}</div>
+									<div class="sub_census_table_header w2">{{item.xqshuliang}}</div>
+									<div class="sub_census_table_header w3">{{item.djrenshu}}</div>
+								</div>
+							</template>
+							<template v-else>
+								<div class="sub_census_item sub_census_item_bg">
+									<div class="sub_census_table_header w1">{{item.sssq}}</div>
+									<div class="sub_census_table_header w2">{{item.xqshuliang}}</div>
+									<div class="sub_census_table_header w3">{{item.djrenshu}}</div>
+								</div>
+							</template>
+						</template>
+					</div>
+				</div>
+			</template>
+		</div>
 		<script type="text/javascript" src="../js/url.js" charset="utf-8"></script>
 		<script type="text/javascript" src="../js/vue.js" charset="utf-8"></script>
 		<script type="text/javascript" src="../js/date.js" charset="utf-8"></script>
@@ -288,7 +365,9 @@
 			})
 		</script>
 		<script type="text/javascript" src="../js/jqweui/jquery-weui.min.js" charset="utf-8"></script>
-		<script src="https://webapi.amap.com/maps?v=1.4.15&key=853b623b33ded586a10873683c6ce0cc"></script>
+		<script src="https://webapi.amap.com/maps?v=1.4.15&key=853b623b33ded586a10873683c6ce0cc&plugin=AMap.PolyEditor"></script>
+		<script type="text/javascript" src="../js/iosSelect.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/iosSelect/select2.option.js?v=1" charset="utf-8"></script>
 		<script type="text/javascript">
 			
 			// 初始化双向绑定模型
@@ -324,11 +403,15 @@
 						fbsj_:''
 					},
 					xquserData: {
-						LDS: 0,
-						ZHS: 0,
-						DY: 0,
-						XZH: 0,
-						XZRS: 0
+						ldsl: 10,//楼栋数量
+						zhsl: 568,//住户数量
+						wlrl: 46,//单元数量
+						glsl: 215,//现住户数量
+						jcgl: 578,//现住人数量
+						xqsl: 1,//小区数量
+						UpdateTime: "2020-03-09 14:43:34",
+						FBRQ_: '3月11日',
+						FBSJ_: '9:01'
 					},
 					xqyqData: {
 						QZBL: 0, // 确症病例
@@ -344,12 +427,143 @@
 				methods: {
 				}
 			});
+			
+			// 初始化双向绑定模型
+			var vsub = new Vue({
+				el: '#subCensusId',
+				data: {
+					showIndex: 0,
+					dataList1: [],
+					dataList2: [],
+					dataList3: []
+				},
+				methods: {
+				}
+			});
 			// 用户坐标
 			var userLat = 0,
 				userLng = 0;
 			var map;
 			var position;
 			var markers = [];
+			var path = [
+				[110.841682, 32.579811],
+				[110.841077, 32.580757],
+				[110.841584, 32.582358],
+				[110.842769, 32.583391],
+				[110.844453, 32.58459],
+				[110.844902, 32.586119],
+				[110.844598, 32.587008],
+				[110.845708, 32.587918],
+				[110.848785, 32.588581],
+				[110.849447, 32.590485],
+				[110.848024, 32.590822],
+				[110.847753, 32.59193],
+				[110.848757, 32.593857],
+				[110.850077, 32.595252],
+				[110.852545, 32.596596],
+				[110.855078, 32.59668],
+				[110.857914, 32.600464],
+				[110.860494, 32.603693],
+				[110.861363, 32.603354],
+				[110.862919, 32.603666],
+				[110.864641, 32.605123],
+				[110.868249, 32.605418],
+				[110.870025, 32.606489],
+				[110.873003, 32.60539],
+				[110.877758, 32.603338],
+				[110.878684, 32.603428],
+				[110.880021, 32.602738],
+				[110.88115, 32.603096],
+				[110.883066, 32.602364],
+				[110.885866, 32.601623],
+				[110.885802, 32.60289],
+				[110.889452, 32.602532],
+				[110.892821, 32.603349],
+				[110.898593, 32.600552],
+				[110.903893, 32.595802],
+				[110.911521, 32.590824],
+				[110.914305, 32.587322],
+				[110.918444, 32.585282],
+				[110.927894, 32.579778],
+				[110.92953, 32.581365],
+				[110.928459, 32.582737],
+				[110.929297, 32.583568],
+				[110.932635, 32.582103],
+				[110.938251, 32.582817],
+				[110.945023, 32.5785],
+				[110.946373, 32.576047],
+				[110.944546, 32.575401],
+				[110.945381, 32.573599],
+				[110.945498, 32.572263],
+				[110.944311, 32.570388],
+				[110.944154, 32.568222],
+				[110.943654, 32.566274],
+				[110.941093, 32.565483],
+				[110.936345, 32.564635],
+				[110.932036, 32.564101],
+				[110.932, 32.562021],
+				[110.933301, 32.560755],
+				[110.933157, 32.559524],
+				[110.931324, 32.558364],
+				[110.930748, 32.557058],
+				[110.930626, 32.555458],
+				[110.929009, 32.554428],
+				[110.927492, 32.554248],
+				[110.926175, 32.553022],
+				[110.921823, 32.555054],
+				[110.921358, 32.554199],
+				[110.919056, 32.553935],
+				[110.917714, 32.554277],
+				[110.916402, 32.5525],
+				[110.920597, 32.54315],
+				[110.924893, 32.538821],
+				[110.927728, 32.532749],
+				[110.929317, 32.527687],
+				[110.930563, 32.521466],
+				[110.928934, 32.516515],
+				[110.922843, 32.515327],
+				[110.91821, 32.518336],
+				[110.914264, 32.520767],
+				[110.914617, 32.52622],
+				[110.91445, 32.532854],
+				[110.913259, 32.539385],
+				[110.911381, 32.540128],
+				[110.907626, 32.54827],
+				[110.90032, 32.556717],
+				[110.895588, 32.5533],
+				[110.886962, 32.547878],
+				[110.870912, 32.560041],
+				[110.868861, 32.562662],
+				[110.865864, 32.561955],
+				[110.863305, 32.562712],
+				[110.862479, 32.564371],
+				[110.860483, 32.561901],
+				[110.85855, 32.559856],
+				[110.857947, 32.559236],
+				[110.857254, 32.559878],
+				[110.85484, 32.561596],
+				[110.854829, 32.563459],
+				[110.853451, 32.563667],
+				[110.852761, 32.564205],
+				[110.854047, 32.564836],
+				[110.852545, 32.564862],
+				[110.851112, 32.566058],
+				[110.849165, 32.56711],
+				[110.846214, 32.56813],
+				[110.844347, 32.567347],
+				[110.841555, 32.568019],
+				[110.839278, 32.567534],
+				[110.838156, 32.566998],
+				[110.837116, 32.567372],
+				[110.836295, 32.569513],
+				[110.835303, 32.57064],
+				[110.835549, 32.572317],
+				[110.836708, 32.573959],
+				[110.839197, 32.575652],
+				[110.84263, 32.577012],
+				[110.841772, 32.578432]
+			];
 			// 轮播图
 			var swiper = new Swiper('#swiperId', {
 				pagination: '.swiper-pagination',
@@ -358,14 +572,26 @@
 			});
 			// 小区数据
 			var xqlist;
+			// 账户类型 街道办、社区、小区、村组
+			var zhlx; 
+			var sqbm, sqmc; // 社区编码 社区名称
 			$(function() {
+				$("#subCensusId").hide();
 				position = new AMap.LngLat(110.860355,32.575105);
+				sqbm = window.localStorage.getItem("sqbm");
+				if(sqbm == undefined || sqbm == ""){
+					sqbm = "";
+				}
 				// 初始化高德地图
 				initAmap();
 				// 获取辖区内小区信息
 				fnGetEstateInfo();
 				// 获取辖区内统计信息
 				fnGetCensusInfo();
+				// 获取小区列表信息
+				fnGetEstateList();
+				// 
+				fnGetSubCensusData();
 			});
 			
 			// 初始化高德地图
@@ -373,8 +599,21 @@
 				map = new AMap.Map('mapId', {
 					resizeEnable: true,
 					center: position,
-					zoom: 13
+					zoom: 11
 				});
+				var polygon = new AMap.Polygon({
+					path: path,
+					strokeColor: "#FF33FF",
+					strokeWeight: 1,
+					strokeOpacity: 0.1,
+					fillOpacity: 0.2,
+					fillColor: '#1791fc',
+					zIndex: 50,
+				});
+				
+				map.add(polygon);
+				// 缩放地图到合适的视野级别
+				// map.setFitView([polygon]);
 				map.on('click', function(ev) {
 					// 触发事件的对象
 					var target = ev.target;
@@ -386,6 +625,7 @@
 			//添加标记
 			function fnAddMarker(data, xqIndex){
 				var qzbl = Number(data.QZBL);
+				var jmsl = Number(data.jcgl);
 				// 点标记显示内容，HTML要素字符串
 				var marker_bg = "marker_bg_1";
 				if(qzbl <= 5){
@@ -397,7 +637,8 @@
 				}
 				var markerCnt = '' + 
 					'<div class="marker_item '+marker_bg+'" onclick="fnOpenEstateDetail('+xqIndex+')">'+
-					'	<div class="m_count">'+qzbl+'</div>'+
+					// '	<div class="m_count">'+qzbl+'</div>'+
+					'	<div class="m_count">'+jmsl+'</div>'+
 					'	<div class="m_line">|</div>'+
 					'	<div class="m_name">'+data.xqmc+'</div>'+
 					'</div>';
@@ -431,14 +672,14 @@
 				data.FBRQ_ = FBRQ_;
 				data.FBSJ_ = FBSJ_;
 				vue.$data.xqyqData = data;
-				// vue.$data.xquserData = {};
+				vue.$data.xquserData = data;
 				$("#estatesId").hide();
 				$("#mapEstateId").show();
 			}
 			
 			// 打开小区管理端页面
 			function fnOpenEstateWin(){
-				window.location.href = "./home.html?key=1&estateName="+encodeURI(showEstate.xqmc);
+				window.location.href = "./home.html?key=1&date="+new Date().getTime()+"&estateName="+encodeURI(showEstate.xqmc)+"&estateId="+encodeURI(showEstate.id)+"&sqmc="+sqmc;
 			}
 
 			// 获取辖区内小区信息
@@ -446,7 +687,11 @@
 				$.showLoading();
 				var url = mHost + mServerName + "/SQGL/getEstateInfo";
 				var params = {
-					xzqhdm: '110110'
+					//xzqhdm: '110110',
+					sqbm: sqbm,
+					sqmc: '',
+					xqbm: '',
+					xqmc: ''
 				}
 				console.log("=== === >> 参数：" + JSON.stringify(params));
 				$.ajax({
@@ -464,7 +709,7 @@
 							markers = new Array(data.length);
 							for(var i=0; i<data.length; i++){
 								var dataItem = data[i];
-								console.log("=== === >> "+JSON.stringify(dataItem));
+								// console.log("=== === >> "+JSON.stringify(dataItem));
 								// 添加标记
 								fnAddMarker(dataItem, i);
 							}
@@ -485,6 +730,9 @@
 				$.showLoading();
 				var url = mHost + mServerName + "/SQGL/getCensusInfo";
 				var params = {
+					sqmc: '',
+					xqbm: '',
+					xqmc: ''
 				}
 				console.log("=== === >> 参数：" + JSON.stringify(params));
 				$.ajax({
@@ -534,7 +782,7 @@
 			
 			// 打开便民服务页面
 			function fnOpenService() {
-				window.location.href = "./service.html?date="+new Date().getTime();
+				window.location.href = "./service_info.html?date="+new Date().getTime();
 			}
 			
 			// 打开投诉建议页面
@@ -579,10 +827,14 @@
 					$("#mapId").show();
 					$("#censusId").show();
 					$("#detailId").hide();
+					$("#sysTitleId").show();
+					$("#searchId").show();
 				} else {
 					$("#mapId").hide();
 					$("#censusId").hide();
 					$("#detailId").show();
+					$("#sysTitleId").hide();
+					$("#searchId").hide();
 					setTimeout(function(){
 						var swiper = new Swiper('#swiperId', {
 							pagination: '.swiper-pagination',
@@ -591,6 +843,143 @@
 						});
 					}, 300);
 				}
+			}
+			
+			// 获取小区信息
+			function fnGetEstateList(){
+				$.showLoading();
+				var url = mHost + mServerName + "/SQGL/getXiaoQuAndSqList";
+				var params = {
+					// xzqhdm: '110110'
+					sqbm: sqbm
+				}
+				console.log("=== === >> 参数：" + JSON.stringify(params));
+				$.ajax({
+					type: "get",
+					url: url,
+					contentType: 'application/x-www-form-urlencoded',
+					data: params,
+					dataType: "jsonp",
+					success: function(result) {
+						$.hideLoading();
+						console.log("=== === >> 获取结果："+JSON.stringify(result))
+						if (result.state != undefined && result.state == true) {
+							// 处理社区数据
+							var sqData = result.sqList;
+							firstOptions = [];
+							for(var i=0; i<sqData.length; i++){
+								var item = sqData[i];
+								var c = {'id': item.ID, 'value': item.sqmc, 'parentId': '0'}
+								firstOptions.push(c);
+							}
+							// 处理小区数据
+							var xqData = result.xqList;
+							secondOptions = [];
+							for(var i=0; i<xqData.length; i++){
+								var item = xqData[i];
+								var c = {'id': item.ID, 'value': item.xqmc, 'parentId': item.sssqid}
+								secondOptions.push(c);
+							}
+						} else {
+							// 失败
+							$.toast("失败！", 'cancel');
+						}
+					},
+					error: function(jqXHR, textStatus) {
+						$.hideLoading();
+						$.toast("服务异常！", 'cancel')
+					}
+				});
+			}
+			// 选择社区
+			function fnSelectEstate(){
+				setTimeout(function(){
+					oneOptionId = '';
+					twoOptionId = '';
+					getOptionId(oneOptionId, twoOptionId, function(checkOption) {
+						console.log("=== === >> 选择的小区："+JSON.stringify(checkOption)+", xqlist: "+JSON.stringify(xqlist));
+						sqbm = checkOption.firstOptionId;
+						sqmc = checkOption.firstOptionName;
+						xqbm = checkOption.secondOptionId;
+						estateName = checkOption.secondOptionName;
+						var selectEstate = {};
+						var isExistMap = false;
+						for(var i=0; i<xqlist.length; i++){
+							var xqItem = xqlist[i];
+							if(xqItem.id == xqbm){
+								console.log("=== === >> 小区数据："+JSON.stringify(xqItem));
+								// 移动地图位置
+								if(xqItem.jd != null && xqItem.wd != null){
+									map.setCenter(new AMap.LngLat(Number(xqItem.jd),Number(xqItem.wd)));
+								}
+								selectEstate = xqItem;
+								// 查看选中小区的简要详情
+								fnOpenEstateDetail(i);
+								isExistMap = true;
+								break;
+							}
+						}
+						if(!isExistMap){
+							$.toast(estateName+"暂未发布疫情数据！", "text");
+						}
+						
+					}, function(){
+						// 取消回调
+					});
+				}, 500);
+			}
+			
+			// 展示统计信息
+			function fnShowSubCensus(showIndex_){
+				vsub.$data.showIndex = showIndex_;
+				$("#subCensusId").show();
+			}
+			
+			// 关闭统计信息页面
+			function fnCloseSubCensus(){
+				vsub.$data.showIndex = 0;
+				$("#subCensusId").hide();
+			}
+			
+			// 获取各社区、村、小区、村组居民统计数据
+			function fnGetSubCensusData(){
+				$.showLoading();
+				var url = mHost + mServerName + "/SQGL/getSqDengJiRenShu";
+				var params = {
+				}
+				console.log("=== === >> 参数：" + JSON.stringify(params));
+				$.ajax({
+					type: "get",
+					url: url,
+					contentType: 'application/x-www-form-urlencoded',
+					data: params,
+					dataType: "jsonp",
+					success: function(result) {
+						$.hideLoading();
+						console.log("=== === >> 获取结果："+JSON.stringify(result))
+						if (result.state != undefined && result.state == true) {
+							var data = result.sqdjtj;
+							vsub.dataList1 = [];
+							vsub.dataList2 = [];
+							vsub.dataList3 = [];
+							for(var i=0; i<data.length; i++){
+								var dataItem = data[i];
+								if(dataItem.sqlx == "小区"){
+									vsub.dataList1.push(dataItem);
+								} else if(dataItem.sqlx == "村组"){
+									vsub.dataList2.push(dataItem);
+								}
+							}
+						} else {
+							// 失败
+							$.toast("失败！", 'cancel');
+						}
+					},
+					error: function(jqXHR, textStatus) {
+						$.hideLoading();
+						$.toast("服务异常！", 'cancel')
+					}
+				});
 			}
 		</script>
 	</body>

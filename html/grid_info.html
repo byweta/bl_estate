@@ -47,7 +47,7 @@
 					十堰经济技术开发区
 				</div>
 				<div class="estate_title estate_title_1">
-					二机电一生活区治理小网格组织构架
+					{{estateName}}治理小网格组织构架
 				</div>
 				<!-- <div class="estate_sub_info">
 					白浪街道马路社区 (党组织书记胡云霞 13329859981)
@@ -90,14 +90,14 @@
 						<template v-for="(ldz, ldzi) in data.zyzList">
 							<template v-if="ldzi % 2 == 0">
 								<div class="col_data col_blue">
-									<div class="col_item col_1">{{ldz.name}}</div>
-									<div class="col_item col_2" @click="fnCallTel(ldz.phone)">{{ldz.phone}}</div>
+									<div class="col_item col_1">{{ldz.xm}}</div>
+									<div class="col_item col_2" @click="fnCallTel(ldz.lxdh)">{{ldz.lxdh}}</div>
 								</div>
 							</template>
 							<template v-else>
 								<div class="col_data">
-									<div class="col_item col_1">{{ldz.name}}</div>
-									<div class="col_item col_2" @click="fnCallTel(ldz.phone)">{{ldz.phone}}</div>
+									<div class="col_item col_1">{{ldz.xm}}</div>
+									<div class="col_item col_2" @click="fnCallTel(ldz.lxdh)">{{ldz.lxdh}}</div>
 								</div>
 							</template>
 						</template>
@@ -115,16 +115,16 @@
 						<template v-for="(zyz, zyzi) in data.ldzList">
 							<template v-if="zyzi % 2 == 0">
 								<div class="col_data">
-									<div class="col_item col_2_1">{{zyz.name}}</div>
-									<div class="col_item col_2_2" @click="fnCallTel(zyz.phone)">{{zyz.phone}}</div>
-									<div class="col_item col_2_3">{{zyz.addr}}</div>
+									<div class="col_item col_2_1">{{zyz.xm}}</div>
+									<div class="col_item col_2_2" @click="fnCallTel(zyz.lxdh)">{{zyz.lxdh}}</div>
+									<div class="col_item col_2_3">{{zyz.dz}}</div>
 								</div>
 							</template>
 							<template v-else>
 								<div class="col_data col_blue">
-									<div class="col_item col_2_1">{{zyz.name}}</div>
-									<div class="col_item col_2_2" @click="fnCallTel(zyz.phone)">{{zyz.phone}}</div>
-									<div class="col_item col_2_3">{{zyz.addr}}</div>
+									<div class="col_item col_2_1">{{zyz.xm}}</div>
+									<div class="col_item col_2_2" @click="fnCallTel(zyz.lxdh)">{{zyz.lxdh}}</div>
+									<div class="col_item col_2_3">{{zyz.dz}}</div>
 								</div>
 							</template>
 						</template>
@@ -153,15 +153,22 @@
 			var vue = new Vue({
 				el: '#container',
 				data: {
-					dataList: dataList
+					estateName: '',
+					dataList: [] // dataList
 				},
 				methods: {
 					fnCallTel: fnCallTel
 				}
 			});
-			
+			var sqbm, sqmc, xqbm, xqmc;
 			$(function() {
-				
+				sqbm = window.localStorage.getItem("sqbm");
+				sqmc = window.localStorage.getItem("sqmc");
+				xqbm = window.localStorage.getItem("estateId");
+				xqmc = window.localStorage.getItem("estateName");
+				vue.$data.estateName = xqmc;
+				// 获取网格员信息
+				fnGetGridInfo();
 			});
 			
 			// 拨打电话
@@ -175,12 +182,14 @@
 				window.top.history.back();
 			}
 
-			// 获取企业信息
-			function fnGetEnterpriseInfo() {
+			// 获取网格员信息
+			function fnGetGridInfo() {
 				$.showLoading();
-				var url = mHost + mServerName + "/EntInfo/getEntInfo";
+				var url = mHost + mServerName + "/SQGL/getGridInfo";
 				var params = {
-					ID: entInfo.ID
+					sqmc: sqmc,
+					xqbm: xqbm,
+					xqmc: xqmc
 				}
 				console.log("=== === >> 参数：" + JSON.stringify(params));
 				$.ajax({
@@ -191,8 +200,10 @@
 					dataType: "jsonp",
 					success: function(result) {
 						$.hideLoading();
+						console.log("=== === >> 获取结果："+JSON.stringify(result))
 						if (result.state != undefined && result.state == true) {
-							
+							var data = result.data;
+							vue.dataList = data;
 						} else {
 							// 失败
 							$.toast("失败！", 'cancel');

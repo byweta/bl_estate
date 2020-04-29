@@ -12,6 +12,7 @@
 		<link rel="stylesheet" type="text/css" href="../css/jqweui/jquery-weui.css">
 		<link rel="stylesheet" type="text/css" href="../css/home.css?v=2" />
 		<link rel="stylesheet" type="text/css" href="../css/swiper.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iosSelect.css">
 		<style type="text/css">
 			body,
 			html {
@@ -34,21 +35,36 @@
 				height: 10px;
 				background-color: #F8F8F8;
 			}
+			
+			.back_home {
+				position: absolute;
+				top: 10px;
+				right: 15px;
+				width: 30px;
+				height: 30px;
+				line-height: 30px;
+				font-size: 14px;
+				font-weight: 700;
+				color: #00A0E9;
+				background: url(../img/home_page/icon_back_home.png) center right no-repeat;
+				background-size: 24px;
+			}
 		</style>
 	</head>
 	<body ontouchstart>
 		<div class="container" id="container">
 			<div class="top_module">
 				<div class="title_box">
-					<div class="title_content">
+					<div class="title_content" @click="fnSelectEstate()">
 						<div class="icon_font icon_addr"></div>
-						<div class="title_text">{{estateName}}</div>
+						<div class="title_text">{{sqmc}} {{estateName}}</div>
 						<div class="icon_font icon_down"></div>
 					</div>
 					<div class="title_content">
 						<div class="icon_font"></div>
 						<div class="title_text">欢迎您！</div>
 					</div>
+					<div class="back_home" id="backId" @click="fnGoBack();"></div>
 				</div>
 				<div class="swiper_box" id="swiperId">
 					<div class="swiper-wrapper">
@@ -118,10 +134,11 @@
 							志愿者值班表
 						</div>
 					</div>
-					<div class="menu_item" onclick="fnOpenHealthCard();">
-						<div class="icon_menu icon_menu_9"></div>
+					<!-- <div class="menu_item" onclick="fnOpenHealthCard();"> -->
+					<div class="menu_item">
+						<div class="icon_menu"></div>
 						<div class="menu_text">
-							健康卡
+							<!-- 健康卡 -->
 						</div>
 					</div>
 					<div class="menu_item">
@@ -257,24 +274,50 @@
 		</script>
 		<script type="text/javascript" src="../js/jqweui/jquery-weui.min.js" charset="utf-8"></script>
 		<script type="text/javascript" src="../js/city-picker.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/iosSelect.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/iosSelect/select2.option.js?v=1" charset="utf-8"></script>
 		<script type="text/javascript">
 			// 初始化双向绑定模型
 			var vue = new Vue({
 				el: '#container',
 				data: {
 					key: 0,
-					estateName: '社区发布',
+					estateId: '',
+					estateName: '',
+					sqbm: '',
+					sqmc: '',
 					newNotice: {
 						BT: '',
 						LJ: ''
 					},
-					userData: {},
-					yqData: {}
+					userData: {
+						ldsl: 0,//楼栋数量
+						zhsl: 0,//住户数量
+						wlrl: 0,//单元数量
+						glsl: 0,//现住户数量
+						jcgl: 0,//现住人数量
+						xqsl: 0,//小区数量
+						UpdateTime: "2020-03-09 14:43:34",
+						fbrq_: '',
+						fbsj_:''
+					},
+					yqData: {
+						fbrq: "2020-03-12 11:17:00",//最新发布日期
+						qzbl: 0,//确诊病例
+						swbl: 0,//确诊接触人数
+						ysbl: 0,//返汉人员数量
+						zybl: 0,//密切接触人数
+						xqsl: 0,//小区数量
+						fbrq_: '',
+						fbsj_:''
+					}
 					
 				},
 				methods: {
 					fnOpenNewNotice: fnOpenNewNotice,
-					fnOpenNotice: fnOpenNotice
+					fnOpenNotice: fnOpenNotice,
+					fnSelectEstate: fnSelectEstate,
+					fnGoBack: fnGoBack
 				}
 			});
 			
@@ -283,46 +326,66 @@
 				autoplay: 3000, //可选选项，自动滑动
 				paginationClickable: true
 			});
-			var estateName;
+			// 小区编码，小区名称，社区名称
+			var estateId, estateName, sqmc;
 			var estateNameFlag = false;
 			$(function() {
 				key = fnGetQueryString("key");
 				if(key != undefined && key == 1){
 					vue.$data.key = 1;
+				} else {
 				}
+				var zhlx = window.localStorage.getItem("zhlx");
+				console.log("=== === >> :"+zhlx);
+				if(zhlx != undefined && (zhlx == '街道办' || zhlx == '社区')){
+					
+				} else {
+					$("#backId").hide();
+				}
+				estateId = fnGetQueryString("estateId");
 				estateName = fnGetQueryString("estateName");
+				sqmc = fnGetQueryString("sqmc");
 				if(estateName != undefined && estateName != ""){
 					estateNameFlag = true;
+					vue.$data.estateId = decodeURI(estateId);
 					vue.$data.estateName = decodeURI(estateName);
+					vue.$data.sqmc = decodeURI(sqmc);
+					// 记录并刷新数据
+					window.localStorage.setItem("estateId", vue.$data.estateId);
+					window.localStorage.setItem("estateName", vue.$data.estateName);
+					window.localStorage.setItem("sqmc", vue.$data.sqmc);
 				}
 				// 获取最新社区公告
 				fnGetNoticeInfo();
-				// 获取社区住户统计信息
-				fnGetEstateData();
-				// 获取社区疫情数据
-				fnGetYQData();
+				// 获取辖区内小区列表信息
+				fnGetEstateList();
 			});
+			
+			// 返回管委会
+			function fnGoBack(){
+				window.top.history.back();
+			}
 
 			// 打开网格员页面
 			function fnOpenGrid() {
-				window.location.href = "./grid_info.html";
+				window.location.href = "./grid_info.html?date="+new Date().getTime();
 			}
 			
 			// 打开便民服务页面
 			function fnOpenService() {
-				window.location.href = "./service.html?date="+new Date().getTime();
+				window.location.href = "./service_info.html?date="+new Date().getTime();
 			}
 			
 			// 打开投诉建议页面
 			function fnOpenAdvince() {
-				window.location.href = "./advince_frm.html";
+				window.location.href = "./advince_frm.html?date="+new Date().getTime();
 			}
 
 			// 打开居民信息页面
 			function fnOpenPeoples() {
 				if(vue.$data.key == 1){
 					// 打开居民统计信息页面
-					window.location.href = "./peoples_info.html";
+					window.location.href = "./peoples_info2.html?date="+new Date().getTime();
 				} else {
 					// 打开居民填报页面
 					// window.location.href = "http://59.108.92.198:9006/NewApp/AutoFormMobile/Edit?configId=jmxxdc";
@@ -332,7 +395,7 @@
 
 			// 打开社区公告页面
 			function fnOpenNotice() {
-				window.location.href = "./notice_info.html";
+				window.location.href = "./notice_info.html?date="+new Date().getTime();
 			}
 			
 			// 打开社区公告最新信息详情页面
@@ -368,7 +431,7 @@
 			
 			// 打开值班表页面
 			function fnOpenOnDuty(){
-				window.location.href = "./on_duty_info.html";
+				window.location.href = "./on_duty_info.html?date="+new Date().getTime();
 			}
 			
 			// 打开求职登记页面
@@ -383,12 +446,12 @@
 			
 			// 打开志愿者值班表页面
 			function fnOpenVolunteerDuty(){
-				window.location.href = "./vol_duty_info.html";
+				window.location.href = "./vol_duty_info.html?date="+new Date().getTime();
 			}
 			
 			// 打开健康卡页面
 			function fnOpenHealthCard(){
-				window.location.href = "./vol_duty_info.html";
+				window.location.href = "./vol_duty_info.html?date="+new Date().getTime();
 			}
 			
 			// 获取社区公告信息
@@ -429,6 +492,9 @@
 				$.showLoading();
 				var url = mHost + mServerName + "/SQGL/getSQRYTJ";
 				var params = {
+					sqmc: vue.$data.sqmc,
+					xqbm: vue.$data.estateId,
+					xqmc: vue.$data.estateName
 				}
 				console.log("=== === >> 参数：" + JSON.stringify(params));
 				$.ajax({
@@ -462,6 +528,9 @@
 				$.showLoading();
 				var url = mHost + mServerName + "/SQGL/getYQTJ";
 				var params = {
+					sqmc: vue.$data.sqmc,
+					xqbm: vue.$data.estateId,
+					xqmc: vue.$data.estateName
 				}
 				console.log("=== === >> 参数：" + JSON.stringify(params));
 				$.ajax({
@@ -494,6 +563,124 @@
 						$.toast("服务异常！", 'cancel')
 					}
 				});
+			}
+			
+			// 获取小区信息
+			function fnGetEstateList(){
+				$.showLoading();
+				var url = mHost + mServerName + "/SQGL/getXiaoQuAndSqList";
+				var params = {
+					// xzqhdm: '110110'
+					sqbm: vue.$data.sqbm
+				}
+				console.log("=== === >> 参数：" + JSON.stringify(params));
+				$.ajax({
+					type: "get",
+					url: url,
+					contentType: 'application/x-www-form-urlencoded',
+					data: params,
+					dataType: "jsonp",
+					success: function(result) {
+						$.hideLoading();
+						console.log("=== === >> 获取结果："+JSON.stringify(result))
+						if (result.state != undefined && result.state == true) {
+							// 处理社区数据
+							var sqData = result.sqList;
+							firstOptions = [];
+							for(var i=0; i<sqData.length; i++){
+								var item = sqData[i];
+								var c = {'id': item.ID, 'value': item.sqmc, 'parentId': '0'}
+								firstOptions.push(c);
+							}
+							// 处理小区数据
+							var xqData = result.xqList;
+							secondOptions = [];
+							for(var i=0; i<xqData.length; i++){
+								var item = xqData[i];
+								var c = {'id': item.ID, 'value': item.xqmc, 'parentId': item.sssqid}
+								secondOptions.push(c);
+							}
+							if(vue.$data.key == 0){
+								// 居民登录
+								var estateId_ = window.localStorage.getItem("estateId");
+								if(estateId_ == undefined || estateId_ == ""){
+									// 提示选择小区
+									fnSelectEstate();
+								} else {
+									var estateName_ = window.localStorage.getItem("estateName");
+									var sqmc_ = window.localStorage.getItem("sqmc");
+									vue.$data.estateId = estateId_;
+									vue.$data.estateName = estateName_;
+									vue.$data.sqmc = sqmc_;
+									estateNameFlag = true;
+									// 获取社区住户统计信息
+									fnGetEstateData();
+									// 获取社区疫情数据
+									fnGetYQData();
+								}
+							} else {
+								// 管理员登录 TODO
+								var estateId_ = window.localStorage.getItem("estateId");
+								if(estateId_ == undefined || estateId_ == ""){
+									// 提示选择小区
+									fnSelectEstate();
+								} else {
+									var estateName_ = window.localStorage.getItem("estateName");
+									var sqmc_ = window.localStorage.getItem("sqmc");
+									vue.$data.estateId = estateId_;
+									vue.$data.estateName = estateName_;
+									vue.$data.sqmc = sqmc_;
+									estateNameFlag = true;
+									// 获取社区住户统计信息
+									fnGetEstateData();
+									// 获取社区疫情数据
+									fnGetYQData();
+								}
+							}
+						} else {
+							// 失败
+							$.toast("失败！", 'cancel');
+						}
+					},
+					error: function(jqXHR, textStatus) {
+						$.hideLoading();
+						$.toast("服务异常！", 'cancel')
+					}
+				});
+			}
+			
+			// 选择社区
+			function fnSelectEstate(){
+				if(vue.$data.key == 1){
+					// return;
+				}
+				setTimeout(function(){
+					oneOptionId = vue.$data.sqbm;
+					twoOptionId = vue.$data.estateId;
+					getOptionId(oneOptionId, twoOptionId, function(checkOption) {
+						estateNameFlag = true;
+						vue.$data.sqbm = checkOption.firstOptionId;
+						vue.$data.sqmc = checkOption.firstOptionName;
+						vue.$data.estateId = checkOption.secondOptionId;
+						vue.$data.estateName = checkOption.secondOptionName;
+						// 记录并刷新数据
+						window.localStorage.setItem("sqbm", vue.$data.sqbm);
+						window.localStorage.setItem("sqmc", vue.$data.sqmc);
+						window.localStorage.setItem("estateId", vue.$data.estateId);
+						window.localStorage.setItem("estateName", vue.$data.estateName);
+						// 获取选中小区的数据
+						// 1、获取社区住户统计信息
+						fnGetEstateData();
+						// 2、获取社区疫情数据
+						fnGetYQData();
+					}, function(){
+						// 取消回调
+						if(vue.$data.estateId == ''){
+							$.toast("请选择小区！", 'cancel');
+							fnSelectEstate();
+						}
+					});
+				}, 500);
 			}
 		</script>
 	</body>

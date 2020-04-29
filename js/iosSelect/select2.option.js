@@ -9,6 +9,8 @@ function fnCheckOption(oneOptionId, twoOptionId){
 		secondOptionId = checkOption.secondOptionId;
 		var firstOptionName= checkOption.firstOptionName;
 		var secondOptionName= checkOption.secondOptionName;
+	}, function(){
+		
 	});
 }
 
@@ -46,7 +48,7 @@ var secondOptions = [
 ];
 
 // 选择
-function getOptionId(firstOptionId, secondOptionId, callback){
+function getOptionId(firstOptionId, secondOptionId, callback, fallback){
     if(firstOptionId == ''){
         oneLevelId = firstOptions[0].id;
         twoLevelId = secondOptions[0].id;
@@ -70,6 +72,9 @@ function getOptionId(firstOptionId, secondOptionId, callback){
                     secondOptionName: selectTwoObj.value
                 };
                 callback(checkOption);
-            }
+            },
+			fallback: function () {
+				fallback();
+			}
     });
 }

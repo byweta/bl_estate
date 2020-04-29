@@ -77,10 +77,24 @@
 				"http://59.108.92.198:9006/NewApp/AutoFormMobile/Edit?configId=jmxxdc",
 				"http://59.108.92.198:9006/NewApp/AutoFormMobile/Edit?configId=qzdj"
 			];
+			var params = '';
 			$(function() {
 				var type = fnGetQueryString("type");
+				var xqbm = window.localStorage.getItem("estateId");
+				var xqmc = window.localStorage.getItem("estateName");
+				var sqmc = window.localStorage.getItem("sqmc");
+				params = "&xqbm="+xqbm+"&xqmc="+xqmc+"&sqmc="+sqmc;
+				if(xqbm == undefined || xqbm == ''){
+					params = "&xqbm=&xqmc=&sqmc=";
+				}
+				var zhlx = window.localStorage.getItem("zhlx");
+				if(zhlx == "街道办"){
+					params = "&xqbm=&xqmc=&sqmc=";
+				} else if(zhlx == "社区"){
+					params = "&xqbm=&xqmc=&sqmc="+sqmc;
+				}
 				index = Number(type)-1;
-				$("#tabFrm1").attr("src", links[index]);
+				$("#tabFrm1").attr("src", links[index]+params);
 				$("#titleId").html(titles[index]);
 			});
 			

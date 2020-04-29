@@ -45,10 +45,13 @@
 		<div class="container" id="container">
 			<div class="main_box">
 				<div class="estate_title">
-					{{estateName}}
+					{{sqmc}} {{estateName}}
 				</div>
 				<div class="estate_sub_info">
-					小区总计{{ldList.length}}栋楼，7层，4单元，一单元2户
+					小区总计{{ldList.length}}栋楼, 7层, 4单元, 一单元2户
+				</div>
+				<div class="estate_sub_info">
+					党员{{dyCount}}人
 				</div>
 				<div class="data_grid">
 					<div class="building_check" @click="fnChangeLd()">
@@ -60,6 +63,7 @@
 						<div class="col_item col_1">房号</div>
 						<div class="col_item col_2_c">姓名</div>
 						<div class="col_item col_3">联系方式</div>
+						<div class="col_item col_4">政治面貌</div>
 					</div>
 					<template v-for="(item, index) in dataList">
 						<template v-if="index % 2 == 0">
@@ -67,6 +71,7 @@
 								<div class="col_item col_1">{{item.dyxx}}-{{item.lcxx}}-{{item.mh}}</div>
 								<div class="col_item col_2_c">{{item.xm}}</div>
 								<div class="col_item col_3" @click="fnCallTel(item.lxdh)">{{item.lxdh==null?'--':item.lxdh}}</div>
+								<div class="col_item col_4">{{item.zzmm==null?"群众":item.zzmm}}</div>
 							</div>
 						</template>
 						<template v-else>
@@ -74,6 +79,7 @@
 								<div class="col_item col_1">{{item.dyxx}}-{{item.lcxx}}-{{item.mh}}</div>
 								<div class="col_item col_2_c">{{item.xm}}</div>
 								<div class="col_item col_3" @click="fnCallTel(item.lxdh)">{{item.lxdh==null?'--':item.lxdh}}</div>
+								<div class="col_item col_4">{{item.zzmm==null?"群众":item.zzmm}}</div>
 							</div>
 						</template>
 					</template>
@@ -102,6 +108,8 @@
 			var vue = new Vue({
 				el: '#container',
 				data: {
+					dyCount: 0, // 党员数量
+					sqmc: '',
 					estateName: '二机电一生活区',
 					ldList: [],
 					ld: '',
@@ -112,8 +120,16 @@
 					fnCallTel: fnCallTel
 				}
 			});
-			
+			var sqbm, sqmc, xqbm, xqmc;
 			$(function() {
+				zhlx = window.localStorage.getItem("zhlx");
+				console.log("=== === >> zhlx: "+zhlx);
+				sqbm = window.localStorage.getItem("sqbm");
+				sqmc = window.localStorage.getItem("sqmc");
+				xqbm = window.localStorage.getItem("estateId");
+				xqmc = window.localStorage.getItem("estateName");
+				vue.$data.sqmc = sqmc;
+				vue.$data.estateName = xqmc;
 				// 获取楼栋信息
 				fnGetLdInfo();
 			});
@@ -148,6 +164,9 @@
 				$.showLoading();
 				var url = mHost + mServerName + "/SQGL/getLouDongList";
 				var params = {
+					sqmc: sqmc,
+					xqbm: xqbm,
+					xqmc: xqmc
 				}
 				console.log("=== === >> 参数：" + JSON.stringify(params));
 				$.ajax({
@@ -186,6 +205,9 @@
 				$.showLoading();
 				var url = mHost + mServerName + "/SQGL/getSingelLDRYXXList";
 				var params = {
+					sqmc: sqmc,
+					xqbm: xqbm,
+					xqmc: xqmc,
 					ld: vue.$data.ld
 				}
 				console.log("=== === >> 参数：" + JSON.stringify(params));
@@ -201,6 +223,14 @@
 							var data = result.ldzhList;
 							vue.dataList = [];
 							vue.dataList = data;
+							var dyCount = 0;
+							for(var i=0; i<data.length; i++){
+								var dataItem = data[i];
+								if(dataItem.zzmm == "中共党员" || dataItem.zzmm == "党员"){
+									dyCount++;
+								}
+							}
+							vue.$data.dyCount = dyCount;
 						} else {
 							// 失败
 							$.toast("失败！", 'cancel');
